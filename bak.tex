@@ -1,0 +1,81 @@
+%%% HLAVIČKA 1. část 
+\documentclass[a4paper,11pt]{article}
+	\usepackage[utf8]{inputenc}
+	\usepackage[slovak]{babel}
+	\usepackage{amsmath, amsthm, amssymb}
+	\usepackage{graphicx, tabularx}
+	\usepackage{mathtools}
+	\usepackage{lastpage}
+	\setlength{\hoffset}{-10pt}
+	\setlength{\voffset}{-20pt}
+	\setlength{\marginparwidth }{0pt}
+	\setlength{\marginparsep}{0pt}
+	\setlength{\oddsidemargin}{0pt}
+	\setlength{\topmargin}{0pt}
+	\setlength{\headheight}{0pt}
+	\setlength{\headsep}{12pt}
+	\setlength{\footskip}{75pt}
+	\setlength{\textwidth}{473pt}
+	\setlength{\textheight}{660pt}
+	\setlength{\tabcolsep}{0pt}
+
+%%% PÁR UŽITOČNÝCH SKRATIEK:
+
+\newcommand{\R}{\mathbb{R}}   % množina reálnych čísel
+\newcommand{\Z}{\mathbb{Z}}   % množina celých čísel
+\newcommand{\N}{\mathbb{N}}   % množina prirodzených čísel
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\powerset}[1]{\mathcal{P} ( #1 )}   % potenční množina -- množina všech podmnožin
+
+
+\newtheorem{theorem}{Veta}[]
+\newtheorem{excercise}{Príklad}[]
+\newtheorem{lemma}{Lemma}[]
+\newtheorem{dus}{Dôsledok}[]
+\newtheorem{definition}{Definition}[]
+
+\newcommand{\bigO}{\mathcal{O}}
+
+%%% ====================================================================
+%%% ZAČIATOK DOKUMENTU
+%%% ====================================================================
+
+\begin{document}
+
+\section{Basics}
+
+Pole shifting theorem deals with generalized linear systems and claims, that it is possible to achieve arbitrary asymptotic behavior. To understand this basic theorem of control theory, we must first describe few basic concepts.
+
+The state of linear system can be represented by system of $n\in \N$ differential equations $$\dot{x}(t)=Ax(t)+Bu(t),$$ where $x(t)$ is the $n$-dimensional state vector $(\varphi(t),\dot{\varphi}(t),\dots,\varphi^{(n-1)}(t))^T$, $u(t)$ is the $m$-dimensional \textit{input} or \textit{control} column vector, $A \in \C ^{n\times n}$ is matrix of coefficients and $B\in \C ^{m\times n}$ is \textit{input} or \textit{control} matrix. The control vector $u(t)$ is acquired from $x(t)$ by multiplying a control matrix $F\in \C ^{m\times n}$ by $x(t)$. 
+
+We can imagine this system as follows. The first part of the equation $\dot{x}(t)=Ax(t)$ can be thought of as the model of machine or event that we want to control and $Bu(t)$ as our control mechanism. The $B$ matrix is our ``control board'' and $u(t)$ is us deciding, which levers and buttons we want to push. Of course, if we want this system to be self-regulating, we cannot input our own values into $u(t)$ and therefore it has to be calculated from the current state of our system. Therefore we have $u(t)=Fx(t)$. The whole system can then be rewritten as $$\dot{x}(t)=Ax(t)+BFx(t)=(A+BF)x(t).$$ If $A+BF$ is diagonalizable matrix, then we can write $$\Lambda=R^{-1}(A+BF)R,$$ where $R \in \C ^{n \times n}$ is an invertible matrix and $\Lambda \in \C ^{n \times n}$ is a diagonal matrix. We can write that $$\dot{x}(t)=RR^{-1}(A+BF)RR^{-1}x(t)=R\Lambda R^{-1}x(t),$$ it follows, that $$R^{-1}\dot{x}(t)=\dot{(R^{-1}x)}=\Lambda R^{-1}x(t).$$ By substituting $y(t)=R^{-1}x(t)$ we get $$\dot{y}(t)=\Lambda y(t).$$ This equation represents system of simple linear differential equations. If we denote elements on diagonal of $\Lambda$ as $\lambda_1,\lambda_2,\dots,\lambda_n$ the resulting equations are  
+\begin{align*}
+  \dot{y}_1(t)&=\lambda_1y_1(t) \\
+  \dot{y}_2(t)&=\lambda_2y_2(t) \\
+  &\vdotswithin{=} \\
+  \dot{y}_n(t)&=\lambda_ny_n(t) 
+\end{align*}
+Solution to each of these equations is in the form 
+$$y_k(t)=y_k(0)e^{\lambda_kt}, k\in\{1,2,\dots,n\}.$$
+Let $\lambda_k=a_k+b_ki$ where $a_k,b_k\in \R$, then 
+$$y_k(0)e^{\lambda_kt}=y_k(0)e^{at}e^{bit}.$$ 
+We know, that $|e^{bit}|=1$ and that $y_k(0)$ is a constant, so the crucial part is $e^{at}$. This converges to 0 if and only if $a$ is negative. Therefore we can stabilize our ``machine'' if we find such matrix $F \in \C^{n \times n}$ that $A+BF$ is diagonalizable with eigenvalues with negative real part. This can be expressed through characteristic polynomial of matrix $A+BF$. We will denote characteristic polynomial of a matrix $A$ as $\chi_A$. Through our observations, we got that $$\chi_{A+BF}=(x-\lambda_1)(x-\lambda_2)\cdots(x-\lambda_n),$$ where $\lambda_1,\lambda_2,\dots,\lambda_n \in \C$ and their real part is negative.
+
+The pole shifting theorem states, that if $A$ and $B$ are sensible in a sense that we will discuss in the next section, then for arbitrary polynomial $\chi$ of dimension that depends on how sensible $A$ and $B$ are, exists a matrix $F$ satisfying $\chi_{A+BF}=\chi$. 
+
+\section{Controllable pairs}
+
+States that we can reach in set number of iterations can be derived as follows. 
+\textbf{Let $A$ be $n\times n$ matrix and $x_k$ state vector of length $n$.} 
+From state $x_k$ and control vector $u_k$ is the next state $x_{k+1}$ computed by equation $$x_{k+1}=Ax_k+Bu_k.$$ The starting condition is $x_0=\textbf{o}$ and we can choose arbitrary $u_k$. Then, for $k=0$ we have $$x_1=Ax_0+Bu_0=Bu_0 \in \text{Im}B.$$ For $k=2$ we get $$x_2=Ax_1+Bu_1=ABu_0+Bu_1\in\text{Im}(AB|B).$$ It is clear, that $$x_k\in\text{Im}(A^{k-1}B|\dots|AB|B).$$ We can observe that $\text{Im}(B|AB|\dots|A^kB) \subseteq \text{Im}(B|AB|\dots|A^{k+1}B)$. Then, from Cayley-Hamilton theorem we know, that $$\text{Im}(B|AB|\dots|A^{n-1}B)=\text{Im}(B|AB|\dots|A^{n-1}B|A^nB).$$ Therefore all the states we could ever reach are already in space $$\text{Im}(B|AB|\dots|A^{n-1}B)$$ which we will call \textbf{reachable space}, denoted as $\mathcal{R}(A,B)$. The maximum dimesion of $\mathcal{R}(A,B)$ is, of course, $n$. This leads us to important property of pair $(A,B)$ where we want to able to get the ``machine'' into any state by controling it with our control matrix $B$. Therefore we desire that the dimension of reachable space is equal to $n$. 
+
+\begin{definition}
+	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. The pair $(A,B)$ is \textbf{controllable} or \textbf{reachable} if $\textnormal{dim}\mathcal{R}(A,B)=n$.
+\end{definition}
+
+\paragraph{}
+The ``sensible'' pair of $A$ and $B$ means, in short, that we can reach any state $x(t)$ from origin in $n$ iterations by controlling the system (inputting right $u(t)$ vectors). That means, that we desire 
+
+
+\end{document}
