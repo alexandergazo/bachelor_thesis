@@ -1,0 +1,89 @@
+%\documentclass[a4paper,11pt]{article}
+\documentclass[12pt,a4paper]{report}
+	\usepackage[utf8]{inputenc}
+	\usepackage[english]{babel}
+	\usepackage{amsmath, amsthm, amssymb}
+	\usepackage{graphicx, tabularx}
+	\usepackage{mathtools}
+	%\usepackage{lastpage}
+	\usepackage{nomencl}
+	\usepackage{epigraph}
+	%\setlength{\hoffset}{-10pt}
+	%\setlength{\voffset}{-20pt}
+	%\setlength{\marginparwidth }{0pt}
+	%\setlength{\marginparsep}{0pt}
+	%\setlength{\oddsidemargin}{0pt}
+	%\setlength{\topmargin}{0pt}
+	%\setlength{\headheight}{0pt}
+	%\setlength{\headsep}{12pt}
+	%\setlength{\footskip}{75pt}
+	%\setlength{\textwidth}{473pt}
+	%\setlength{\textheight}{660pt}
+	%\setlength{\tabcolsep}{0pt}
+
+	\setlength\textwidth{145mm}
+	\setlength\textheight{247mm}
+	\setlength\oddsidemargin{15mm}
+	\setlength\evensidemargin{15mm}
+	\setlength\topmargin{0mm}
+	\setlength\headsep{0mm}
+	\setlength\headheight{0mm}
+	% \openright makes the following text appear on a right-hand page
+	\let\openright=\cleardoublepage
+
+	\def\ThesisTitle{Pole Shifting Theorem in Control Theory}
+
+	% Author of the thesis
+	\def\ThesisAuthor{Alexander Gažo}
+	
+	% Year when the thesis is submitted
+	\def\YearSubmitted{2019}
+	
+	% Name of the department or institute, where the work was officially assigned
+	% (according to the Organizational Structure of MFF UK in English,
+	% or a full name of a department outside MFF)
+	\def\Department{Department of Algebra}
+	
+	% Is it a department (katedra), or an institute (ústav)?
+	\def\DeptType{Department}
+	
+	% Thesis supervisor: name, surname and titles
+	\def\Supervisor{doc. RNDr. Jiří Tůma, DrSc.}
+	
+	% Supervisor's department (again according to Organizational structure of MFF)
+	\def\SupervisorsDepartment{Department of Algebra}
+	
+	% Study programme and specialization
+	\def\StudyProgramme{Mathematics}
+	\def\StudyBranch{MAthematical Structures}
+
+	% 3 to 5 keywords (recommended), each enclosed in curly braces
+	\def\Keywords{%
+		{Pole-Shifting Theorem}
+	}
+
+	\usepackage[pdftex,unicode]{hyperref}   % Must follow all other packages
+	\hypersetup{breaklinks=true}
+	\hypersetup{pdftitle={\ThesisTitle}}
+	\hypersetup{pdfauthor={\ThesisAuthor}}
+	\hypersetup{pdfkeywords=\Keywords}
+	\hypersetup{urlcolor=blue}
+
+\include{macros}
+
+\begin{document}
+\include{title}
+
+\openright
+\pagestyle{plain}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+%\thispagestyle{empty} % to suppress page number
+%\pagebreak
+
+\tableofcontents
+
+\include{chap1}
+
+\end{document}

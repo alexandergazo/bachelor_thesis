@@ -1,79 +1,14 @@
-%%% HLAVIČKA 1. část 
-%\documentclass[a4paper,11pt]{article}
-\documentclass[12pt,a4paper]{report}
-	\usepackage[utf8]{inputenc}
-	\usepackage[english]{babel}
-	\usepackage{amsmath, amsthm, amssymb}
-	\usepackage{graphicx, tabularx}
-	\usepackage{mathtools}
-	\usepackage{lastpage}
-	\usepackage[hidelinks]{hyperref}
-	%\setlength{\hoffset}{-10pt}
-	%\setlength{\voffset}{-20pt}
-	%\setlength{\marginparwidth }{0pt}
-	%\setlength{\marginparsep}{0pt}
-	%\setlength{\oddsidemargin}{0pt}
-	%\setlength{\topmargin}{0pt}
-	%\setlength{\headheight}{0pt}
-	%\setlength{\headsep}{12pt}
-	%\setlength{\footskip}{75pt}
-	%\setlength{\textwidth}{473pt}
-	%\setlength{\textheight}{660pt}
-	%\setlength{\tabcolsep}{0pt}
-
-	\setlength\textwidth{145mm}
-	\setlength\textheight{247mm}
-	\setlength\oddsidemargin{15mm}
-	\setlength\evensidemargin{15mm}
-	\setlength\topmargin{0mm}
-	\setlength\headsep{0mm}
-	\setlength\headheight{0mm}
-	% \openright makes the following text appear on a right-hand page
-	\let\openright=\clearpage
-	\usepackage{lmodern}
-
-%%% PÁR UŽITOČNÝCH SKRATIEK:
-
-\newcommand{\R}{\mathbb{R}}   
-\newcommand{\Z}{\mathbb{Z}}   
-\newcommand{\N}{\mathbb{N}}   
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\K}{\mathbb{K}}
-\newcommand{\powerset}[1]{\mathcal{P} ( #1 )}   
-\newcommand{\termdef}[1]{\textnormal{\textbf{#1}}}
-
-
-\newtheorem{theorem}{Theorem}[]
-\newtheorem{lemma}{Lemma}[]
-\newtheorem{cor}{Corollary}[]
-\newtheorem*{definition}{Definition}
-
-\newcommand{\bigO}{\mathcal{O}}
-
-\title{\vspace*{70mm}Bachelor thesis}
-\author{Alexander Gažo}
-
-%%% ====================================================================
-%%% Beginning of the document
-%%% ====================================================================
-
-\begin{document}
-
-\maketitle
-\thispagestyle{empty} % to suppress page number
-\pagebreak
-
-\tableofcontents
-\pagebreak
+\chapter{Introduction}
+\label{chap:intr}
 
 \section{Basics}
 \label{sec:basics}
 
 Pole shifting theorem deals with generalized linear differential systems and claims, that it is possible to achieve arbitrary asymptotic behavior. To understand this basic theorem of control theory, we must first describe few basic concepts.
 
-The state of linear system can be represented by system of $n\in \N$ differential equations $$\dot{x}(t)=Ax(t)+Bu(t),$$ where $x(t)$ is the $n$-dimensional state vector $(\varphi(t),\dot{\varphi}(t),\ldots,\varphi^{(n-1)}(t))^T$, $u(t)$ is the $m$-dimensional \textit{input} or \textit{control} column vector, $A \in \C ^{n\times n}$ is matrix of coefficients and $B\in \C ^{m\times n}$ is \textit{input} or \textit{control} matrix. The control vector $u(t)$ is acquired from $x(t)$ by multiplying a control matrix $F\in \C ^{m\times n}$ by $x(t)$. All the possible states of $x(t)$ create \textbf{state space}, which usually is equal to $\C^n$. 
+The state of linear system can be represented by system of $n$ differential equations $$\dot{x}(t)=Ax(t)+Bu(t),$$ where $x(t)$ is the $n$-dimensional state vector $(\varphi(t),\dot{\varphi}(t),\ldots,\varphi^{(n-1)}(t))^T$, $u(t)$ is the $m$-dimensional \textbf{input} or \textbf{control vector}, $A \in \C ^{n\times n}$ is matrix of coefficients and $B\in \C ^{m\times n}$ is \textbf{input} or \textbf{control matrix}. The control vector $u(t)$ is acquired from $x(t)$ by multiplying a control matrix $F\in \C ^{m\times n}$ by $x(t)$. All the possible states of $x(t)$ create \textbf{state space} which is usually equal to $\C^n$. 
 
-We can imagine this system as follows. The first part of the equation $\dot{x}(t)=Ax(t)$ can be thought of as the model of machine or event that we want to control and $Bu(t)$ as our control mechanism. The $B$ matrix is our ``control board'' and $u(t)$ is us deciding, which levers and buttons we want to push. Of course, if we want this system to be self-regulating, we cannot input our own values into $u(t)$ and therefore it has to be calculated from the current state of our system. Therefore we have $u(t)=Fx(t)$. The whole system can then be rewritten as $$\dot{x}(t)=Ax(t)+BFx(t)=(A+BF)x(t).$$ If $A+BF$ is diagonalizable matrix, then we can write $$\Lambda=R^{-1}(A+BF)R,$$ where $R \in \C ^{n \times n}$ is an invertible matrix and $\Lambda \in \C ^{n \times n}$ is a diagonal matrix. We can write that $$\dot{x}(t)=RR^{-1}(A+BF)RR^{-1}x(t)=R\Lambda R^{-1}x(t),$$ it follows, that $$R^{-1}\dot{x}(t)=\dot{(R^{-1}x)}=\Lambda R^{-1}x(t).$$ By substituting $y(t)=R^{-1}x(t)$ we get $$\dot{y}(t)=\Lambda y(t).$$ This equation represents system of simple linear differential equations. If we denote elements on diagonal of $\Lambda$ by $\lambda_1,\lambda_2,\ldots,\lambda_n$ the resulting equations are  
+We can imagine this system as follows. The first part of the equation $\dot{x}(t)=Ax(t)$ can be thought of as the model of machine or event that we want to control and $Bu(t)$ as our control mechanism. The $B$ matrix is our ``control board'' and $u(t)$ is us deciding, which levers and buttons we want to push. Of course, if we want this system to be self-regulating, we cannot input our own values into $u(t)$ and therefore it has to be calculated from the current state of our system. Thus $u(t)=Fx(t)$. The whole system can then be rewritten as $$\dot{x}(t)=Ax(t)+BFx(t)=(A+BF)x(t).$$ If $A+BF$ is a diagonalizable matrix, then we have $$\Lambda=R^{-1}(A+BF)R,$$ where $R \in \C ^{n \times n}$ is an invertible matrix and $\Lambda \in \C ^{n \times n}$ is a diagonal matrix. We can write that $$\dot{x}(t)=RR^{-1}(A+BF)RR^{-1}x(t)=R\Lambda R^{-1}x(t),$$ it follows, that $$R^{-1}\dot{x}(t)=\dot{(R^{-1}x)}=\Lambda R^{-1}x(t).$$ By substituting $y(t)=R^{-1}x(t)$ we get $$\dot{y}(t)=\Lambda y(t).$$ This equation represents system of simple linear differential equations. If we denote elements on diagonal of $\Lambda$ by $\lambda_1,\lambda_2,\ldots,\lambda_n$ the resulting equations are  
 \begin{align*}
   \dot{y}_1(t)&=\lambda_1y_1(t) \\
   \dot{y}_2(t)&=\lambda_2y_2(t) \\
@@ -83,8 +18,8 @@ We can imagine this system as follows. The first part of the equation $\dot{x}(t
 Solution to each of these equations is in the form 
 $$y_k(t)=y_k(0)e^{\lambda_kt}, k\in\{1,2,\ldots,n\}.$$
 Let $\lambda_k=a_k+b_ki$ where $a_k,b_k\in \R$, then 
-$$y_k(0)e^{\lambda_kt}=y_k(0)e^{at}e^{bit}.$$ 
-We know, that $|e^{bit}|=1$ and that $y_k(0)$ is a constant, so the crucial part is $e^{at}$. This converges to 0 if and only if $a$ is negative. Therefore we can stabilize our ``machine'' if we find such matrix $F \in \C^{n \times n}$ that $A+BF$ is diagonalizable with eigenvalues with negative real part. This can be expressed through characteristic polynomial of matrix $A+BF$. We will denote characteristic polynomial of a matrix $A$ by $\chi_A$. Through our observations we got to a conclusion that we need to satisfy $$\chi_{A+BF}=(x-\lambda_1)(x-\lambda_2)\cdots(x-\lambda_n),$$ where $\lambda_1,\lambda_2,\ldots,\lambda_n \in \C$ and their real part is negative. This leads to important definition.
+$$y_k(0)e^{\lambda_kt}=y_k(0)e^{a_kt}e^{b_kit}.$$ 
+We know, that $|e^{b_kit}|=1$ and that $y_k(0)$ is a constant, so the crucial part is $e^{a_kt}$. This converges to 0 if and only if $a_k$ is negative. Therefore we can stabilize our ``machine'' if we find such matrix $F \in \C^{n \times n}$ that $A+BF$ is diagonalizable with eigenvalues with negative real part. This can be expressed through characteristic polynomial of matrix $A+BF$. We will denote characteristic polynomial of a matrix $A$ by $\chi_A$. Through our observations we got to a conclusion that we need to satisfy $$\chi_{A+BF}=(x-\lambda_1)(x-\lambda_2)\cdots(x-\lambda_n),$$ where $\lambda_1,\lambda_2,\ldots,\lambda_n \in \C$ and their real part is negative. This leads to important definition.
 
 \begin{definition}
 	We say that polynomial $\chi$ is \termdef{assignable} for the pair $(A,B)$ if there exists such matrix $F$ that $$\chi_{A+BF}=\chi$$
@@ -213,5 +148,3 @@ therefore it holds $$\chi_A=\chi_{A_1}\chi_{A_3}$$
 \begin{definition}
 	Let $(A,B)$ and $(\widetilde{A},\widetilde{B})$ be pairs as above. Then $(A,B)$ \termdef{is similar to} $(\widetilde{A},\widetilde{B})$, denoted $$(A,B) \sim (\widetilde{A},\widetilde{B})$$ if there exists invertible matrix $T$ for which it holds that $$\widetilde{A}=T^{-1}AT\quad and\quad\widetilde{B}=T^{-1}B$$
 \end{definition}
-
-\end{document}
