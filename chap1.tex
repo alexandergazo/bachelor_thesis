@@ -6,7 +6,7 @@
 
 Pole shifting theorem deals with generalized linear differential systems and claims, that it is possible to achieve arbitrary asymptotic behavior. To understand this basic theorem of control theory, we must first describe few basic concepts.
 
-The state of linear system can be represented by system of $n$ differential equations $$\dot{x}(t)=Ax(t)+Bu(t),$$ where $x(t)$ is the $n$-dimensional state vector $(\varphi(t),\dot{\varphi}(t),\ldots,\varphi^{(n-1)}(t))^T$, $u(t)$ is the $m$-dimensional \textbf{input} or \textbf{control vector}, $A \in \C ^{n\times n}$ is matrix of coefficients and $B\in \C ^{m\times n}$ is \textbf{input} or \textbf{control matrix}. The control vector $u(t)$ is acquired from $x(t)$ by multiplying a control matrix $F\in \C ^{m\times n}$ by $x(t)$. All the possible states of $x(t)$ create \textbf{state space} which is usually equal to $\C^n$. 
+The state of linear system can be represented by system of $n$ differential equations $$\dot{x}(t)=Ax(t)+Bu(t),$$ where $x(t)$ is the $n$-dimensional state vector $(\varphi(t),\dot{\varphi}(t),\ldots,\varphi^{(n-1)}(t))^T$, $u(t)$ is the $m$-dimensional \textit{input} or \textit{control vector}, $A \in \C ^{n\times n}$ is matrix of coefficients and $B\in \C ^{m\times n}$ is \textit{input} or \textit{control matrix}. The control vector $u(t)$ is acquired from $x(t)$ by multiplying a control matrix $F\in \C ^{m\times n}$ by $x(t)$. All the possible states of $x(t)$ create \textbf{state space} which is usually equal to $\C^n$. 
 
 We can imagine this system as follows. The first part of the equation $\dot{x}(t)=Ax(t)$ can be thought of as the model of machine or event that we want to control and $Bu(t)$ as our control mechanism. The $B$ matrix is our ``control board'' and $u(t)$ is us deciding, which levers and buttons we want to push. Of course, if we want this system to be self-regulating, we cannot input our own values into $u(t)$ and therefore it has to be calculated from the current state of our system. Thus $u(t)=Fx(t)$. The whole system can then be rewritten as $$\dot{x}(t)=Ax(t)+BFx(t)=(A+BF)x(t).$$ If $A+BF$ is a diagonalizable matrix, then we have $$\Lambda=R^{-1}(A+BF)R,$$ where $R \in \C ^{n \times n}$ is an invertible matrix and $\Lambda \in \C ^{n \times n}$ is a diagonal matrix. We can write that $$\dot{x}(t)=RR^{-1}(A+BF)RR^{-1}x(t)=R\Lambda R^{-1}x(t),$$ it follows, that $$R^{-1}\dot{x}(t)=\dot{(R^{-1}x)}=\Lambda R^{-1}x(t).$$ By substituting $y(t)=R^{-1}x(t)$ we get $$\dot{y}(t)=\Lambda y(t).$$ This equation represents system of simple linear differential equations. If we denote elements on diagonal of $\Lambda$ by $\lambda_1,\lambda_2,\ldots,\lambda_n$ the resulting equations are  
 \begin{align*}
@@ -19,25 +19,25 @@ Solution to each of these equations is in the form
 $$y_k(t)=y_k(0)e^{\lambda_kt}, k\in\{1,2,\ldots,n\}.$$
 Let $\lambda_k=a_k+b_ki$ where $a_k,b_k\in \R$, then 
 $$y_k(0)e^{\lambda_kt}=y_k(0)e^{a_kt}e^{b_kit}.$$ 
-We know, that $|e^{b_kit}|=1$ and that $y_k(0)$ is a constant, so the crucial part is $e^{a_kt}$. This converges to 0 if and only if $a_k$ is negative. Therefore we can stabilize our ``machine'' if we find such matrix $F \in \C^{n \times n}$ that $A+BF$ is diagonalizable with eigenvalues with negative real part. This can be expressed through characteristic polynomial of matrix $A+BF$. We will denote characteristic polynomial of a matrix $A$ by $\chi_A$. Through our observations we got to a conclusion that we need to satisfy $$\chi_{A+BF}=(x-\lambda_1)(x-\lambda_2)\cdots(x-\lambda_n),$$ where $\lambda_1,\lambda_2,\ldots,\lambda_n \in \C$ and their real part is negative. This leads to important definition.
+We know, that $|e^{b_kit}|=1$ and that $y_k(0)$ is a constant, so the crucial part is $e^{a_kt}$. This converges to 0 if and only if $a_k$ is negative. Therefore we can stabilize our ``machine'' if we find such matrix $F \in \C^{n \times n}$ that $A+BF$ is diagonalizable with distinct eigenvalues (then we are sure that $A+BF$ is diagonalizable) with negative real part. This can be expressed through characteristic polynomial of matrix $A+BF$. We will denote characteristic polynomial of a matrix $A$ by $\chi_A$. Through our observations we got to a conclusion that we need to satisfy $$\chi_{A+BF}=(x-\lambda_1)(x-\lambda_2)\cdots(x-\lambda_n),$$ where $\lambda_1,\lambda_2,\ldots,\lambda_n \in \C$ are different from one another and their real parts are negative. This leads to an important definition.
 
 \begin{definition}
-	We say that polynomial $\chi$ is \termdef{assignable} for the pair $(A,B)$ if there exists such matrix $F$ that $$\chi_{A+BF}=\chi$$
+    Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. We say that polynomial $\chi$ is \termdef{assignable} for the pair $(A,B)$ if there exists such matrix $F\in\K^{m \times n}$ that $$\chi_{A+BF}=\chi$$
 \end{definition}
 
-The pole shifting theorem states, that if $A$ and $B$ are ``sensible'' in a sense that we will discuss in the next section, then arbitrary polynomial $\chi$ of dimension that depends on how ``sensible'' $A$ and $B$ are, can be assigned to pair $(A,B)$.
+The pole shifting theorem states, that if $A$ and $B$ are ``sensible'' in a sense that we will discuss in the next section, then arbitrary polynomial $\chi$ of dimension that depends on how ``sensible'' $A$ and $B$ are, can be assigned to the pair $(A,B)$. It also claims that it is immaterial over what field $A$ and $B$ are.
 
 \section{Controllable pairs}
 
-States that we can reach in set number of iterations can be derived as follows. From state $x_k$ and control vector $u_k$ is the next state $x_{k+1}$ computed by equation $$x_{k+1}=Ax_k+Bu_k.$$ The starting condition is $x_0=\textbf{o}$ and we can choose arbitrary $u_k$. Then, for $k=0$ we have $$x_1=Ax_0+Bu_0=Bu_0 \in \text{Im}B.$$ For $k=2$ we get $$x_2=Ax_1+Bu_1=ABu_0+Bu_1\in\text{Im}(AB|B).$$ It is clear, that $$x_k\in\text{Im}(A^{k-1}B|\ldots|AB|B).$$ We can observe that $\text{Im}(B|AB|\ldots|A^kB) \subseteq \text{Im}(B|AB|\ldots|A^{k+1}B)$. Then, from Cayley-Hamilton theorem we know, that $$\text{Im}(B|AB|\ldots|A^{n-1}B)=\text{Im}(B|AB|\ldots|A^{n-1}B|A^nB).$$ Therefore all the states we could ever reach are already in space $$\text{Im}(B|AB|\ldots|A^{n-1}B).$$
+States that we can reach in set number of iterations can be derived as follows. From state $x_k$ and control vector $u_k$ is the next state $x_{k+1}$ computed by equation $$x_{k+1}=Ax_k+Bu_k.$$ The starting condition is $x_0=\textbf{o}$ and we can choose arbitrary $u_k$. Then, for $k=0$ we have $$x_1=Ax_0+Bu_0=Bu_0 \in \text{Im}B.$$ For $k=1$ we get $$x_2=Ax_1+Bu_1=ABu_0+Bu_1\in\text{Im}(AB|B).$$ It is clear, that $$x_k\in\text{Im}(A^{k-1}B|\ldots|AB|B).$$ We can observe that $\text{Im}(B|AB|\ldots|A^kB) \subseteq \text{Im}(B|AB|\ldots|A^{k+1}B)$. Then, from Cayley-Hamilton theorem we know that $$\text{Im}(B|AB|\ldots|A^{n-1}B)=\text{Im}(B|AB|\ldots|A^{n-1}B|A^nB).$$ Therefore all the states we could ever reach are already in space $$\text{Im}(B|AB|\ldots|A^{n-1}B).$$
 
 \begin{definition}
-	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. We define \termdef{reachable space}$\mathcal{R}(A,B)$ as $\text{Im}(B|AB|\ldots|A^{n-1}B)$.
+	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. We define \termdef{reachable space} $\mathcal{R}(A,B)$ as $\text{Im}(B|AB|\ldots|A^{n-1}B)$.
 \end{definition}
 
-From observations above it is clear that for arbitrary $v\in\mathcal{R}(A,B)$ we have $Av\in\mathcal{R}(A,B)$. This property is called $A$-\textit{invariance}.
+From discussion above it is clear that for arbitrary $v\in\mathcal{R}(A,B)$ we have $Av\in\mathcal{R}(A,B)$. This property is called $A$-\textit{invariance}.
 
-The maximum dimension of $\mathcal{R}(A,B)$ is, of course, $n$. This leads us to important property of pair $(A,B)$, where we want to able to get the ``machine'' into any state by controlling it with our control matrix $B$. Therefore we desire that the dimension of reachable space is equal to $n$. 
+The maximum dimension of $\mathcal{R}(A,B)$ is, of course, $n$. This leads us to important property of pair $(A,B)$, where we want to able to get the ``machine'' into any state in state space by controlling it with our control matrix $B$. Therefore we desire that $\mathcal{R}(A,B)=\K^n$. The equivalent condition is $\text{dim}\mathcal{R}(A,B)=n$.
 
 \begin{definition}
 	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. The pair $(A,B)$ is \termdef{controllable} or \termdef{reachable} if $\textnormal{dim}\mathcal{R}(A,B)=n$.
@@ -65,17 +65,23 @@ If $(A,B)$ are not controllable then there exists subspace of our state space th
 \end{theorem}
 
 \begin{proof}
-	Let $\mathcal{S}$ be any subspace that $$\mathcal{R}(A,B)\oplus\mathcal{S}=\K^n.$$ Let $\{v_1,\ldots,v_r\}$ be the basis of $\mathcal{R}(A,B)$ and $\{w_1,\ldots,w_{n-r}\}$ be the basis of $\mathcal{S}$, then we put $K=(v_1,\ldots,v_r,w_1,\ldots,w_{n-r})$ as the basis of $\K^n$ and we put $$T:=(v_1|\ldots|v_r|w_1|\ldots|w_{n-r})=[\text{id}]^K_C$$ where $C$ is the canonical basis and $[\text{id}]^K_C$ is the transition matrix from basis $K$ to basis $C$. We have $\text{Im}T=\K^n$ therefore $T$ is an invertible matrix. Now we have $$\widetilde{B}=T^{-1}B=([\text{id}]^K_C)^{-1}B=[\text{id}]^C_KB$$ We know that $\text{Im}B\subseteq\mathcal{R}(A,B)$ therefore every column of matrix $B$ can be uniquely expressed as linear combination of vectors in basis $B$. From our choice of $T$ we can clearly see that $\widetilde{B}$ will be of the desired form.
+	Let $\mathcal{S}$ be any subspace that $$\mathcal{R}(A,B)\oplus\mathcal{S}=\K^n.$$ Let $\{v_1,\ldots,v_r\}$ be the basis of $\mathcal{R}(A,B)$ and $\{w_1,\ldots,w_{n-r}\}$ be the basis of $\mathcal{S}$, then we put $K=(v_1,\ldots,v_r,w_1,\ldots,w_{n-r})$ as the basis of $\K^n$ and we put $$T:=(v_1|\ldots|v_r|w_1|\ldots|w_{n-r})=[\text{id}]^K_C$$ where $C$ is the canonical basis and $[\text{id}]^K_C$ is the transition matrix from basis $K$ to basis $C$. We have $\text{Im}T=\K^n$ therefore $T$ is an invertible matrix. It holds $$\widetilde{B}=T^{-1}B=([\text{id}]^K_C)^{-1}B=[\text{id}]^C_KB$$ We know that $\text{Im}B\subseteq\mathcal{R}(A,B)$ therefore every column of matrix $B$ can be uniquely expressed as linear combination of vectors in basis $K$. From our choice of $T$ we can clearly see that $\widetilde{B}$ will be of the desired form.
 	
-	As for $\widetilde{A}$ we have $$\widetilde{A}=T^{-1}AT=[\text{id}]^C_KA[\text{id}]^K_C$$ From the fact that $\mathcal{R}(A,B)$ is $A$-invariant it follows that $$AT=(u_1|\ldots|u_r|z_1|\ldots|z_{n-r})$$ where $u_i \in \mathcal{R}(A,B)$ and $z_i \in \mathcal{S}$. Therefore, when we express these vectors in the basis $K$ (by left multiplying $AT$ by $T^{-1}=[\text{id}]^C_K$) we get the required structure of matrix $\widetilde{A}$.
+	As for $\widetilde{A}$ we have $$\widetilde{A}=T^{-1}AT=[\text{id}]^C_KA[\text{id}]^K_C$$ From the fact that $\mathcal{R}(A,B)$ is $A$-invariant it follows that $$AT=(u_1|\ldots|u_r|z_1|\ldots|z_{n-r})$$ where $u_i \in \mathcal{R}(A,B)$ and $z_i \in \K^i$. Therefore, when we express these vectors in the basis $K$ (by left multiplying $AT$ by $T^{-1}=[\text{id}]^C_K$) we get the required structure of matrix $\widetilde{A}$.
 \end{proof}
 
-We can interpret the above decomposition as follows. Consider our system $\dot{x}(t)=Ax(t)+Bu(t)$. By changing the basis by putting $x(t)=Ty(t)$ we get $$T\dot{y}(t)=ATy(t)+Bu(t)$$ which we can write as $$\dot{y}(t)=T^{-1}ATy(t)+T^{-1}Bu(t)=\widetilde{A}y(t)+\widetilde{B}u(T)$$ Which gives us 
+We achieved the new form of matrices $A$ and $B$ by changing the basis of our state space. We define relation between $(A,B)$ and $(\widetilde{A},\widetilde{B}).$
+
+\begin{definition}
+	Let $(A,B)$ and $(\widetilde{A},\widetilde{B})$ be pairs as above. Then $(A,B)$ \termdef{is similar to} $(\widetilde{A},\widetilde{B})$, denoted $$(A,B) \sim (\widetilde{A},\widetilde{B})$$ if there exists invertible matrix $T$ for which it holds that $$\widetilde{A}=T^{-1}AT\quad and\quad\widetilde{B}=T^{-1}B$$
+\end{definition}
+
+We can interpret the decomposition as follows. Consider our system $\dot{x}(t)=Ax(t)+Bu(t)$. By changing the basis by putting $x(t)=Ty(t)$ we get $$T\dot{y}(t)=ATy(t)+Bu(t)$$ which we can write as $$\dot{y}(t)=T^{-1}ATy(t)+T^{-1}Bu(t)=\widetilde{A}y(t)+\widetilde{B}u(T)$$ Which gives us 
 \begin{alignat*}{2}
 	\dot{y}_1(t)&=A_1y_1(t)+&A_2y_2(t)&+B_1u_1(t) \\
 	\dot{y}_2(t)&=&A_3y_2(t)&
 \end{alignat*}
-where $y_1(t)$ is the first $r$ elements of $y(t)$, $y_2(t)$ is the other elements of $y(t)$ and $u_1(t)$ is the first $r$ elements of $u(t)$. It is clear that we cannot control $\dot{y}_2$ by any means. 
+where $y_1(t)$ is the first $r$ elements of $y(t)$, $y_2(t)$ is the other $n-r$ elements of $y(t)$ and $u_1(t)$ is the first $r$ elements of $u(t)$. It is clear that we cannot control $\dot{y}_2$ by any means. 
 
 It is also true that $(A_1,B_1)$ is a controllable pair which we will state in a lemma.
 
@@ -94,7 +100,7 @@ It is also true that $(A_1,B_1)$ is a controllable pair which we will state in a
 	\end{align*}
 	Since $T$ is an invertible matrix, which preserves linear independence, we have $$\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}(T^{-1}\mathcal{R}(A,B))=\text{dim}(\mathcal{R}(A,B))=r$$
 
-	Now, for the structure of $\mathcal{R}(\widetilde{A},\widetilde{B})$: We know that last $n-r$ rows of $\widetilde{B}$ are $\textbf{o}$. Also because of structure of $\widetilde{A}$ we have for arbitrary matrix $X\in\K^{r\times m}$ that 
+	Now let us focus on the structure of $\mathcal{R}(\widetilde{A},\widetilde{B})$: We know that last $n-r$ rows of $\widetilde{B}$ are $\textbf{o}$. Also because of structure of $\widetilde{A}$ we have for an arbitrary matrix $X\in\K^{r\times m}$ that 
 	\begin{equation*}
 		\widetilde{A}
 		\begin{pmatrix}
@@ -116,16 +122,37 @@ It is also true that $(A_1,B_1)$ is a controllable pair which we will state in a
 			0
 		\end{pmatrix}
 	\end{equation*}
-	which again has the last $n-r$ rows equal to $\textbf{o}$. Therefore we see that for any positive integer $k$ we have 
+	where again are the last $n-r$ rows equal to $\textbf{o}$. Therefore we see that for any positive integer $k$ we have 
 	\begin{equation*}
 		\widetilde{A}^k\widetilde{B}=
 		\begin{pmatrix}
 			A_1^{k}B_1 \\
 			0
-		\end{pmatrix}
-	\end{equation*}
+        \end{pmatrix}
+        ,A_1^kB_1\in\K^{r\times r}
+    \end{equation*}
+    It follows
+    \begin{equation*}
+        \mathcal{R}(\widetilde{A},\widetilde{B})=
+        \begin{pmatrix}[c|c|c|c]
+            \begin{pmatrix}
+                A_1^{n-1}B_1 \\
+                0 
+            \end{pmatrix}
+            & \ldots &
+            \begin{pmatrix}
+                A_1B_1 \\
+                0 
+            \end{pmatrix}
+            &
+            \begin{pmatrix}
+                B_1 \\
+                0 
+            \end{pmatrix}
+        \end{pmatrix}
+    \end{equation*}
 	
-	From Cayle-Hemilton theorem we therefore again have that the first $r$ coordinates (those which are not 0) of $\mathcal{R}(\widetilde{A},\widetilde{B})$ are equal to $\mathcal{R}(A_1,B_1)$. It follows that $$\text{dim}\mathcal{R}(A_1,B_1)=\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}\mathcal{R}(A,B)=r$$
+	From Cayle-Hemilton theorem we therefore again have that the restriction to first $r$ coordinates (those which are not 0) of $\mathcal{R}(\widetilde{A},\widetilde{B})$ are equal to $\mathcal{R}(A_1,B_1)$. Finally, it follows that $$\text{dim}\mathcal{R}(A_1,B_1)=\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}\mathcal{R}(A,B)=r$$
 \end{proof}
 
 Now we can see that the decomposition from Theorem \ref{theorem:decomp} decomposes the matrix $A$ into ``controllable'' and ``uncontrollable'' parts $A_1$ and $A_3$ respectively.
@@ -140,11 +167,5 @@ We also see that
 therefore it holds $$\chi_A=\chi_{A_1}\chi_{A_3}$$ 
 
 \begin{definition}
-	The characteristic polynomial of matrix $A$ splits into \termdef{controllable} and \termdef{uncontrollable parts} with respect to pair $(A,B)$ which we denote by $\chi_c$ and $\chi_u$ respectively. We define these polynomials as $$\chi_c=\chi_{A_1} \qquad \chi_u=\chi_{A_3}$$
-
-	In case $r=0$ we put $\chi_c=1$ and in case $r=n$ we put $\chi_u=1$.
-\end{definition}
-
-\begin{definition}
-	Let $(A,B)$ and $(\widetilde{A},\widetilde{B})$ be pairs as above. Then $(A,B)$ \termdef{is similar to} $(\widetilde{A},\widetilde{B})$, denoted $$(A,B) \sim (\widetilde{A},\widetilde{B})$$ if there exists invertible matrix $T$ for which it holds that $$\widetilde{A}=T^{-1}AT\quad and\quad\widetilde{B}=T^{-1}B$$
+	The characteristic polynomial of matrix $A$ splits into \termdef{controllable} and \termdef{uncontrollable parts} with respect to pair $(A,B)$ which we denote by $\chi_c$ and $\chi_u$ respectively. We define these polynomials as $$\chi_c=\chi_{A_1} \qquad \chi_u=\chi_{A_3}$$ In case $r=0$ we put $\chi_c=1$ and in case $r=n$ we put $\chi_u=1$.
 \end{definition}

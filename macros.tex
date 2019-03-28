@@ -6,7 +6,12 @@
 \newcommand{\powerset}[1]{\mathcal{P} ( #1 )}   
 \newcommand{\termdef}[1]{\textnormal{\textbf{#1}}}
 
-
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
 
 \newtheorem{theorem}{Theorem}[]
 \newtheorem{lemma}{Lemma}[]
