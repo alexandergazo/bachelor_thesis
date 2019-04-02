@@ -6,7 +6,7 @@
 
 Pole shifting theorem deals with generalized linear differential systems and claims, that it is possible to achieve arbitrary asymptotic behavior. To understand this basic theorem of control theory, we must first describe few basic concepts.
 
-The state of linear system can be represented by system of $n$ differential equations $$\dot{x}(t)=Ax(t)+Bu(t),$$ where $x(t)$ is the $n$-dimensional state vector $(\varphi(t),\dot{\varphi}(t),\ldots,\varphi^{(n-1)}(t))^T$, $u(t)$ is the $m$-dimensional \textit{input} or \textit{control vector}, $A \in \C ^{n\times n}$ is matrix of coefficients and $B\in \C ^{m\times n}$ is \textit{input} or \textit{control matrix}. The control vector $u(t)$ is acquired from $x(t)$ by multiplying a control matrix $F\in \C ^{m\times n}$ by $x(t)$. All the possible states of $x(t)$ create \textbf{state space} which is usually equal to $\C^n$. 
+The state of linear system can be represented by system of $n$ differential equations $$\dot{x}(t)=Ax(t)+Bu(t),$$ where $x(t)$ is the $n$-dimensional state vector $(\varphi(t),\dot{\varphi}(t),\ldots,\varphi^{(n-1)}(t))^T$, $u(t)$ is the $m$-dimensional \textit{input} or \textit{control vector}, $A \in \C ^{n\times n}$ is matrix of coefficients and $B\in \C ^{m\times n}$ is \textit{input} or \textit{control matrix}. The whole system is called \textit{n-dimensional system}. The control vector $u(t)$ is acquired from $x(t)$ by multiplying a control matrix $F\in \C ^{m\times n}$ by $x(t)$. All the possible states of $x(t)$ create \textbf{state space} which is usually equal to $\C^n$. 
 
 We can imagine this system as follows. The first part of the equation $\dot{x}(t)=Ax(t)$ can be thought of as the model of machine or event that we want to control and $Bu(t)$ as our control mechanism. The $B$ matrix is our ``control board'' and $u(t)$ is us deciding, which levers and buttons we want to push. Of course, if we want this system to be self-regulating, we cannot input our own values into $u(t)$ and therefore it has to be calculated from the current state of our system. Thus $u(t)=Fx(t)$. The whole system can then be rewritten as $$\dot{x}(t)=Ax(t)+BFx(t)=(A+BF)x(t).$$ If $A+BF$ is a diagonalizable matrix, then we have $$\Lambda=R^{-1}(A+BF)R,$$ where $R \in \C ^{n \times n}$ is an invertible matrix and $\Lambda \in \C ^{n \times n}$ is a diagonal matrix. We can write that $$\dot{x}(t)=RR^{-1}(A+BF)RR^{-1}x(t)=R\Lambda R^{-1}x(t),$$ it follows, that $$R^{-1}\dot{x}(t)=\dot{(R^{-1}x)}=\Lambda R^{-1}x(t).$$ By substituting $y(t)=R^{-1}x(t)$ we get $$\dot{y}(t)=\Lambda y(t).$$ This equation represents system of simple linear differential equations. If we denote elements on diagonal of $\Lambda$ by $\lambda_1,\lambda_2,\ldots,\lambda_n$ the resulting equations are  
 \begin{align*}
@@ -29,7 +29,11 @@ The pole shifting theorem states, that if $A$ and $B$ are ``sensible'' in a sens
 
 \section{Controllable pairs}
 
-States that we can reach in set number of iterations can be derived as follows. From state $x_k$ and control vector $u_k$ is the next state $x_{k+1}$ computed by equation $$x_{k+1}=Ax_k+Bu_k.$$ The starting condition is $x_0=\textbf{o}$ and we can choose arbitrary $u_k$. Then, for $k=0$ we have $$x_1=Ax_0+Bu_0=Bu_0 \in \text{Im}B.$$ For $k=1$ we get $$x_2=Ax_1+Bu_1=ABu_0+Bu_1\in\text{Im}(AB|B).$$ It is clear, that $$x_k\in\text{Im}(A^{k-1}B|\ldots|AB|B).$$ We can observe that $\text{Im}(B|AB|\ldots|A^kB) \subseteq \text{Im}(B|AB|\ldots|A^{k+1}B)$. Then, from Cayley-Hamilton theorem we know that $$\text{Im}(B|AB|\ldots|A^{n-1}B)=\text{Im}(B|AB|\ldots|A^{n-1}B|A^nB).$$ Therefore all the states we could ever reach are already in space $$\text{Im}(B|AB|\ldots|A^{n-1}B).$$
+In this section we will establish the notion of controllability. We will first explain this concept for \textit{discrete-time systems} and then we will show that the requirement for controllability for \textit{discrete-time systems} also holds for \textit{continuos-time systems}.
+
+\subsection{Discrete-time systems}
+
+States that we can reach in set number of iterations in a \textit{discrete-time systems} can be derived as follows. From state $x_k$ and control vector $u_k$ is the next state $x_{k+1}$ computed by equation $$x_{k+1}=Ax_k+Bu_k$$ where $\K$ is a field, $A\in\K^{n\times n}$ and $B\in\K^{n\times m}$. The starting condition is $x_0=\textbf{o}$ and we can choose arbitrary $u_k$. Then, for $k=0$ we have $$x_1=Ax_0+Bu_0=Bu_0 \in \text{Im}B.$$ For $k=1$ we get $$x_2=Ax_1+Bu_1=ABu_0+Bu_1\in\text{Im}(AB|B).$$ It is clear, that $$x_k\in\text{Im}(A^{k-1}B|\ldots|AB|B).$$ We can observe that $\text{Im}(B|AB|\ldots|A^kB) \subseteq \text{Im}(B|AB|\ldots|A^{k+1}B)$. Then, from Cayley-Hamilton theorem we know that $$\text{Im}(B|AB|\ldots|A^{n-1}B)=\text{Im}(B|AB|\ldots|A^{n-1}B|A^nB).$$ Therefore all the states we could ever reach are already in space $$\text{Im}(B|AB|\ldots|A^{n-1}B).$$
 
 \begin{definition}
 	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. We define \termdef{reachable space} $\mathcal{R}(A,B)$ as $\text{Im}(B|AB|\ldots|A^{n-1}B)$.
@@ -42,6 +46,52 @@ The maximum dimension of $\mathcal{R}(A,B)$ is, of course, $n$. This leads us to
 \begin{definition}
 	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. The pair $(A,B)$ is \termdef{controllable} or \termdef{reachable} if $\textnormal{dim}\mathcal{R}(A,B)=n$.
 \end{definition}
+
+\subsection{Continuous-time systems}
+
+We will now show that the condition for \textit{discrete-time systems} is also characterizing for \textit{continuous-time systems}. For this we have to express solution of such system using matrices $A^iB$ for $i\in \N_0$. 
+
+\begin{definition}
+	Let $X$ be real or complex square matrix. The exponential of $X$, denoted by $e^X$, is the square matrix of same dimensions given by the power series $$e^{X}=\sum _{k=0}^{\infty}\frac{1}{k!}X^{k}$$
+	where $X^0$ is defined to be the identity matrix $I$ with the same dimensions as $X$.
+\end{definition}
+
+We will need two properties of this notion which we will form in the next claim. 
+
+\begin{remark}
+	Let $A$, $B$ and $X$ be real or complex square matrices of same dimensions. Then 
+	\begin{enumerate}
+		\item $\frac{d}{dt}e^{Xt}=Xe^{Xt}$, for $t \in \R$
+		\item $AB = BA \Rightarrow e^{At}B = Be^{At}$, for $t \in \R$
+	\end{enumerate}
+\end{remark}
+
+\begin{proof}
+	1. We have $$\frac{d}{dt}e^{Xt}=\frac{d}{dt}\sum^\infty_{k=0}\frac{1}{k!}(Xt)^{k}=\frac{d}{dt}\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}=\sum^\infty_{k=0}\frac{t^k}{k!}X^{k+1}=X\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}=Xe^{Xt}$$
+	2. From definition follows $$e^{At}B=\sum^\infty_{k=0}\frac{t^k}{k!}A^{k}B\stackrel{AB=BA}{=}\sum^\infty_{k=0}\frac{t^k}{k!}BA^{k}=B\sum^\infty_{k=0}\frac{t^k}{k!}A^{k}=Be^{At}$$ 
+\end{proof}
+
+Now we utilize matrix exponential in solving system of inhomogeneous linear system $\dot{x}(t)=Ax(t)+Bu(t)$. By left multiplying it by $e^{-tA}$ we get
+\begin{align*}
+	e^{-tA}\dot{x}(t)-e^{-tA}Ax(t) &=e^{-tA}Bu(t) \\
+	\frac{d}{dt} (e^{-tA}x(t)) &=e^{-tA}Bu(t) 
+\end{align*}
+Note we used $-AA=A(-A)\Rightarrow e^{-tA}A=Ae^{-tA}$. After integrating both sides with respect to $t$ on interval $(t_0,t_1)$ we have 
+\begin{align*}
+	[e^{-tA}x(t)]^{t_1}_{t_0}&=\int^{t_1}_{t_0}e^{-tA}Bu(t)dt \\
+	e^{-t_1A}x(t_1)-e^{-t_0A}x(t_0)&=\int^{t_1}_{t_0}e^{-tA}Bu(t)dt \\
+	x(t_1)&=e^{(t_1-t_0)A}x(t_0)+\int^{t_1}_{t_0}e^{(t_1-t)A}Bu(t)dt
+\end{align*}
+
+Now it is clear that in system where $x(0)=\nullvector$ can every state in time $t\in \R^+$ be express as $$x(t)=\int^t_0 e^{(t-s)A}Bu(s)ds$$
+
+\begin{theorem}
+	The $n$-dimensional continuos-time linear system is controllable if and only if $\text{dim}\mathcal{R}(A,B)=n$.
+\end{theorem}
+
+\begin{proof}
+	If the dimension condition fails we know that there exists vector $\tilde{v}\in\K^n$ which cannot be expressed as linear combination of any basis of $\mathcal{R}(A,B)$. The vector $\tilde{v}$ can then be orthogonalized using Gram-Schmidt orthogonalization. Let us denote the orthogonalized vector by $v$. Then for arbitrary vector $u\in\mathcal{R}(A,B)$ we have $v\cdot u=v^Tu=0$. Consequently $v^TA^iB=\nullvector$ for $i\in\N_0$.
+\end{proof}
 
 If $(A,B)$ are not controllable then there exists subspace of our state space that is not affected by our input. This can be shown using following theorem.
 
@@ -100,7 +150,7 @@ It is also true that $(A_1,B_1)$ is a controllable pair which we will state in a
 	\end{align*}
 	Since $T$ is an invertible matrix, which preserves linear independence, we have $$\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}(T^{-1}\mathcal{R}(A,B))=\text{dim}(\mathcal{R}(A,B))=r$$
 
-	Now let us focus on the structure of $\mathcal{R}(\widetilde{A},\widetilde{B})$: We know that last $n-r$ rows of $\widetilde{B}$ are $\textbf{o}$. Also because of structure of $\widetilde{A}$ we have for an arbitrary matrix $X\in\K^{r\times m}$ that 
+	Now let us focus on the structure of $\mathcal{R}(\widetilde{A},\widetilde{B})$: We know that last $n-r$ rows of $\widetilde{B}$ are $\nullvector$. Also because of structure of $\widetilde{A}$ we have for an arbitrary matrix $X\in\K^{r\times m}$ that 
 	\begin{equation*}
 		\widetilde{A}
 		\begin{pmatrix}
@@ -122,7 +172,7 @@ It is also true that $(A_1,B_1)$ is a controllable pair which we will state in a
 			0
 		\end{pmatrix}
 	\end{equation*}
-	where again are the last $n-r$ rows equal to $\textbf{o}$. Therefore we see that for any positive integer $k$ we have 
+	where again are the last $n-r$ rows equal to $\nullvector$. Therefore we see that for any positive integer $k$ we have 
 	\begin{equation*}
 		\widetilde{A}^k\widetilde{B}=
 		\begin{pmatrix}
