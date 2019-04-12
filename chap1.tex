@@ -4,7 +4,9 @@
 \section{Basics}
 \label{sec:basics}
 
-Pole shifting theorem deals with generalized linear differential systems and claims, that it is possible to achieve arbitrary asymptotic behavior. To understand this basic theorem of control theory, we must first describe few basic concepts.
+Pole shifting theorem deals with linear differential systems and claims, that it is possible to achieve arbitrary asymptotic behavior. To understand this basic theorem of control theory, we must first describe few basic concepts.
+
+
 
 The state of linear system can be represented by system of $n$ differential equations $$\dot{x}(t)=Ax(t)+Bu(t),$$ where $x(t)$ is the $n$-dimensional state vector $(\varphi(t),\dot{\varphi}(t),\ldots,\varphi^{(n-1)}(t))^T$, $u(t)$ is the $m$-dimensional \textit{input} or \textit{control vector}, $A \in \C ^{n\times n}$ is matrix of coefficients and $B\in \C ^{m\times n}$ is \textit{input} or \textit{control matrix}. The whole system is called \textit{n-dimensional system}. The control vector $u(t)$ is acquired from $x(t)$ by multiplying a control matrix $F\in \C ^{m\times n}$ by $x(t)$. All the possible states of $x(t)$ create \textbf{state space} which is usually equal to $\C^n$. 
 
@@ -39,12 +41,35 @@ States that we can reach in set number of iterations in a \textit{discrete-time 
 	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. We define \termdef{reachable space} $\mathcal{R}(A,B)$ as $\text{Im}(B|AB|\ldots|A^{n-1}B)$.
 \end{definition}
 
+\begin{definition}
+	Let $V$ be a vector space, $W$ be its subspace and $f$ be a mapping from $V$ to $V$. We call $W$ an invariant subspace of $f$ if $f(W)\subseteq W$. 
+
+	We also say that $W$ is $f$-invariant.
+\end{definition}
+
+\begin{lemma}
+	\label{lem:invmatrix}
+	Let $W$ be an invariant subspace of linear mapping $f\colon V \rightarrow V$. Then there exists a basis $C$ of $V$ such that 
+	\begin{equation*}
+		[f]^C_C=
+		\begin{pmatrix}
+			F_1 & F_2 \\
+			0   & F_3 
+		\end{pmatrix}
+	\end{equation*}
+	where $F_1$ is $r\times r$, $r=\text{dim}W$.
+\end{lemma}
+
+\begin{proof}
+	We have $$[f]^C_C=[\text{id}]^K_C [f]^K_K [\text{id}]^C_K=([\text{id}]^C_K)^{-1} [f]^K_K [\text{id}]^C_K$$ where $[id]^C_K$ is a transition matrix from basis $C$ to canonical basis $K$. Let $(w_1,\ldots,w_r)$ be an arbitrary basis of subspace $W$. We complete this sequence into basis of $V$ with vectors $v_1,\ldots,v_{n-r}$ where $n=\text{dim}V$. We now put $$C=(w_1,\ldots,w_r,v_1,\ldots,v_{n-r})$$ Since $W$ is $f$-invariant we know that $[f]^K_K [\text{id}]^C_K = (u_1,\ldots,u_r,z_1,\ldots,z_{n-r})$, where $u_i\in W$ and $z_i\in V$. Now, by left multiplying this result by $[\text{id}]^K_C$ we get the matrix $([u_1]_C,\ldots,[u_r]_C,[z_1]_C,\ldots,[z_{n-r}]_C)$. Thanks to our choice of basis $C$ can any vector $u_i$ be expressed as a linear combination of vectors $(w_1,\ldots,w_r)$ and therefore we now have the desired form.
+\end{proof}
+
 From discussion above it is clear that for arbitrary $v\in\mathcal{R}(A,B)$ we have $Av\in\mathcal{R}(A,B)$. This property is called $A$-\textit{invariance}.
 
 The maximum dimension of $\mathcal{R}(A,B)$ is, of course, $n$. This leads us to important property of pair $(A,B)$, where we want to able to get the ``machine'' into any state in state space by controlling it with our control matrix $B$. Therefore we desire that $\mathcal{R}(A,B)=\K^n$. The equivalent condition is $\text{dim}\mathcal{R}(A,B)=n$.
 
 \begin{definition}
-	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. The pair $(A,B)$ is \termdef{controllable} or \termdef{reachable} if $\textnormal{dim}\mathcal{R}(A,B)=n$.
+	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. The pair $(A,B)$ is \termdef{controllable} if $\textnormal{dim}\mathcal{R}(A,B)=n$.
 \end{definition}
 
 \subsection{Continuous-time systems}
@@ -56,19 +81,25 @@ We will now show that the condition for \textit{discrete-time systems} is also c
 	where $X^0$ is defined to be the identity matrix $I$ with the same dimensions as $X$.
 \end{definition}
 
-We will need two properties of this notion which we will form in the next claim. 
+We will need few properties of this notion which we will form in the next claim. 
 
 \begin{remark}
 	Let $A$, $B$ and $X$ be real or complex square matrices of same dimensions. Then 
 	\begin{enumerate}
+		\item $e^X$ converges for any matrix $X$.
 		\item $\frac{d}{dt}e^{Xt}=Xe^{Xt}$, for $t \in \R$
 		\item $AB = BA \Rightarrow e^{At}B = Be^{At}$, for $t \in \R$
 	\end{enumerate}
 \end{remark}
 
 \begin{proof}
-	1. We have $$\frac{d}{dt}e^{Xt}=\frac{d}{dt}\sum^\infty_{k=0}\frac{1}{k!}(Xt)^{k}=\frac{d}{dt}\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}=\sum^\infty_{k=0}\frac{t^k}{k!}X^{k+1}=X\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}=Xe^{Xt}$$
-	2. From definition follows $$e^{At}B=\sum^\infty_{k=0}\frac{t^k}{k!}A^{k}B\stackrel{AB=BA}{=}\sum^\infty_{k=0}\frac{t^k}{k!}BA^{k}=B\sum^\infty_{k=0}\frac{t^k}{k!}A^{k}=Be^{At}$$ 
+	\begin{enumerate}
+		\item We want to show that the partial sums $S_N=\sum^N_{k=0}\frac{1}{k!}X^k$ converge to $e^X$. This can be shown by choosing any matrix norm satisfying $||AB||<||A||\cdot||B||$ and writing $$||e^X-S_N||=||\sum^\infty_{k=N+1}\frac{1}{k!}X^k||=\sum^\infty_{k=N+1}\frac{1}{k!}||X||^k$$ where right side approaches zero since $\sum^\infty_{k=0}\frac{||A||^k}{k!}$ converges.
+
+		\item Thanks to the convergence we have $$\frac{d}{dt}e^{Xt}=\frac{d}{dt}\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}=\sum^\infty_{k=0}\frac{t^k}{k!}X^{k+1}=X\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}=Xe^{Xt}$$
+
+		\item From definition follows $$e^{At}B=\sum^\infty_{k=0}\frac{t^k}{k!}A^{k}B\stackrel{AB=BA}{=}\sum^\infty_{k=0}\frac{t^k}{k!}BA^{k}=B\sum^\infty_{k=0}\frac{t^k}{k!}A^{k}=Be^{At}$$ 
+	\end{enumerate}
 \end{proof}
 
 Now we utilize matrix exponential in solving system of inhomogeneous linear system $\dot{x}(t)=Ax(t)+Bu(t)$. By left multiplying it by $e^{-tA}$ we get
@@ -83,15 +114,21 @@ Note we used $-AA=A(-A)\Rightarrow e^{-tA}A=Ae^{-tA}$. After integrating both si
 	x(t_1)&=e^{(t_1-t_0)A}x(t_0)+\int^{t_1}_{t_0}e^{(t_1-t)A}Bu(t)dt
 \end{align*}
 
-Now it is clear that in system where $x(0)=\nullvector$ can every state in time $t\in \R^+$ be express as $$x(t)=\int^t_0 e^{(t-s)A}Bu(s)ds$$
+Now it is clear that in system where $x(0)=\nullvector$ can every state in time $t\in \R^+$ be expressed as $$x(t)=\int^t_0 e^{(t-s)A}Bu(s)ds$$
 
 \begin{theorem}
 	The $n$-dimensional continuos-time linear system is controllable if and only if $\text{dim}\mathcal{R}(A,B)=n$.
 \end{theorem}
 
 \begin{proof}
-	If the dimension condition fails we know that there exists vector $\tilde{v}\in\K^n$ which cannot be expressed as linear combination of any basis of $\mathcal{R}(A,B)$. The vector $\tilde{v}$ can then be orthogonalized using Gram-Schmidt orthogonalization. Let us denote the orthogonalized vector by $v$. Then for arbitrary vector $u\in\mathcal{R}(A,B)$ we have $v\cdot u=v^Tu=0$. Consequently $v^TA^iB=\nullvector$ for $i\in\N_0$.
+	From discussion above we have $$x(t)=\int^t_0e^{(t-s)A}Bu(s)ds=\int^t_0\sum^\infty_{k=0}\frac{(t-s)^k}{k!}A^kBu(s)$$ we can see that $$x(t) \in \text{Im}(B|AB|\ldots|A^kB|\ldots)\subseteq \text{Im}(B|AB|\ldots|A^{n-1}B)=\mathcal{R}(A,B)$$ 
+	
+	If the system is controllable then $x(t)$ can be equal to any of the vectors of an arbitrary basis of $\K^n$. Therefore we know that $n$ linearly independent vectors belong into $\mathcal{R}(A,B)$ and naturally it follows $\text{dim}\mathcal{R}(A,B)=n$.
+
+	Conversely, if dimension of reachable space is less than $n$, then any basis vector of complement space to $\mathcal{R}(A,B)$ cannot be equal to $x(t)$. Therefore the system is not controllable.
 \end{proof}
+
+\subsection{Decomposition theorem}
 
 If $(A,B)$ are not controllable then there exists subspace of our state space that is not affected by our input. This can be shown using following theorem.
 
