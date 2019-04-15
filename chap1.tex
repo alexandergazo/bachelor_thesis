@@ -6,7 +6,68 @@
 
 Pole shifting theorem deals with linear differential systems and claims, that it is possible to achieve arbitrary asymptotic behavior. To understand this basic theorem of control theory, we must first describe few basic concepts.
 
+\subsection{Systems of First Order Differential Equations}
 
+\begin{definition}
+	Let us have a system of linear differential equations of order of one with constant coefficients. Then a \termdef{matrix differential equation} for this system is in the form $$\dot{x}(t)=Ax(t)$$ 
+\end{definition}
+
+We will use this representation as it a very compact way of describing the system.
+
+To express solution of this system in similarly compact matter we will establish a notion of matrix exponential.
+
+\begin{definition}
+	Let $X$ be real or complex square matrix. The exponential of $X$, denoted by $e^X$, is the square matrix of same dimensions given by the power series $$e^{X}=\sum _{k=0}^{\infty}\frac{1}{k!}X^{k}$$
+	where $X^0$ is defined to be the identity matrix $I$ with the same dimensions as $X$.
+\end{definition}
+
+\begin{remark}
+\label{rem:expprop}
+	Let $A$, $B$ and $X$ be real or complex square matrices of same dimensions. Then 
+	\begin{enumerate}
+		\item $e^X$ converges for any matrix $X$.
+		\item $\frac{d}{dt}e^{Xt}=Xe^{Xt}$, for $t \in \R$
+		\item $AB = BA \Rightarrow e^{A+B} = e^{A}e^B$
+		\item $AB = BA \Rightarrow e^{A}B = Be^{A}$
+		\item If $R$ is invertible then $e^{R^{-1}XR}=R^{-1}e^AR$
+	\end{enumerate}
+\end{remark}
+
+\begin{proof}
+	\begin{enumerate}
+		\item We want to show that the partial sums $S_N=\sum^N_{k=0}\frac{1}{k!}X^k$ converge to $e^X$. This can be shown by choosing any matrix norm satisfying $||AB||<||A||\cdot||B||$ and writing $$||e^X-S_N||=||\sum^\infty_{k=N+1}\frac{1}{k!}X^k||=\sum^\infty_{k=N+1}\frac{1}{k!}||X||^k$$ where right side approaches zero since $\sum^\infty_{k=0}\frac{||A||^k}{k!}$ converges.
+
+		\item Thanks to the convergence we have $$\frac{d}{dt}e^{Xt}=\frac{d}{dt}\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}=\sum^\infty_{k=0}\frac{t^k}{k!}X^{k+1}=X\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}=Xe^{Xt}$$
+
+		\item Let us write $$e^{A+B}=\sum^\infty_{k=0}\frac{1}{k!}(A+B)^{k}=\sum^\infty_{k=0}\sum^k_{l=0}\binom{k}{l}\frac{1}{k!}A^{l}B^{k-l}=\sum^\infty_{k=0}\frac{1}{k!}A^{k}\cdot\sum^\infty_{k=0}\frac{1}{k!}B^{k}=e^{A}e^B$$ In the second equation we are using the assumption $AB=BA$ and in the third equation the Cauchy product formula is used.
+
+		\item From definition follows $$e^{A}B=\sum^\infty_{k=0}\frac{1}{k!}A^{k}B\stackrel{AB=BA}{=}\sum^\infty_{k=0}\frac{1}{k!}BA^{k}=B\sum^\infty_{k=0}\frac{1}{k!}A^{k}=Be^{A}$$ 
+		
+		\item We have $$e^{R^{-1}XR}=\sum^\infty_{k=0}\frac{1}{k!}(R^{-1}XR)^{k}=\sum^\infty_{k=0}\frac{1}{k!}R^{-1}X^{k}R=R^{-1}(\sum^\infty_{k=0}\frac{1}{k!}X^{k})R=R^{-1}e^{X}R$$ 
+	\end{enumerate}
+\end{proof}
+
+Now, using properties from Remark \ref{rem:expprop} we can see that $\dot{x}(t)=Ax(t)$ is actually solved by $x(0)e^At$. Let us now discuss under what circumstances does this system converge to $\nullvector$. 
+
+Let $A$ be real or complex matrix. Then we have $$J=R^{-1}AR$$ where $J$ is a matrix in the Jordan normal form. Therefore we can write $$\dot{x}(t)=RR^{-1}ARR^{-1}x(t)=RJR^{-1}x(t)$$ It follows that $$R^{-1}\dot{x}(t)=\dot{(R^{-1}x)}=J R^{-1}x(t)$$ By substituting $y(t)=R^{-1}x(t)$, which is equivalent with changing the basis of our system, we get $$\dot{y}(t)=Jy(t)$$ and therefore the solution is $$y(t)=e^{Jt}y(0)$$ 
+
+We know that every Jordan block $J_{\lambda,n}$ in the matrix $J$ can be decomposed as $J_{\lambda,n}=\lambda I_n+N_n$, $n \in\N$ where $N_n$ is $n \times n$ nilpotent matrix satisfying $n_{i,j}=\delta_{i,j-1}$. For example for $n=4$ we have
+\begin{equation*}
+	N_4=
+	\begin{pmatrix}
+		0 & 1 & 0 & 0 \\
+		0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & 1 \\
+		0 & 0 & 0 & 0 
+	\end{pmatrix}
+\end{equation*}
+It is also true that $(N_n)^n=\textbf{O}$, since every right multiplication by matrix $N$ shifts the multiplied matrix's columns to the right by one column. 
+
+By using Remark \ref{rem:expprop}, we now for each Jordan block $J_{\lambda,n}$ have $$e^{J_{\lambda,n}t}=e^{(\lambda I + N)t}=e^{\lambda It}e^{Nt}=e^{\lambda t}e^{Nt}$$ Let $\lambda = a+bi$ where $a$,$b \in \R$. Then we have $$e^{J_nt}=e^{at}e^{bit}e^{Nt}$$ We know that $|e^{bit}|=1$ and that $$e^{Nt}=\sum^{n-1}_{k=0}\frac{t^k}{k!}N^k$$ so the highest power of $t$ in the matrix is $n-1$. Therefore, we can see that the whole expression approaches 0 in infinity if $$\lim_{t\to\infty}e^{at}t^{n-1}=0$$ This holds for any $n\in\N$ as long as $a<0$. 
+
+Now, since $y(0)$ is a constant vector, we see that $y(t)=e^{Jt}y(0)$ converges to 0 if all the eigenvalues of matrix $A$ are negative in their real parts.
+
+\subsection{Omg}
 
 The state of linear system can be represented by system of $n$ differential equations $$\dot{x}(t)=Ax(t)+Bu(t),$$ where $x(t)$ is the $n$-dimensional state vector $(\varphi(t),\dot{\varphi}(t),\ldots,\varphi^{(n-1)}(t))^T$, $u(t)$ is the $m$-dimensional \textit{input} or \textit{control vector}, $A \in \C ^{n\times n}$ is matrix of coefficients and $B\in \C ^{m\times n}$ is \textit{input} or \textit{control matrix}. The whole system is called \textit{n-dimensional system}. The control vector $u(t)$ is acquired from $x(t)$ by multiplying a control matrix $F\in \C ^{m\times n}$ by $x(t)$. All the possible states of $x(t)$ create \textbf{state space} which is usually equal to $\C^n$. 
 
