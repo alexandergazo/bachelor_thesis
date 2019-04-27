@@ -15,9 +15,7 @@ Pole shifting theorem deals with linear differential systems and claims, that it
 		&\vdotswithin{=} \\
 		\dot{x}_n(t)&=a_{n,1}x_1(t)+\ldots+a_{n,n}x_n(t) 
 	\end{align*}
-	The system can be written in a matrix form $$\dot{x}(t)=Ax(t)$$ where $x(t)=(x_1(t),\ldots,x_n(t))^T \in \C^n$. The matrix $A\in \C^{n\times n}$, $A_{i,j}=a_{i,j}$ is a \termdef{fundamental matrix} of the system.
-
-	TODO pociatocna podmiena a state
+	The system can be written in a matrix form $$\dot{x}(t)=Ax(t)$$ where $x(t)=(x_1(t),\ldots,x_n(t))^T \in \C^n$ is the \termdef{state} of the system. The matrix $A\in \C^{n\times n}$, $A_{i,j}=a_{i,j}$ is a \termdef{fundamental matrix} of the system. The \termdef{starting condition} of the system is the state $x(0)$.
 \end{definition}
 
 We will use this representation as it is a very compact way of describing the system.
@@ -29,29 +27,71 @@ To express solution of this system in similarly compact matter we will establish
 	where $X^0$ is defined to be the identity matrix $I$ with the same dimensions as $X$.
 \end{definition}
 
+\begin{definition}
+	A matrix sequence $\{A^{(k)}\}_{k=0}^\infty$ of $n \times m$ matrices is said to \termdef{converge} to $n\times m$ matrix $A$, denoted by $A^{(k)}\longrightarrow A$, if the following condition is satisfied $$a^{(k)}_{i,j}\xrightarrow{k\rightarrow\infty} a_{i,j}$$
+\end{definition}
+
+\begin{lemma}
+	Let $\{A^{(k)}\}_{k=0}^\infty$ be a matrix sequence of form $r\times s$. This sequence converges if and only if it satisfies \termdef{Bolzan-Cauchy condition}, that is $$\forall\varepsilon\in\R, \varepsilon>0\quad\exists n_0\in\N\quad\forall m,n\in\N,m\geq n_0, n\geq n_0:||A^{(n)}-A^{(m)}||_F<\varepsilon$$
+\end{lemma}
+
+\begin{proof}
+	If the sequence converges to matrix $A$, then for each pair $i$, $j$ it from definition of matrix convergence holds $$\forall \varepsilon\in\R,\varepsilon>0\quad\exists n_0\in\N\quad\forall m,n\in\N,m\geq n_0, n\geq n_0:|a^{(n)}_{i,j}-a_{i,j}^{(m)}|<\varepsilon$$ Let $\varepsilon$ be a positive real number. We choose without loss of generality $\varepsilon<1$ For every pair $i$, $j$ we find $n_0$ and we label it $n_{i,j}$. We now put $n_0=\text{min}\{n_{i,j}|i\in\{1,\ldots,r\},j\in\{1,\ldots,s\}\}$. Now for $\forall m,n\in\N,m\geq n_0, n\geq n_0$ we have $$||A^{(n)}-A^{(m)}||_F=\sqrt{\sum^r_{i=1}\sum^s_{j=1}|a^{(n)}_{i,j}-a^{(m)}_{i,j}|^2}<\sqrt{rs\varepsilon^2}=\sqrt{rs}\varepsilon$$
+
+	Conversely, when the condition is satisfied we will use the fact that for positive real numbers $a$, $b$ it holds that $a\leq\sqrt{a^2+b}$. Therefore $$|a^{(n)}_{i,j}-a_{i,j}^{(m)}|\leq\sqrt{\sum^r_{i=1}\sum^s_{j=1}|a^{(n)}_{i,j}-a^{(m)}_{i,j}|^2}<\varepsilon$$ So for any $\varepsilon$ we find $n_0$ such that $\{A^{(k)}\}_{k=0}^\infty$ satisfies BC condition and then we use this $n_0$ for $\{a^{(k)}_{i,j}\}_{k=0}^\infty$.
+\end{proof}
+
+\begin{remark}
+	A sequence which satisfies Bolzan-Cauchy condition is also called  a \termdef{Cauchy} sequence.
+\end{remark}
+
 \begin{lemma}
 \label{lem:expprop}
-	Let $A$, $B$ and $X$ be real or complex square matrices of same dimensions. Then 
+	Let $A$, $B$ and $X$ be real or complex $n\times n$ matrices of same dimensions. Then 
 	\begin{enumerate}
 		\item $\sum _{k=0}^{\infty}\frac{1}{k!}X^{k}$ converges for any matrix $X$.
-		\item $\frac{d}{dt}e^{tX}=Xe^{tX}$, for $t \in \R$
-		\item $AB = BA \Rightarrow e^{A+B} = e^{A}e^B$
 		\item $AB = BA \Rightarrow e^{A}B = Be^{A}$
 		\item If $R$ is invertible then $e^{R^{-1}XR}=R^{-1}e^AR$
+		\item $\frac{d}{dt}e^{tX}=Xe^{tX}$, for $t \in \R$
+		\item $AB = BA \Rightarrow e^{A+B} = e^{A}e^B$
 	\end{enumerate}
 \end{lemma}
 
 \begin{proof}
 	\begin{enumerate}
-		\item We want to show that the partial sums $S_N=\sum^N_{k=0}\frac{1}{k!}X^k$ converge to $e^X$. This can be shown by choosing any matrix norm satisfying $||AB||<||A||\cdot||B||$ and writing $$||e^X-S_N||=||\sum^\infty_{k=N+1}\frac{1}{k!}X^k||=\sum^\infty_{k=N+1}\frac{1}{k!}||X||^k$$ where right side approaches zero since $\sum^\infty_{k=0}\frac{||A||^k}{k!}$ converges.
+		\sloppy
+		\item This can be shown by showing that sequence of partial sums $\{\sum^N_{k=0}\frac{1}{k!}X^k\}_{N=0}^\infty$ is Cauchy. Let $M$, $N\in \N$, then thanks to properties of Frobenius norm it holds
+		$$\norm{\sum^M_{k=0}\frac{1}{k!}X^k-\sum^N_{k=0}\frac{1}{k!}X^k}_F=\norm{\sum^M_{k=N+1}\frac{1}{k!}X^k}_F=\sum^M_{k=N+1}\frac{1}{k!}||X||^k_F\xrightarrow{N,M\rightarrow\infty}0$$
+		because $\{\sum^N_{k=0}\frac{||X||^k_F}{k!}\}_{N=0}^\infty$ is Cauchy as it is sequence of partial sums of $e^{\norm{X}_F}$, which always converges.
 
-		\item Thanks to the convergence we have $$\frac{d}{dt}e^{tX}=\frac{d}{dt}\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}=\sum^\infty_{k=0}\frac{t^k}{k!}X^{k+1}=X\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}=Xe^{tX}$$
-
-		\item Let us write $$e^{A+B}=\sum^\infty_{k=0}\frac{1}{k!}(A+B)^{k}=\sum^\infty_{k=0}\sum^k_{l=0}\binom{k}{l}\frac{1}{k!}A^{l}B^{k-l}=\sum^\infty_{k=0}\frac{1}{k!}A^{k}\cdot\sum^\infty_{k=0}\frac{1}{k!}B^{k}=e^{A}e^B$$ In the second equation we are using the assumption $AB=BA$ and in the third equation the Cauchy product formula is used.
-
-		\item From definition follows $$e^{A}B=\sum^\infty_{k=0}\frac{1}{k!}A^{k}B\stackrel{AB=BA}{=}\sum^\infty_{k=0}\frac{1}{k!}BA^{k}=B\sum^\infty_{k=0}\frac{1}{k!}A^{k}=Be^{A}$$ 
+		\item\label{factoring} We know that 
+		$$\left(\sum^N_{k=0}\frac{1}{k!}A^k\right)B=\sum^N_{k=0}\frac{1}{k!}A^kB\overset{AB=BA}{=\joinrel=\joinrel=}\sum^N_{k=0}\frac{1}{k!}BA^k=B\left(\sum^N_{k=0}\frac{1}{k!}A^k\right)$$
+		Now we have to show that both left and right side converge to $\left(\sum^\infty_{k=0}\frac{1}{k!}A^k\right)B$ and $B\left(\sum^\infty_{k=0}\frac{1}{k!}A^k\right)$ respectively. Let $\varepsilon>0$ be fixed. We want to find such $N_0$ that for every $N\in\N,N\geq N_0$ it holds 
+		$$\norm{\left(\sum^\infty_{k=0}\frac{1}{k!}A^k\right)B-\left(\sum^N_{k=0}\frac{1}{k!}A^k\right)B}<\varepsilon$$ 
+		Since $\sum^\infty_{k=0}\frac{1}{k!}A^k$ converges we can factor the matrix $B$ out and we can find such $N_0$ that $$\norm{\sum^\infty_{k=0}\frac{1}{k!}A^k-\sum^N_{k=0}\frac{1}{k!}A^k}<\varepsilon$$ Now we can write 
+		$$\norm{\left(\sum^\infty_{k=0}\frac{1}{k!}A^k-\sum^N_{k=0}\frac{1}{k!}A^k\right)B}\leq\norm{\sum^\infty_{k=0}\frac{1}{k!}A^k-\sum^N_{k=0}\frac{1}{k!}A^k}\norm{B}<\varepsilon\norm{B}$$ 
+		This shows that the converge holds. Together we have 
+		$$e^{A}B=\sum^\infty_{k=0}\frac{1}{k!}A^{k}B\stackrel{AB=BA}{=}\sum^\infty_{k=0}\frac{1}{k!}BA^{k}=B\sum^\infty_{k=0}\frac{1}{k!}A^{k}=Be^{A}$$
 		
-		\item We have $$e^{R^{-1}XR}=\sum^\infty_{k=0}\frac{1}{k!}(R^{-1}XR)^{k}=\sum^\infty_{k=0}\frac{1}{k!}R^{-1}X^{k}R=R^{-1}(\sum^\infty_{k=0}\frac{1}{k!}X^{k})R=R^{-1}e^{X}R$$ 
+		\item This point follows from the previous point 
+		$$e^{R^{-1}XR}=\sum^\infty_{k=0}\frac{1}{k!}(R^{-1}XR)^{k}=\sum^\infty_{k=0}\frac{1}{k!}R^{-1}X^{k}R=R^{-1}\left(\sum^\infty_{k=0}\frac{1}{k!}X^{k}\right)R=R^{-1}e^{X}R$$ 
+
+		\item The series $\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}$ can be understood as simplified expression for system of equations $$f_{i,j}(t)=\sum^\infty_{k=0}\frac{t^k}{k!}a^{(k)}_{i,j}$$ where $a_{i,j}^{(k)}$ is element on postition $(i,j)$ of matrix $X^k$. It is tue that $\abs*{a_{i,j}^{(k)}}\leq \abs*{(\rho n)^k}$ where $n$ is the size of the matrix $X$ and $\rho$ is some fixed real number. It follows $$\abs{\sum^\infty_{k=0}\frac{t^k}{k!}a^{(k)}_{i,j}}\leq\sum^\infty_{k=0}\frac{t^k}{k!}\abs{a^{(k)}_{i,j}}\leq \sum^\infty_{k=0}\frac{(\rho nt)^k}{k!}=e^{\rho nt}$$ Therefore the series converges for any $t\in\R$. We can now differentiate the power series and get $$\frac{d}{dt}\sum^\infty_{k=0}\frac{t^k}{k!}a^{(k)}_{i,j}=\sum^\infty_{k=1}\frac{t^{k-1}}{(k-1)!}a^{(k)}_{i,j}=\sum^\infty_{k=0}\frac{t^{k}}{k!}a^{(k+1)}_{i,j}$$ After expressing all $\frac{d}{dt}f_{i,j}(t)$ again as matrix series and using factoring from point \ref{factoring} we get the desired result $$\frac{d}{dt}e^{tX}=\frac{d}{dt}\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}=\sum^\infty_{k=0}\frac{t^k}{k!}X^{k+1}=X\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}=Xe^{tX}$$
+		
+		\item Let us write 
+		\begin{align*}
+			e^{A+B}
+			&=\sum^\infty_{k=0}\frac{1}{k!}(A+B)^{k}
+			=\sum^\infty_{k=0}\sum^k_{l=0}\binom{k}{l}\frac{1}{k!}A^{l}B^{k-l}
+			=\sum^\infty_{k=0}\sum^k_{l=0}\frac{1}{l!(k-l)!}A^{l}B^{k-l}
+			\\
+			&=\sum^\infty_{k=0}\sum^\infty_{l=0}\frac{1}{k!l!}A^kB^l
+			=\sum^\infty_{k=0}\left(\frac{1}{k!}A^k\sum^\infty_{l=0}\frac{1}{l!}B^l\right)
+			=\sum^\infty_{k=0}\frac{1}{k!}A^{k}\cdot\sum^\infty_{k=0}\frac{1}{k!}B^{k}
+			\\
+			&=e^{A}e^B
+		\end{align*}
+		In the second equation we are using the assumption $AB=BA$. The crucial point is the forth equation in which we basically reorder the equation. The rest is just factoring matrices out of series as done in point \ref{factoring}.
 	\end{enumerate}
 \end{proof}
 
@@ -213,17 +253,30 @@ Note, we used $-AA=A(-A)\Rightarrow e^{-tA}A=Ae^{-tA}$. After integrating both s
 
 Now it is clear that in system where $x(0)=\nullvector$ can every state in time $t\in \R^+$ be expressed as $$x(t)=\int^t_0 e^{(t-s)A}Bu(s)ds$$
 
+\begin{lemma}
+\label{lem:}
+\end{lemma}
+
 \begin{theorem}
 	The $n$-dimensional continuos-time linear system is controllable, meaning that $x(t)$ can be equal to any vector in $\K^n$, if and only if $\text{dim}\mathcal{R}(A,B)=n$.
 \end{theorem}
 
 \begin{proof}
-	From discussion above we have $$x(t)=\int^t_0e^{(t-s)A}Bu(s)ds=\int^t_0\sum^\infty_{k=0}\frac{(t-s)^k}{k!}A^kBu(s)$$ 
+	From discussion above and Lemma \ref{lem:expprop} we have 
+	\begin{align*}
+		x(t)&=\int^t_0e^{(t-s)A}Bu(s)ds
+		=\int^t_0\sum^\infty_{k=0}\frac{(t-s)^k}{k!}A^kBu(s)ds 
+		\\
+		&=\sum^\infty_{k=0}A^kB\int^t_0\frac{(t-s)^k}{k!}u(s)ds
+		=\sum^\infty_{k=0}A^kBv_k(t)
+	\end{align*}
+	where $v_k(t)=\int^t_0\frac{(t-s)^k}{k!}u(s)ds$ is a vector of length $m$.
+	
 	We can see that $$x(t) \in \text{Im}(B|AB|\ldots|A^kB|\ldots)\subseteq \text{Im}(B|AB|\ldots|A^{n-1}B)=\mathcal{R}(A,B)$$ 
 	
 	If the system is controllable then $x(t)$ can be equal to any of the vectors of an arbitrary basis of $\K^n$. Therefore we know that $n$ linearly independent vectors belong into $\mathcal{R}(A,B)$ and naturally it follows $\text{dim}\mathcal{R}(A,B)=n$.
 
-	Conversely, if dimension of reachable space is less than $n$, then any basis vector of complement space to $\mathcal{R}(A,B)$ cannot be equal to $x(t)$. Therefore the system is not controllable.
+	Conversely, if dimension of reachable space is equal to $n$ we then have $x(t)\in\mathcal{R}(A,B)=\C^n$, therefore the system is controllable.
 \end{proof}
 
 \subsection{Decomposition theorem}
@@ -377,7 +430,7 @@ therefore it holds $$\chi_A=\chi_{A_1}\chi_{A_3}$$
 	The characteristic polynomial of matrix $A$ splits into \termdef{controllable} and \termdef{uncontrollable parts} with respect to pair $(A,B)$ which we denote by $\chi_c$ and $\chi_u$ respectively. We define these polynomials as $$\chi_c=\chi_{A_1} \qquad \chi_u=\chi_{A_3}$$ In case $r=0$ we put $\chi_c=1$ and in case $r=n$ we put $\chi_u=1$.
 \end{definition}
 
-For this definition to be correct we need to show that polynomials $\chi_{A_1}$ and $\chi_{A_3}$ are not dependent on the choice of basis on $\mathcal{R}(A,B)$. Since $\chi_{A_3}=\chi_A/\chi_{A_1}$, it is enough to show that matrix $A_1$ is independent of the choice.
+For this definition to be correct we need to show that polynomials $\chi_{A_1}$ and $\chi_{A_3}$ are not dependent on the choice of basis on $\mathcal{R}(A,B)$. Since $\chi_{A_3}=\chi_A/\chi_{A_1}$, it is enough to show that $\chi_{A_1}$ is independent of the choice.
 
 \begin{lemma}
 	$\chi_c$ is independent of the choice of basis on $\mathcal{R}(A,B)$.
