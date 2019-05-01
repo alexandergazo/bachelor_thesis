@@ -61,16 +61,22 @@ To express solution of this system in similarly compact matter we will establish
 	\begin{enumerate}
 		\sloppy
 		\item This can be shown by showing that sequence of partial sums $\{\sum^N_{k=0}\frac{1}{k!}X^k\}_{N=0}^\infty$ is Cauchy. Let $M$, $N\in \N$, then thanks to properties of Frobenius norm it holds
-		$$\norm{\sum^M_{k=0}\frac{1}{k!}X^k-\sum^N_{k=0}\frac{1}{k!}X^k}_F=\norm{\sum^M_{k=N+1}\frac{1}{k!}X^k}_F=\sum^M_{k=N+1}\frac{1}{k!}||X||^k_F\xrightarrow{N,M\rightarrow\infty}0$$
-		because $\{\sum^N_{k=0}\frac{||X||^k_F}{k!}\}_{N=0}^\infty$ is Cauchy as it is sequence of partial sums of $e^{\norm{X}_F}$, which always converges.
+		
+		\begin{longeq}
+			\norm{\sum^M_{k=0}\frac{1}{k!}X^k-\sum^N_{k=0}\frac{1}{k!}X^k}_F=\norm{\sum^M_{k=N+1}\frac{1}{k!}X^k}_F\leq\sum^M_{k=N+1}\frac{1}{k!}||X||^k_F=\norm{\sum^M_{k=0}\frac{1}{k!}\norm{X}_F^k-\sum^N_{k=0}\frac{1}{k!}\norm{X}_F^k}_F
+		\end{longeq}
 
-		\item\label{factoring} We know that 
+		Since $\{\sum^N_{k=0}\frac{||X||^k_F}{k!}\}_{N=0}^\infty$ is Cauchy, as it is sequence of partial sums of $e^{\norm{X}_F}$, which always converges, we can for any $\varepsilon>0$ find such $N_0$ that the first expression is strictly less then $\varepsilon$ and therefore the sequence $\{\sum^N_{k=0}\frac{1}{k!}X^k\}_{N=0}^\infty$ is Cauchy.
+
+		\item\label{factoring} We know that for $N\in\N$ it holds
 		$$\left(\sum^N_{k=0}\frac{1}{k!}A^k\right)B=\sum^N_{k=0}\frac{1}{k!}A^kB\overset{AB=BA}{=\joinrel=\joinrel=}\sum^N_{k=0}\frac{1}{k!}BA^k=B\left(\sum^N_{k=0}\frac{1}{k!}A^k\right)$$
 		Now we have to show that both left and right side converge to $\left(\sum^\infty_{k=0}\frac{1}{k!}A^k\right)B$ and $B\left(\sum^\infty_{k=0}\frac{1}{k!}A^k\right)$ respectively. Let $\varepsilon>0$ be fixed. We want to find such $N_0$ that for every $N\in\N,N\geq N_0$ it holds 
-		$$\norm{\left(\sum^\infty_{k=0}\frac{1}{k!}A^k\right)B-\left(\sum^N_{k=0}\frac{1}{k!}A^k\right)B}<\varepsilon$$ 
-		Since $\sum^\infty_{k=0}\frac{1}{k!}A^k$ converges we can factor the matrix $B$ out and we can find such $N_0$ that $$\norm{\sum^\infty_{k=0}\frac{1}{k!}A^k-\sum^N_{k=0}\frac{1}{k!}A^k}<\varepsilon$$ Now we can write 
-		$$\norm{\left(\sum^\infty_{k=0}\frac{1}{k!}A^k-\sum^N_{k=0}\frac{1}{k!}A^k\right)B}\leq\norm{\sum^\infty_{k=0}\frac{1}{k!}A^k-\sum^N_{k=0}\frac{1}{k!}A^k}\norm{B}<\varepsilon\norm{B}$$ 
-		This shows that the converge holds. Together we have 
+		$$\norm{\left(\sum^\infty_{k=0}\frac{1}{k!}A^k\right)B-\left(\sum^N_{k=0}\frac{1}{k!}A^k\right)B}_F<\varepsilon$$ 
+		Since $\sum^\infty_{k=0}\frac{1}{k!}A^k$ converges we can factor the matrix $B$ out and we can find such $N_0$ that 
+		$$\norm{\sum^\infty_{k=0}\frac{1}{k!}A^k-\sum^N_{k=0}\frac{1}{k!}A^k}_F<\varepsilon$$ 
+		Now we can write 
+		$$\norm{\left(\sum^\infty_{k=0}\frac{1}{k!}A^k-\sum^N_{k=0}\frac{1}{k!}A^k\right)B}_F\leq\norm{\sum^\infty_{k=0}\frac{1}{k!}A^k-\sum^N_{k=0}\frac{1}{k!}A^k}_F\norm{B}_F<\varepsilon\norm{B}_F$$ 
+		This shows that the converge holds for the first expression and the other can be shown in a similar way. Together we have 
 		$$e^{A}B=\sum^\infty_{k=0}\frac{1}{k!}A^{k}B\stackrel{AB=BA}{=}\sum^\infty_{k=0}\frac{1}{k!}BA^{k}=B\sum^\infty_{k=0}\frac{1}{k!}A^{k}=Be^{A}$$
 		
 		\item This point follows from the previous point 
@@ -91,11 +97,19 @@ To express solution of this system in similarly compact matter we will establish
 			\\
 			&=e^{A}e^B
 		\end{align*}
-		In the second equation we are using the assumption $AB=BA$. The crucial point is the forth equation in which we basically reorder the equation. The rest is just factoring matrices out of series as done in point \ref{factoring}.
+		In the second equation we are using the assumption $AB=BA$. The crucial point is the forth equation in which we basically reorder the equation which we can do thanks to convergence. The rest is just factoring matrices out of series as done in point \ref{factoring}.
 	\end{enumerate}
 \end{proof}
 
-Now, using properties from Lemma \ref{lem:expprop} we can see that $\dot{x}(t)=Ax(t)$ is actually solved by $x(0)e^At$. Let us now discuss under what circumstances does this system converge to $\nullvector$. 
+\begin{remark}
+	$e^{\alpha I}=e^{\alpha}I$
+\end{remark}
+
+\begin{proof}
+	Straight from definition.
+\end{proof}
+
+Now using properties from Lemma \ref{lem:expprop} we can see that $\dot{x}(t)=Ax(t)$ is actually solved by $x(0)e^At$. Let us now discuss under what circumstances does the state $x(t)$ converge to $\nullvector$ for $t\rightarrow\infty$. 
 
 Let $A$ be real or complex matrix. Then there is a regular matrix $R\in \C^{n\times n}$ such that $$J=R^{-1}AR$$ is in the Jordan normal form. By substituting $y(t)=R^{-1}x(t)$, which is equivalent with changing the basis of our system, we get 
 \begin{align*}
@@ -131,11 +145,28 @@ We know that every Jordan block $J_{\lambda,n}$ in the matrix $J$ can be decompo
 \end{equation*}
 It is also true that $(N_n)^k_{i,j}=\delta_{i,j-k}$ and $(N_n)^n=O_{n \times n}$, since every right multiplication by matrix $N$ shifts the multiplied matrix's columns to the right by one column that is it maps matrix $(v_1,\ldots,v_n)$ onto $(o,v_1,\ldots,v_{n-1})$. 
 
-By using Lemma \ref{lem:expprop}, we now for each Jordan block $J_{\lambda,n}$ have $$e^{J_{\lambda,n}t}=e^{(\lambda I + N)t}=e^{\lambda It}e^{Nt}=e^{\lambda t}e^{Nt}$$ Let $\lambda = a+bi$ where $a$,$b \in \R$. Then we have $$e^{J_nt}=e^{at}e^{bit}e^{tN}$$ We know that $|e^{bit}|=1$ and that $$e^{tN}=\sum^\infty_{k=0}\frac{t^k}{k!}N^k=\sum^{n-1}_{k=0}\frac{t^k}{k!}N^k$$ since $(N_n)^n=O_{n \times n}$. Therefore we can see that every element of matrix $e^{tN}$ is a polynom of degree less than $n$. It follows that the whole expression approaches 0 in infinity if $$\lim_{t\to\infty}e^{at}t^{n-1}=0$$ This holds for any $n\in\N$ as long as $a<0$. 
+By using Lemma \ref{lem:expprop}, we now for each Jordan block $J_{\lambda,n}$ have $$e^{tJ_{\lambda,n}}=e^{t(\lambda I + N)}=e^{t\lambda I}e^{tN}=e^{\lambda t}e^{tN}$$ Let $\lambda = a+bi$ where $a$,$b \in \R$. Then we have $$e^{tJ_{\lambda,n}}=e^{at}e^{bit}e^{tN}$$ We know that $|e^{bit}|=1$ and that $$e^{tN}=\sum^\infty_{k=0}\frac{t^k}{k!}N^k=\sum^{n-1}_{k=0}\frac{t^k}{k!}N^k$$ since $(N_n)^n=O_{n \times n}$. Therefore, we can see that every element of matrix $e^{tN}$ is a polynomial of degree less than $n$. It follows that $e^{tJ_{\lambda,n}}$ approaches $O_{n \times n}$ in infinity if $$\lim_{t\to\infty}e^{at}t^{n-1}=0$$ This holds for any $n\in\N$ as long as $a<0$. 
 
-TODO spojit bunky do celej sustavy
+Because $J$ to the power of any natural number holds its block form, we can write
 
-Now, since $y(0)$ is a constant vector, we see that $y(t)=e^{Jt}y(0)$ converges to 0 if all the eigenvalues of matrix $A$ are negative in their real parts.
+\begin{equation*}
+	J=
+	\begin{pmatrix}
+		J_{\lambda_1,n_1} & 0 & \ldots & 0 \\
+		0 & J_{\lambda_2,n_2} & \ldots & 0 \\
+		\vdots & \vdots & \ddots & \vdots \\
+		0 & 0 & \ldots & J_{\lambda_r,n_r}
+	\end{pmatrix},
+	\quad 
+	e^J=
+	\begin{pmatrix}
+		e^{J_{\lambda_1,n_1}} & 0 & \ldots & 0 \\
+		0 & e^{J_{\lambda_2,n_2}} & \ldots & 0 \\
+		\vdots & \vdots & \ddots & \vdots \\
+		0 & 0 & \ldots & e^{J_{\lambda_r,n_r}}
+	\end{pmatrix}
+\end{equation*}
+where zeroes in the matrices represent zero matrices of appropriate sizes. Therefore, since $y(0)$ is a constant vector, we see that $y(t)=e^{Jt}y(0)$ converges to $\nullvector$ if all the eigenvalues of matrix $A$ are negative in their real parts. As the last step we find $x(t)=Ry(t)$ and $x(0)=Ry(0)$.
 
 \begin{example}
 	Consider higher order differential equation $$x^{(n)}(t)+a_1x^{(n-1)}(t)+\ldots+a_{n-1}x'(t)+a_nx(t)=0$$ where $x(t)\colon\C\rightarrow\C$. This equation can be solved as system of linear differential equations of first order $\dot{z}(t)=Az(t)$ by choosing fundamental matrix $A$ and state vector $z(t)$ as follows
@@ -262,17 +293,44 @@ Now it is clear that in system where $x(0)=\nullvector$ can every state in time 
 \end{theorem}
 
 \begin{proof}
-	From discussion above and Lemma \ref{lem:expprop} we have 
+	From discussion above we have 
+	$$
+		x(t)=\int^t_0e^{(t-s)A}Bu(s)ds
+		=\int^t_0\sum^\infty_{k=0}\frac{(t-s)^k}{k!}A^kBu(s)ds
+	$$
+	The $n$-dimensional vector $w^{(k)}(s)=A^kBu(s)$ has elements $$w^{(k)}_i(s)=\sum^m_{j=1}\alpha^{(k)}_{i,j}u_j(s)$$ where $\alpha^{(k)}_{i,j}$ is element of the matrix $A^kB$ on the position $(i,j)$. Therefore, the elements of $x(t)$ are of form
 	\begin{align*}
-		x(t)&=\int^t_0e^{(t-s)A}Bu(s)ds
-		=\int^t_0\sum^\infty_{k=0}\frac{(t-s)^k}{k!}A^kBu(s)ds 
+		x_i(t)
+		&=\int^t_0\sum^\infty_{k=0}\sum^m_{j=1}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
+		=\int^t_0\sum^m_{j=1}\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
 		\\
-		&=\sum^\infty_{k=0}A^kB\int^t_0\frac{(t-s)^k}{k!}u(s)ds
-		=\sum^\infty_{k=0}A^kBv_k(t)
+		&=\sum^m_{j=1}\int^t_0\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
 	\end{align*}
-	where $v_k(t)=\int^t_0\frac{(t-s)^k}{k!}u(s)ds$ is a vector of length $m$.
 	
-	We can see that $$x(t) \in \text{Im}(B|AB|\ldots|A^kB|\ldots)\subseteq \text{Im}(B|AB|\ldots|A^{n-1}B)=\mathcal{R}(A,B)$$ 
+	We can swap the sums and then the integral because $\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)$ are convergent for every $i$ and $j$. To show this, let us first remind that $\abs{a^{(k)}_{i,j}}\leq\abs{\rho n}^k$ for some fixed real number $\rho$. Then
+	\begin{align*}
+		&\abs{\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)}
+		\leq\sum^\infty_{k=0}\frac{\abs{t-s}^k}{k!}\abs{\alpha^{(k)}_{i,j}}\abs{u_j(s)}\leq
+		\\
+		\leq&\sum^\infty_{k=0}\frac{\abs{(t-s)\rho n}^k}{k!}\abs{u_j(s)}
+		=\abs{u_j(s)}\sum^\infty_{k=0}\frac{\abs{(t-s)\rho n}^k}{k!}=\abs{u_j(s)}e^{\abs{(t-s)\rho n}}
+	\end{align*}
+	Thanks to the convergence we can also now swap integral and the series.
+	\begin{align*}
+		x_i(t)
+		&=\sum^m_{j=1}\int^t_0\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
+		=\sum^m_{j=1}\sum^\infty_{k=0}\int^t_0\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
+		\\
+		&=\sum^m_{j=1}\sum^\infty_{k=0}\alpha^{(k)}_{i,j}\int^t_0\frac{(t-s)^k}{k!}u_j(s)ds
+		=\sum^\infty_{k=0}\sum^m_{j=1}\alpha^{(k)}_{i,j}\int^t_0\frac{(t-s)^k}{k!}u_j(s)ds
+		\\
+		&=\sum^\infty_{k=0}\sum^m_{j=1}\alpha^{(k)}_{i,j}v^{(k)}_i(t)
+	\end{align*}
+	where $v^{(k)}(t)=\int^t_0\frac{(t-s)^k}{k!}u(s)ds$ is a vector of length $m$.
+
+	Therefore now we have $$x(t)=\sum^\infty_{k=0}A^kB\int^t_0\frac{(t-s)^k}{k!}u(s)ds=\sum^\infty_{k=0}A^kBv_k(t)$$ 
+
+	Now it its clear that $$x(t) \in \text{Im}(B|AB|\ldots|A^kB|\ldots)\subseteq \text{Im}(B|AB|\ldots|A^{n-1}B)=\mathcal{R}(A,B)$$ 
 	
 	If the system is controllable then $x(t)$ can be equal to any of the vectors of an arbitrary basis of $\K^n$. Therefore we know that $n$ linearly independent vectors belong into $\mathcal{R}(A,B)$ and naturally it follows $\text{dim}\mathcal{R}(A,B)=n$.
 

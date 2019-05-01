@@ -15,6 +15,11 @@
 \newcommand*{\xeq}[2][]{\ext@arrow 0055\Relbarfill@{#1}{#2}}
 \makeatother
 
+\newsavebox{\overlongequation}
+\newenvironment{longeq}
+ {\begin{displaymath}\begin{lrbox}{\overlongequation}$\displaystyle}
+ {$\end{lrbox}\makebox[0pt]{\usebox{\overlongequation}}\end{displaymath}}
+
 % Swap the definition of \abs* and \norm*, so that \abs
 % and \norm resizes the size of the brackets, and the 
 % starred version does not.
