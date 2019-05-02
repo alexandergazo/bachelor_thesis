@@ -209,7 +209,7 @@ Of course, if we want this system to be self-regulating, we cannot input our own
 	Let us have linear differential system with control $u(t)$ defined as follows $$u(t)=Fx(t)$$ where $F\in\C^{m\times n}$ is a \termdef{feedback matrix}. This system is then called a \termdef{closed-loop control} system or a \termdef{linear feedback control} system.
 \end{definition}
 
-Typically, we require a feedback control system to stabilize itself back into its stable state after some disturbances. This means that we require that the system converges to some set point. We can assume without loss of generality that this point is the origin of our state space i.e. all the possible states of $x(t)$. This can be achieved by transforming the system into different basis.
+TODO Typically, we require a feedback control system to stabilize itself back into its stable state after some disturbances. This means that we require that the system converges to some set point. We can assume without loss of generality that this point is the origin of our state space i.e. all the possible states of $x(t)$. This can be achieved by transforming the system into different basis.
 
 The feedback control system can be expressed as a first order linear differential system $$\dot{x}(t)=Ax(t)+BFx(t)=(A+BF)x(t)$$ TODO As discussed in the first section, we now know that the system converges to $\nullvector$ if all of the eigenvalues of matrix $A+BF$ are negative in their real parts. 
 
@@ -266,8 +266,6 @@ The maximum dimension of $\mathcal{R}(A,B)$ is, of course, $n$. This leads us to
 
 \subsection{Continuous-time systems}
 
-TODO opravit dokaz + doplnit lemma 1, idealne aj reach nejak
-
 We will now show that the condition for \textit{discrete-time systems} also characterizes \textit{continuous-time systems}. For this we have to express solution of such system using matrices $A^iB$ for $i\in \N_0$. 
 
 We utilize matrix exponential in solving system of inhomogeneous linear system $\dot{x}(t)=Ax(t)+Bu(t)$. By left multiplying it by $e^{-tA}$ we get
@@ -284,10 +282,6 @@ Note, we used $-AA=A(-A)\Rightarrow e^{-tA}A=Ae^{-tA}$. After integrating both s
 
 Now it is clear that in system where $x(0)=\nullvector$ can every state in time $t\in \R^+$ be expressed as $$x(t)=\int^t_0 e^{(t-s)A}Bu(s)ds$$
 
-\begin{lemma}
-\label{lem:}
-\end{lemma}
-
 \begin{theorem}
 	The $n$-dimensional continuos-time linear system is controllable, meaning that $x(t)$ can be equal to any vector in $\K^n$, if and only if $\text{dim}\mathcal{R}(A,B)=n$.
 \end{theorem}
@@ -298,26 +292,26 @@ Now it is clear that in system where $x(0)=\nullvector$ can every state in time 
 		x(t)=\int^t_0e^{(t-s)A}Bu(s)ds
 		=\int^t_0\sum^\infty_{k=0}\frac{(t-s)^k}{k!}A^kBu(s)ds
 	$$
-	The $n$-dimensional vector $w^{(k)}(s)=A^kBu(s)$ has elements $$w^{(k)}_i(s)=\sum^m_{j=1}\alpha^{(k)}_{i,j}u_j(s)$$ where $\alpha^{(k)}_{i,j}$ is element of the matrix $A^kB$ on the position $(i,j)$. Therefore, the elements of $x(t)$ are of form
+	The $n$-dimensional vector $w^{(k)}(s)=A^kBu(s)$ has elements $$w^{(k)}_i(s)=\sum^m_{j=1}\alpha^{(k)}_{i,j}u_j(s)$$ where $\alpha^{(k)}_{i,j}$ is the element of the matrix $A^kB$ on the position $(i,j)$. Therefore, the elements of $x(t)$ are of the form
+	$$
+		x_i(t)=\int^t_0\sum^\infty_{k=0}\sum^m_{j=1}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
+	$$
+	
+	We can swap the sums and then the integral because $\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)$ are convergent for every pair $i$, $j$. To show this, let us first remind that $\abs*{a^{(k)}_{i,j}}\leq\abs{\rho n}^{k+1}$ for some fixed real number $\rho$. Then
+	\begin{align*}
+		&\abs{\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)}
+		\leq\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\abs{\alpha^{(k)}_{i,j}}\abs{u_j(s)}\leq
+		\\
+		\leq&\sum^\infty_{k=0}\frac{\abs{(t-s)\rho n}^k}{k!}\abs{\rho n}\abs{u_j(s)}
+		=\abs{\rho n}\abs{u_j(s)}\sum^\infty_{k=0}\frac{\abs{(t-s)\rho n}^k}{k!}
+		=\abs{\rho n}\abs{u_j(s)}e^{\abs{(t-s)\rho n}}
+	\end{align*}
+	Thanks to the convergence we can also now swap integral and the series.
 	\begin{align*}
 		x_i(t)
 		&=\int^t_0\sum^\infty_{k=0}\sum^m_{j=1}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
 		=\int^t_0\sum^m_{j=1}\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
 		\\
-		&=\sum^m_{j=1}\int^t_0\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
-	\end{align*}
-	
-	We can swap the sums and then the integral because $\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)$ are convergent for every $i$ and $j$. To show this, let us first remind that $\abs{a^{(k)}_{i,j}}\leq\abs{\rho n}^k$ for some fixed real number $\rho$. Then
-	\begin{align*}
-		&\abs{\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)}
-		\leq\sum^\infty_{k=0}\frac{\abs{t-s}^k}{k!}\abs{\alpha^{(k)}_{i,j}}\abs{u_j(s)}\leq
-		\\
-		\leq&\sum^\infty_{k=0}\frac{\abs{(t-s)\rho n}^k}{k!}\abs{u_j(s)}
-		=\abs{u_j(s)}\sum^\infty_{k=0}\frac{\abs{(t-s)\rho n}^k}{k!}=\abs{u_j(s)}e^{\abs{(t-s)\rho n}}
-	\end{align*}
-	Thanks to the convergence we can also now swap integral and the series.
-	\begin{align*}
-		x_i(t)
 		&=\sum^m_{j=1}\int^t_0\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
 		=\sum^m_{j=1}\sum^\infty_{k=0}\int^t_0\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
 		\\
@@ -326,10 +320,7 @@ Now it is clear that in system where $x(0)=\nullvector$ can every state in time 
 		\\
 		&=\sum^\infty_{k=0}\sum^m_{j=1}\alpha^{(k)}_{i,j}v^{(k)}_i(t)
 	\end{align*}
-	where $v^{(k)}(t)=\int^t_0\frac{(t-s)^k}{k!}u(s)ds$ is a vector of length $m$.
-
-	Therefore now we have $$x(t)=\sum^\infty_{k=0}A^kB\int^t_0\frac{(t-s)^k}{k!}u(s)ds=\sum^\infty_{k=0}A^kBv_k(t)$$ 
-
+	where $v^{(k)}(t)=\int^t_0\frac{(t-s)^k}{k!}u(s)ds$ is a vector of length $m$. Therefore, we have $$x(t)=\sum^\infty_{k=0}A^kB\int^t_0\frac{(t-s)^k}{k!}u(s)ds=\sum^\infty_{k=0}A^kBv_k(t)$$
 	Now it its clear that $$x(t) \in \text{Im}(B|AB|\ldots|A^kB|\ldots)\subseteq \text{Im}(B|AB|\ldots|A^{n-1}B)=\mathcal{R}(A,B)$$ 
 	
 	If the system is controllable then $x(t)$ can be equal to any of the vectors of an arbitrary basis of $\K^n$. Therefore we know that $n$ linearly independent vectors belong into $\mathcal{R}(A,B)$ and naturally it follows $\text{dim}\mathcal{R}(A,B)=n$.
