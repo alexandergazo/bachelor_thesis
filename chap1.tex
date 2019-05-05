@@ -60,6 +60,7 @@ To express solution of this system in similarly compact matter we will establish
 \end{definition}
 
 \begin{lemma}
+\label{lem:elementwiseConvergence}
 	A matrix sequence $\{A_k=(a^{(k)}_{i,j})\}_{k=0}^\infty$ of $n\times m$ matrices converges to a matrix $A$ if and only if it converges elementwise, in other words $$\forall i\in\{1,\ldots,n\}\quad\forall j\in\{1,\ldots,m\} : a^{(k)}_{i,j}\xrightarrow{k\rightarrow\infty}a_{i,j}$$
 \end{lemma}
 
@@ -74,9 +75,7 @@ To express solution of this system in similarly compact matter we will establish
 \end{lemma}
 
 \begin{proof}
-	Suppose that the sequence converges to matrix $A$. We choose $\varepsilon\in\R,\varepsilon>0$ and we find $n_0$ such that $\forall n\in\N,n\geq n_0:\norm*{A_n-A}_F<\frac{\varepsilon}{2}$. Then $\forall m,n\in\N,m\geq n_0,n\geq n_0$ it holds $$\norm{A_n-A_m}_F\leq \norm{A_n-A}_F+\norm{A_m-A}_F<\varepsilon$$ and so the sequence is Cauchy.
-
-	Conversely, when the condition is satisfied So for any $\varepsilon$ we find $n_0$ such that $\{A^{(k)}\}_{k=0}^\infty$ satisfies BC condition and then we use this $n_0$ for $\{a^{(k)}_{i,j}\}_{k=0}^\infty$.
+	By Lemma \ref{lem:elementwiseConvergence} the sequence converges if and only if it also converges elementwise. This happens if and only if all the sequences of elements are Cauchy what occurs if and only if the matrix sequence itself is Cauchy. The proof of the last equivalence is similar to the proof of Lemma \ref{lem:elementwiseConvergence}.
 \end{proof}
 
 \begin{lemma}
@@ -129,9 +128,12 @@ To express solution of this system in similarly compact matter we will establish
 		$$e^{A}B=\sum^\infty_{k=0}\frac{1}{k!}A^{k}B\stackrel{AB=BA}{=\joinrel=\joinrel=}\sum^\infty_{k=0}\frac{1}{k!}BA^{k}=B\sum^\infty_{k=0}\frac{1}{k!}A^{k}=Be^{A}$$
 		
 		\item Follows from Lemma \ref{lem:matrixSeriesFactoring}
-		$$e^{R^{-1}XR}=\sum^\infty_{k=0}\frac{1}{k!}(R^{-1}XR)^{k}=\sum^\infty_{k=0}\frac{1}{k!}R^{-1}X^{k}R=R^{-1}\left(\sum^\infty_{k=0}\frac{1}{k!}X^{k}\right)R=R^{-1}e^{X}R$$ 
+		\begin{longeq}
+			e^{R^{-1}XR}=\sum^\infty_{k=0}\frac{1}{k!}(R^{-1}XR)^{k}=\sum^\infty_{k=0}\frac{1}{k!}R^{-1}X^{k}R=R^{-1}\left(\sum^\infty_{k=0}\frac{1}{k!}X^{k}\right)R=R^{-1}e^{X}R
+		\end{longeq}
 
-		\item The elements of the matrix $e^{tX}=\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}={e_{i,j}(t)}$ are of form $$e_{i,j}(t)=\sum^\infty_{k=0}\frac{t^k}{k!}a^{(k)}_{i,j}$$ where $X^k=(a^{(k)}_{i,j})$. To differentiate the elements of $e^{tX}$ we need to first show that the series converges for any $t\in\R$. By Lemma \ref{lem:elementAbsoluteSize} it holds $\abs*{a_{i,j}^{(k)}}\leq \norm{X}_F^k$. It follows $$\abs{\sum^\infty_{k=0}\frac{t^k}{k!}a^{(k)}_{i,j}}\leq\sum^\infty_{k=0}\frac{\abs{t}^k}{k!}\abs*{a^{(k)}_{i,j}}\leq \sum^\infty_{k=0}\frac{\norm{tX}_F^k}{k!}=e^{\norm{tX}_F}$$ We can now differentiate the individual elements 
+		\item The elements of the matrix $e^{tX}=\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}=(e_{i,j}(t))$ are equal to $$e_{i,j}(t)=\sum^\infty_{k=0}\frac{t^k}{k!}a^{(k)}_{i,j}$$ where $X^k=(a^{(k)}_{i,j})$. To differentiate the elements of $e^{tX}$ we need to first show that the series converges for any $t\in\R$. By Lemma \ref{lem:elementAbsoluteSize} it holds $\abs*{a_{i,j}^{(k)}}\leq \norm{X}_F^k$. It follows $$\abs{\sum^\infty_{k=0}\frac{t^k}{k!}a^{(k)}_{i,j}}\leq\sum^\infty_{k=0}\frac{\abs{t}^k}{k!}\abs*{a^{(k)}_{i,j}}\leq \sum^\infty_{k=0}\frac{\norm{tX}_F^k}{k!}=e^{\norm{tX}_F}$$ 
+		This shows that the series is absolutely convergent for every $t\in\R$. We can now differentiate the individual elements 
 		$$\frac{d}{dt}e_{i,j}(t)=\frac{d}{dt}\sum^\infty_{k=0}\frac{t^k}{k!}a^{(k)}_{i,j}=\sum^\infty_{k=1}\frac{t^{k-1}}{(k-1)!}a^{(k)}_{i,j}=\sum^\infty_{k=0}\frac{t^{k}}{k!}a^{(k+1)}_{i,j}$$ 
 		Using Lemma \ref{lem:matrixSeriesFactoring} we get the desired result
 		\begin{longeq}
