@@ -54,7 +54,7 @@ For this definition to be valid, we need to show that the series converges for a
 
 \begin{lemma}
 \label{lem:elementAbsoluteSize}
-	Absolute value of any element of a matrix is always less or equal to the Frobenius norm of the matrix. Let us have matrix  where $A\in\K^{n\times n}$. Then $\abs*{a_{i,j}^{(k)}}\leq\norm{A^k}_F\leq\norm{A}^k_F$. \underline{Specially}, for matrix $A^k=(a_{i,j}^{(k)})$ it holds .
+	Absolute value of any element of a matrix is always less or equal to the Frobenius norm of the matrix. In particular, for matrix $A^k=(a_{i,j}^{(k)})$, where $A\in\K^{n\times n}$, it holds $\abs*{a_{i,j}^{(k)}}\leq\norm{A^k}_F\leq\norm{A}^k_F$.
 \end{lemma}
 
 \begin{proof}
@@ -251,7 +251,7 @@ where zeroes in the matrices represent zero matrices of appropriate sizes. There
 \subsection{Linear System With Control}
 
 \begin{definition}
-	A \termdef{continuous dynamical linear system with control u} is a system of linear differential equations of first order with constant coefficients in the form $$\dot{x}(t)=Ax(t)+Bu(t)$$ where $A\in\C^{n\times n}$ is a fundamental matrix, $B\in\C^{n\times m}$ is a \termdef{control matrix}, $u(t)\in\C^m$ is a \termdef{control vector}. Vector $x(t)\in\C^n$ is called a \termdef{state} of the system. The starting condition of the system is the state $x(0)$.
+	A \termdef{continuous dynamical linear system with control u} is a system of linear differential equations of first order with constant coefficients in the form $$\dot{x}(t)=Ax(t)+Bu(t)$$ where $A\in\K^{n\times n}$ is a fundamental matrix, $B\in\K^{n\times m}$ is a \termdef{control matrix}, $u(t)\in\K^m$ is a \termdef{control vector}. Vector $x(t)\in\K^n$ is called a \termdef{state} of the system. The starting condition of the system is the state $x(0)$.
 
 	We will regard this system as $(A,B)$ system.
 \end{definition}
@@ -290,13 +290,42 @@ In this section we will establish the notion of controllability. We will first e
 
 \subsection{Discrete-time systems}
 
-TODO definicia diskretneho systemu, stavov a reach
+Let $\K$ be a field of real or complex numbers and let $(A_1,B_1)$ be a continuos dynamical system $\dot{x}(t)=A_1x(t)+B_1u(t)$. We discretize the time, that is, instead of using continuous real time values of $x(t)$ and $\dot{x}(t)$, we will measure these values only at discrete sampling times $0,\delta,2\delta,\ldots,k\delta,\ldots$ where $\delta\in\R^+$. The control vector $u$ is updated at each time $t=k\delta, k\in\N_0$ and is held constant until next update at $t=k\delta+\delta$. We will denote the states at each point in time as follows. 
+$$u_k=u(t)\quad x_k=x(t),t\in[k\delta,k\delta+\delta)$$
+
+The derivative is approximated by the function 
+$$\frac{d}{dt}x_k\approx\frac{x_{k+1}-x_k}{\delta}$$
+and therefore, we obtain 
+\begin{align*}
+	\frac{x_{k+1}-x_k}{\delta}&=A_1x_k+B_1u_k \\
+	x_{k+1}&=\delta A_1x_k+x_k+\delta B_1u_k \\
+	x_{k+1}&=(\delta A_1+I)x_k+\delta B_1u_k \\
+	x_{k+1}&=Ax_k+Bu_k
+\end{align*}
+by choosing $A=\delta A_1+I$ and $B=\delta B_1$. We see that we can calculate the next value of $x$ from its previous value and a control vector. We will now define this system. The definition holds for any field $\K$.
 
 \begin{definition}
-	
+	A \termdef{discrete dynamical linear system with control u} is a system of equations of form 
+	$$x_{k+1}=Ax_k+Bu_k,k\in\N_0$$
+	where $A\in\K^{n\times n}$ is a fundamental matrix, $B\in\K^{n\times m}$ is a control matrix, $u_k\in\K^m$ is a control vector. Vector $x_k\in\K^n$ is called a state of the system. The starting condition of the system is the state $x_0$.
+
+	We will regard this system as $(A,B)$ system.
 \end{definition}
 
-States that we can reach in set number of iterations in a open-loop control \textit{discrete-time systems} can be derived as follows. From state $x_k$ and control vector $u_k$ is the next state $x_{k+1}$ computed by equation $$x_{k+1}=Ax_k+Bu_k$$ where $\K$ is a field, $A\in\K^{n\times n}$ and $B\in\K^{n\times m}$. The starting condition is $x_0=\textbf{o}$ and we can choose an arbitrary $u_k$. Then, for $k=0$ we have $$x_1=Ax_0+Bu_0=Bu_0 \in \text{Im}B.$$ For $k=1$ we get $$x_2=Ax_1+Bu_1=ABu_0+Bu_1\in\text(AB|B).$$ It is clear, that $$x_k\in\text{Im}(A^{k-1}B|\ldots|AB|B).$$ We can observe that $\text{Im}(B|AB|\ldots|A^kB) \subseteq \text{Im}(B|AB|\ldots|A^{k+1}B)$. From Cayley-Hamilton theorem we know that $\chi_A(A)=O_{n\times n}$. That means that $A^n$ can be expressed as linear combination of matrices $\{I,A,\ldots,A^{n-1}\}$ or equivalently that $A^nB$ can be expressed as linear combination of matrices $\{B,AB,\ldots,A^{n-1}B\}$. We now see that $\text{Im}(B|AB|\ldots|A^kB) \supseteq \text{Im}(B|AB|\ldots|A^{k+1}B)$ holds. I t follows $$\text{Im}(B|AB|\ldots|A^{n-1}B)=\text{Im}(B|AB|\ldots|A^{n-1}B|A^nB).$$ Therefore, all the states we could ever reach are already in space $$\text{Im}(B|AB|\ldots|A^{n-1}B)$$
+\begin{definition}
+	We say that a state $x$ can be \termdef{reached} in time $k\in\N_0$ if there exists such a sequence of control vectors $u_0,u_1,\ldots,u_k$ that for starting condition $x_0=\nullvector$ we get $x=x_k$, after $k$ iterations of $x_{l+1}=Ax_l+Bx_l$, where $l\in\{0,1,\ldots,k-1\}$.
+\end{definition}
+
+States that we can reach in set number of iterations in a open-loop control discrete-time systems can be derived as follows. From state $x_k$ and control vector $u_k$ is the next state $x_{k+1}$ computed by equation
+$$x_{k+1}=Ax_k+Bu_k$$
+The starting condition is $x_0=\textbf{o}$ and we can choose an arbitrary $u_k$. Then, for $k=0$ we have $$x_1=Ax_0+Bu_0=Bu_0 \in \text{Im}B.$$ For $k=1$ we get
+$$x_2=Ax_1+Bu_1=ABu_0+Bu_1\in\text(AB|B)$$
+It is clear, that
+$$x_k\in\text{Im}(A^{k-1}B|\ldots|AB|B)$$
+We can observe that $\text{Im}(B|AB|\ldots|A^kB) \subseteq \text{Im}(B|AB|\ldots|A^{k+1}B)$. From Cayley-Hamilton theorem we know that $\chi_A(A)=O_{n\times n}$. That means that $A^n$ can be expressed as linear combination of matrices $\{I,A,\ldots,A^{n-1}\}$ or equivalently that $A^nB$ can be expressed as linear combination of matrices $\{B,AB,\ldots,A^{n-1}B\}$. We now see that $\text{Im}(B|AB|\ldots|A^kB) \supseteq \text{Im}(B|AB|\ldots|A^{k+1}B)$ holds. I t follows
+$$\text{Im}(B|AB|\ldots|A^{n-1}B)=\text{Im}(B|AB|\ldots|A^{n-1}B|A^nB)$$
+Therefore, all the states we could ever reach are already in space
+$$\text{Im}(B|AB|\ldots|A^{n-1}B)$$
 
 \begin{definition}
 	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. We define \termdef{reachable space} $\mathcal{R}(A,B)$ of the pair $(A,B)$ as $\text{Im}(B|AB|\ldots|A^{n-1}B)$.
@@ -415,8 +444,9 @@ If $(A,B)$ is not controllable, then there exists subspace of our state space th
 
 \begin{theorem}
 	\label{theorem:decomp}
-	Assume that $(A,B)$ is not controllable. Let $\text{dim}\mathcal{R}(A,B)=r<n$. Then there exists invertible $n\times n$ matrix $T$ over $\K$ such that the matrices $\widetilde{A}:=T^{-1}AT$ and $\widetilde{B}:=T^{-1}B$ have the block structure 
-	\begin{equation*}
+	Let $(A,B)$ represent a dynamical system and let $\text{dim}\mathcal{R}(A,B)=r\leq n$. Then there exists invertible $n\times n$ matrix $T$ over $\K$ such that the matrices $\widetilde{A}:=T^{-1}AT$ and $\widetilde{B}:=T^{-1}B$ have the block structure 
+	\begin{equation}
+		\label{eq:decomp}
 		\widetilde{A}=
 		\begin{pmatrix}
 			A_1 & A_2 \\
@@ -428,7 +458,7 @@ If $(A,B)$ is not controllable, then there exists subspace of our state space th
 			B_1  \\
 			0
 		\end{pmatrix}
-	\end{equation*}
+	\end{equation}
 	where $A_1$ is $r \times r$ and $B_1$ is $r \times m$.
 \end{theorem}
 
@@ -446,6 +476,31 @@ We achieved the new form of matrices $A$ and $B$ by changing the basis of our st
 	Let $(A,B)$ and $(\widetilde{A},\widetilde{B})$ be pairs as in Theorem \ref{theorem:decomp} above. Then $(A,B)$ \termdef{is similar to} $(\widetilde{A},\widetilde{B})$, denoted $(A,B) \sim (\widetilde{A},\widetilde{B})$, if there exists an invertible matrix $T$ for which it holds that $$\widetilde{A}=T^{-1}AT\quad and\quad\widetilde{B}=T^{-1}B$$
 \end{definition}
 
+\begin{lemma}
+	\label{lem:simMatrices}
+	Let $A$ and $B$ be similar matrices, that is, there exists an invertible matrix $R$ such that $A=R^{-1}BR$. Then $\chi_A=\chi_B$.
+\end{lemma}
+
+\begin{proof}
+	We will use the properties of the matrix determinant.
+	\begin{align*}
+		\chi_A&=\text{det}(sI-A)=\text{det}(sI-R^{-1}BR) \\
+		&=\text{det}(sR^{-1}IR-R^{-1}BR)=\text{det}(R^{-1}(sI-B)R) \\
+		&=(\text{det}R)^{-1}\text{det}(sI-B)\text{det}R=\text{det}(sI-B) \\
+		&=\chi_B
+	\end{align*}
+\end{proof}
+
+\begin{lemma}
+	\label{lem:simPairsAssignablePolynomial}
+	If $(A,B)\sim(\widetilde{A},\widetilde{B})$ the they can be assigned the same polynomials.
+\end{lemma}
+
+\begin{proof}
+	Since a matrix similar to $A+BF$ is in the form $T^{-1}(A+BF)T=T^{-1}ATT^{-1}BFT=\widetilde{A}+\widetilde{B}\widetilde{F}$, where $\widetilde{F}=FT$ ans $T$ is some invertible matrix, using Lemma \ref{lem:simMatrices} we can write $$\chi_{A+BF}=\chi_{\widetilde{A}+\widetilde{B}\widetilde{F}}$$
+	Therefore, the same polynomial can be assigned to pair $(\widetilde{A},\widetilde{B})$ using matrix~$\widetilde{F}$.
+\end{proof}
+
 We can interpret the decomposition as follows. Consider our system $\dot{x}(t)=Ax(t)+Bu(t)$. By changing the basis by putting $x(t)=Ty(t)$ we get 
 $$T\dot{y}(t)=ATy(t)+Bu(t)$$ 
 which we can write as 
@@ -460,6 +515,7 @@ where the vector $y_1(t)$ is composed of the first $r$ elements of the vector $y
 It is also true that $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is a controllable pair which we will state in a lemma.
 
 \begin{lemma}
+	\label{lem:A_1B_1controllable}
 	The pair $(A_1,B_1)$ is controllable.
 \end{lemma}
 
@@ -536,14 +592,9 @@ It is also true that $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is a controll
 
 Now we can see that the decomposition from Theorem \ref{theorem:decomp} decomposes the matrix $A$ into ``controllable'' and ``uncontrollable'' parts $A_1$ and $A_3$ respectively.
 
-We also see that 
-\begin{align*}
-	\chi_{\widetilde{A}}&=\text{det}(sI-\widetilde{A})=\text{det}(sI-T^{-1}AT) \\
-	&=\text{det}(sT^{-1}IT-T^{-1}AT)=\text{det}(T^{-1}(sI-A)T) \\
-	&=(\text{det}T)^{-1}\text{det}(sI-A)\text{det}T=\text{det}(sI-A) \\
-	&=\chi_A
-\end{align*}
-therefore, it holds $$\chi_A=\chi_{A_1}\chi_{A_3}$$ 
+\begin{cor}
+	For matrix $A$ and its similar matrix $\widetilde{A}$ as in Theorem \ref{theorem:decomp} it holds $$\chi_A=\chi_{\widetilde{A}}=\chi_{A_1}\chi_{A_3}$$
+\end{cor} 
 
 \begin{definition}
 	The characteristic polynomial of matrix $A$ splits into \termdef{controllable} and \termdef{uncontrollable parts} with respect to pair $(A,B)$ which we denote by $\chi_c$ and $\chi_u$ respectively. We define these polynomials as $$\chi_c=\chi_{A_1} \qquad \chi_u=\chi_{A_3}$$ In case $r=0$ we put $\chi_c=1$ and in case $r=n$ we put $\chi_u=1$.
@@ -556,15 +607,22 @@ For this definition to be correct, we need to show that polynomials $\chi_{A_1}$
 \end{lemma}
 
 \begin{proof}
-	From definition we have $\chi_c=\chi_{A_1}$ where $A_1$ is some matrix for a specific decomposition of matrix $A$ thanks to basis $C$ used in a proof of Theorem \ref{theorem:decomp}. Consider different basis $D$ which suffices the conditions from the said proof. We denote the $r \times r$ matrix in the top left corner of the resulting matrix by $X_1$. 
-
-	Suppose $\chi_{X_1}\neq \chi_{A_1}$. Then we can write 
-	\begin{align*}
-		\chi_{X_1}&\neq\text{det}(sI-X_1)=\text{det}(sI-T^{-1}AT) \\
-		&=\text{det}(sT^{-1}IT-T^{-1}AT)=\text{det}(T^{-1}(sI-A)T) \\
-		&=(\text{det}T)^{-1}\text{det}(sI-A)\text{det}T=\text{det}(sI-A) \\
-		&=\chi_A
-	\end{align*}
-
-	TODO plánujem tie matice X1 a A1 rozšíriť nulami na veľkosť n x n a potom ich charakteristicke polynomy prenasobit determinantom prechodnej matice medzi C a D a takisto inverznou hodnotou tohoto determinantu z coho ziskam nakoniec ze chiX1 sa nerovna chiX1 co je spor
+	From definition we have $\chi_c=\chi_{A_1}$ where $A_1$ is some matrix for a specific decomposition of matrix $A$ thanks to basis $C$ used in a proof of Theorem \ref{theorem:decomp}. Consider different basis $D$ which suffices the conditions from the said proof. Then we obtain a similar matrix $\widetilde{B}=[id]^K_DA[id]^D_K$. We denote the $r \times r$ matrix in the top left corner of $\widetilde{B}$ by $B_1$. We want to show $\chi_{A_1}=\chi_{B_1}$.
+	
+	Let us have matrices
+	\begin{equation*}
+		A'=
+		\begin{pmatrix}
+			A_1 & 0 \\
+			0   & I_{n-r}
+		\end{pmatrix}
+		\qquad
+		A''=
+		\begin{pmatrix}
+			B_1 & 0 \\
+			0   & I_{n-r}
+		\end{pmatrix}
+	\end{equation*}
+	It holds $$\chi_{A'}(s)=\chi_{A_1}\cdot s^n \quad \chi_{A''}(s)=\chi_{B_1}\cdot s^n$$
+	Therefore, it is sufficient to prove $\chi_{A'}=\chi_{A''}$ which according to Lemma \ref{lem:simMatrices} holds if $A'$ and $A''$ are similar. Since $A'=$  
 \end{proof}
