@@ -5,6 +5,31 @@
 \newcommand{\K}{\mathbb{K}}
 \newcommand{\powerset}[1]{\mathcal{P} ( #1 )}   
 \newcommand{\termdef}[1]{\textnormal{\textbf{#1}}}
+\newcommand{\nullvector}{\textit{o}}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+\makeatletter
+\newcommand*{\Relbarfill@}{\arrowfill@\Relbar\Relbar\Relbar}
+\newcommand*{\xeq}[2][]{\ext@arrow 0055\Relbarfill@{#1}{#2}}
+\makeatother
+
+\newsavebox{\overlongequation}
+\newenvironment{longeq}
+ {\begin{displaymath}\begin{lrbox}{\overlongequation}$\displaystyle}
+ {$\end{lrbox}\makebox[0pt]{\usebox{\overlongequation}}\end{displaymath}}
+
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the 
+% starred version does not.
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
 
 \makeatletter
 \renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
@@ -16,6 +41,9 @@
 \newtheorem{theorem}{Theorem}[]
 \newtheorem{lemma}{Lemma}[]
 \newtheorem{cor}{Corollary}[]
+\newtheorem{claim}{Claim}[]
 \newtheorem*{definition}{Definition}
+\newtheorem*{remark}{Remark}
+\newtheorem{example}{Example}
 
 \newcommand{\bigO}{\mathcal{O}}
