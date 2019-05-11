@@ -9,7 +9,7 @@ Pole shifting theorem is one of the basic results of the theory of linear dynami
 \subsection{Systems of First Order Differential Equations}
 
 \begin{remark}
-	Let $f(t)$ be a function of time $t\in\R^+$. We will denote its derivative with repoect to $t$ by $$\dot{f}(t)=\frac{d}{dt}f(t)\ .$$
+	Let $f(t)$ be a function of time $t\in\R^+$. We will denote its derivative with respect to $t$ by $$\dot{f}(t)=\frac{d}{dt}f(t)\ .$$
 \end{remark}
 
 \begin{definition}
@@ -188,7 +188,7 @@ For this definition to be valid, we need to show that the series converges for a
 	Follows straight from the definition of the matrix exponential.
 \end{proof}
 
-Now, using properties from Lemma \ref{lem:expprop} we can see that $\dot{x}(t)=Ax(t)$ is actually solved by $x(t)=e^{tA}x(0)$. This solution is unique as a solution of a system of linear differential equation that satisfies its initial condition is unique. Let us now discuss under what circumstances does the state $x(t)$ converge to $\nullvector$ for $t\rightarrow\infty$. 
+Now, using properties from Lemma \ref{lem:expprop}, we can see that $\dot{x}(t)=Ax(t)$ is (uniquely) solved by $x(t)=e^{tA}x(0)$. Let us now discuss under what circumstances does the state $x(t)$ converge to $\nullvector$ for $t\rightarrow\infty$. 
 
 Let $A$ be real or complex matrix. Then there is a regular matrix $R\in \C^{n\times n}$ such that the matrix $$J=R^{-1}AR$$ is in the Jordan normal form. By substituting $x(t)=Ry(t)$, which is equivalent with changing the basis of our system, we get 
 \begin{align*}
@@ -254,7 +254,11 @@ Because any block diagonal matrix to the power of any natural number preserves i
 	\end{pmatrix}
 	,
 \end{equation*}
-where zeroes in the matrices represent zero matrices of appropriate sizes. Therefore, since $y(0)$ is a constant vector, we see that $y(t)=e^{tJ}y(0)$ converges to $\nullvector$ if all the eigenvalues $\lambda_i$ of matrix $A$ have negative real parts. As the last step, we calculate $x(t)=Ry(t)$ and $x(0)=Ry(0)$.
+where zeroes in the matrices represent zero matrices of appropriate sizes. Therefore, since $y(0)$ is a constant vector, we see that $y(t)=e^{tJ}y(0)$ converges to $\nullvector$ if (and only if, because of the uniqueness of the solution) all the eigenvalues $\lambda_i$ of the matrix $A$ have negative real parts. As the last step, we calculate $x(t)=Ry(t)$ and $x(0)=Ry(0)$. We formulate this result into a theorem.
+
+\begin{theorem}
+	The system $\dot{x}=Ax(t)$ is stable if and only if all eigenvalues of the matrix $A$ have negative real parts.
+\end{theorem}
 
 \begin{example}
 	Consider higher order differential equation $$x^{(n)}(t)+a_1x^{(n-1)}(t)+\ldots+a_{n-1}x'(t)+a_nx(t)=0\ ,$$ where $x(t)\colon\C\rightarrow\C$. This equation can be solved as a system of linear differential equations of first order $\dot{z}(t)=Az(t)$ by choosing fundamental matrix $A$ and state vector $z(t)$ as follows
@@ -280,7 +284,7 @@ where zeroes in the matrices represent zero matrices of appropriate sizes. There
 \subsection{Linear System With Control}
 
 \begin{definition}
-	A \termdef{continuous dynamical linear system with control u} is a system of linear differential equations of first order with constant coefficients in the form $$\dot{x}(t)=Ax(t)+Bu(t)\ ,$$ where $A\in\K^{n\times n}$ is a fundamental matrix, $B\in\K^{n\times m}$ is a \termdef{control matrix}, $u(t)\in\K^m$ is a \termdef{control vector}. Vector $x(t)\in\K^n$ is called a \termdef{state} of the system. The starting condition of the system is the state $x(0)$.
+	A \termdef{continuous dynamical linear system with control u} is a system of linear differential equations of first order with constant coefficients in the form $$\dot{x}(t)=Ax(t)+Bu(t)\ ,$$ where $x(t)\in\K^n$ is a \termdef{state vector} (shortly \termdef{state}) of the system, $A\in\K^{n\times n}$ is a \termdef{fundamental matrix} of the system, $B\in\K^{n\times m}$ is a \termdef{control matrix} of the system and $u(t)\in\K^m$ is a \termdef{control vector} of the system. The \termdef{initial condition} of the system is the state $x(0)$.
 
 	We will call this system shortly $(A,B)$ system.
 \end{definition}
@@ -297,7 +301,11 @@ Of course, if we want this system to be self-regulating, we cannot input our own
 	where $F\in\C^{m\times n}$ is a \termdef{feedback matrix}. This system is then called a \termdef{closed-loop control} system or a \termdef{linear feedback control} system.
 \end{definition}
 
-Typically, we require a feedback control system to stabilize itself back into its stable state after some disturbances. This means that we require that the system converges to some fixed point. In many practical applications we require that this point is the origin of our state space, i.e., the space of all possible states of $x(t)$.
+Typically, we require a feedback control system to stabilize itself back into its stable state after some disturbances. 
+
+\begin{definition}
+	We say that the system $(A,B)$ is \termdef{stable}, if it converges to the null vector.
+\end{definition}
 
 The feedback control system can be expressed as a first order linear differential system $$\dot{x}(t)=Ax(t)+BFx(t)=(A+BF)x(t)\ .$$ As discussed in the first section, we now know that the system converges to $\nullvector$ if all of the eigenvalues of matrix $A+BF$ have negative real parts. 
 
@@ -307,40 +315,47 @@ Therefore, the system can stabilize itself if we find such matrix $F \in \C^{n \
 	Let $A$ be a $n\times n$ matrix. Then the \termdef{characteristic polynomial} of A, denoted by $\chi_A$, is defined as $$\chi_A(s)=\textnormal{det}(sI_n-A)\ .$$
 \end{definition}
 
-Through our observations we got to a conclusion, that through our choice of the feedback matrix $F$ we need to satisfy the condition $$\chi_{A+BF}=(x-\lambda_1)(x-\lambda_2)\cdots(x-\lambda_n)\ ,$$ where $\lambda_1,\lambda_2,\ldots,\lambda_n \in \C$ have negative real parts. This leads to an important definition.
+Through our observations we got to a conclusion, that we need to find a feedback matrix $F$ such that the characteristic polynomial of the matrix $A+BF$ is $$\chi_{A+BF}=(x-\lambda_1)(x-\lambda_2)\cdots(x-\lambda_n)\ ,$$ where all its roots $\lambda_1,\lambda_2,\ldots,\lambda_n \in \C$ have negative real parts. This leads to an important definition.
 
 \begin{definition}
     Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. We say that polynomial $\chi$ is \termdef{assignable} for the pair $(A,B)$ if there exists such matrix $F\in\K^{m \times n}$ that $$\chi_{A+BF}=\chi\ .$$
 \end{definition}
 
-The pole shifting theorem states, that if $A$ and $B$ are ``sensible'' in a sense that we will discuss in the next section, then arbitrary polynomial $\chi$ of degree that depends on how ``sensible'' $A$ and $B$ are, can be assigned to the pair $(A,B)$. It also claims that it is immaterial over what field $A$ and $B$ are.
+The pole shifting theorem states, that if $A$ and $B$ are ``sensible'' in a sense that we will discuss in the next section, then arbitrary polynomial $\chi$ of degree $n$ can be assigned to the pair $(A,B)$. It also claims that it is immaterial over what field $A$ and $B$ are.
 
 \section{Controllable pairs}
 
-In this section we will establish the notion of controllability. We will first explain this concept for \textit{discrete-time systems} and then we will show that the requirement for controllability for \textit{discrete-time systems} also holds for \textit{continuos-time systems}.
+In this section we will establish the notion of controllability. We will first explain this concept for \textit{discrete-time systems} and then we will show that the requirement for controllability of \textit{continuous-time systems} is the same as the one for \textit{discrete-time systems}.
 
 \subsection{Discrete-time systems}
 
-Let $\K$ be a field of real or complex numbers and let $(A_1,B_1)$ be a continuos dynamical system $\dot{x}(t)=A_1x(t)+B_1u(t)$. We discretize the time, that is, instead of using continuous real time values of $x(t)$ and $\dot{x}(t)$, we will measure these values only at discrete sampling times $0,\delta,2\delta,\ldots,k\delta,\ldots$ where $\delta\in\R^+$. The control vector $u$ is updated at each time $t=k\delta, k\in\N_0$ and is held constant until next update at $t=k\delta+\delta$. We will denote the states at each point in time as follows. 
-$$u_k=u(t)\quad x_k=x(t),t\in[k\delta,k\delta+\delta)$$
+Let us have a continuous dynamical system $\dot{x}(t)=A_1x(t)$, where $A_1$ is a real or complex square matrix. We \textit{discretize} the time, that is, instead of using continuous real time values of $x(t)$ and $\dot{x}(t)$, we will measure these values only at discrete \textit{sampling times} $0,\delta,2\delta,\ldots,k\delta,\ldots$ where $\delta\in\R^+$. We will denote the states at each point in time as follows
+$$x_k=x(t),t\in[k\delta,k\delta+\delta)\ .$$
+The solution of this system is precisely $x(t)=e^{tA_1}x(0)$, as discussed in previous sections. For some $k\in\N$ we get $x_k=x(k\delta)=e^{k\delta A_1}x(0)$ and $x_{k+1}=e^{(k+1)\delta A_1}x(0)=e^{\delta A_1 +k\delta A_1}x(0)$ which by Lemma \ref{lem:expprop}.5 equals $x_{k+1}=e^{\delta A_1 +k\delta A_1}x(0)=e^{\delta A_1}e^{k\delta A_1}x(0)=e^{\delta A_1}x_k$.
 
-The derivative is approximated by the function 
-$$\frac{d}{dt}x_k\approx\frac{x_{k+1}-x_k}{\delta}$$
-and therefore, we obtain 
+Using Lemma \ref{lem:expprop}.5 we obtain 
 \begin{align*}
-	\frac{x_{k+1}-x_k}{\delta}&=A_1x_k+B_1u_k \\
-	x_{k+1}&=\delta A_1x_k+x_k+\delta B_1u_k \\
-	x_{k+1}&=(\delta A_1+I)x_k+\delta B_1u_k \\
-	x_{k+1}&=Ax_k+Bu_k
+	x_{k+1}
+	&=e^{(k+1)\delta A_1}x(0) \\
+	&=e^{\delta A_1 +k\delta A_1}x(0) \\
+	&=e^{\delta A_1}e^{k\delta A_1}x(0) \\
+	&=e^{\delta A_1}x_k \\
+	&=Ax_k
 \end{align*}
-by choosing $A=\delta A_1+I$ and $B=\delta B_1$. We see that we can calculate the next value of $x$ from its previous value and a control vector. We will now define this system. The definition holds for any field $\K$.
+by choosing $A=e^{\delta A_1}$. We see that we can calculate the next value of $x$ from its previous value. We will now define this system. The definition holds for any field $\K$.
 
 \begin{definition}
-	A \termdef{discrete dynamical linear system with control u} is a system of equations of form 
-	$$x_{k+1}=Ax_k+Bu_k,k\in\N_0$$
-	where $A\in\K^{n\times n}$ is a fundamental matrix, $B\in\K^{n\times m}$ is a control matrix, $u_k\in\K^m$ is a control vector. Vector $x_k\in\K^n$ is called a state of the system. The starting condition of the system is the state $x_0$.
+	A \termdef{discrete dynamical linear system} is a system of equations
+	$$x_{k+1}=Ax_k,\ k\in\N_0\ ,$$
+	where $x_k\in \K^n$ is a \termdef{state vector} (shortly \termdef{state}) of the system, the matrix $A\in \K^{n\times n}$ is a \termdef{fundamental matrix} of the system. The \termdef{initial condition} of the system is the state $x(0)$.
+\end{definition}
 
-	We will regard this system as $(A,B)$ system.
+\begin{definition}
+	A \termdef{discrete dynamical linear system with control u} is a system of equations
+	$$x_{k+1}=Ax_k+Bu_k,\ k\in\N_0\ ,$$
+	where $x_k\in\K^n$ is a \termdef{state vector} (shortly \termdef{state}) of the system, $A\in\K^{n\times n}$ is a fundamental matrix, $B\in\K^{n\times m}$ is a control matrix, $u_k\in\K^m$ is a control vector. The \termdef{initial condition} of the system is the state $x_0$.
+
+	We will call this system \termdef{discrete $(A,B)$} system.
 \end{definition}
 
 \begin{definition}
@@ -404,7 +419,7 @@ Note, we used $-AA=A(-A)\Rightarrow e^{-tA}A=Ae^{-tA}$ from Lemma \ref{lem:exppr
 Now it is clear that in system where $x(0)=\nullvector$ can every state in time $t\in \R^+$ be expressed as $$x(t)=\int^t_0 e^{(t-s)A}Bu(s)ds$$
 
 \begin{theorem}
-	The $n$-dimensional continuos-time linear system is controllable, meaning that $x(t)$ can be equal to any vector in $\K^n$, if and only if $\text{dim}\mathcal{R}(A,B)=n$.
+	The $n$-dimensional continuous-time linear system is controllable, meaning that $x(t)$ can be equal to any vector in $\K^n$, if and only if $\text{dim}\mathcal{R}(A,B)=n$.
 \end{theorem}
 
 \begin{proof}
