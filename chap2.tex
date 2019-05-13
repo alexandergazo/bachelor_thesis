@@ -1,5 +1,77 @@
 \chapter{The Pole Shifting Theorem}
 
+\begin{definition}
+    The \termdef{controller form} associated to the pair $(A,b)$ is the pair 
+    \begin{equation*}
+        A^\flat=
+        \begin{pmatrix}
+            0 & 1 & 0 & \cdots & 0 \\
+            0 & 0 & 1 & \cdots & 0 \\
+            \cdots & \cdots & \cdots & \ddots & \vdots \\
+            0 & 0 & 0 & \cdots & 1 \\
+            \alpha_1 & \alpha_2 & \alpha_3 & \cdots & \alpha_n \\
+        \end{pmatrix},
+        \quad
+        b^\flat=
+        \begin{pmatrix}
+            0 \\
+            0 \\
+            \vdots \\
+            0 \\
+            1
+        \end{pmatrix}
+    \end{equation*}
+    where $s^n-\alpha_ns^{n-1}-\ldots-\alpha_2s-\alpha_1$ is the characteristic polynomial of $A$.
+\end{definition}
+
+\begin{lemma}
+\label{lem:flatCharPol}
+    The characteristic polynomial of $A^\flat$ is $s^n-\alpha_ns^{n-1}-\ldots-\alpha_2s-\alpha_1$.
+\end{lemma}
+
+\begin{proof}
+    Can be shown using simple properties of the matrix determinant.
+\end{proof}
+
+\begin{lemma}
+\label{lem:flatControllable}
+    The pair $(A^\flat,b^\flat)$ is controllable.
+\end{lemma}
+
+\begin{proof}
+    Because of the form of the matrix $A^\flat$ and $b^\flat$ is $(A^\flat)^kb^\flat$ equal to the last column of $(A^\flat)^k$ which creates vectors of form 
+    \begin{equation*}
+        \begin{pmatrix}
+            0 &
+            0 &
+            \cdots &
+            0 &
+            1 &
+            \beta_{k-1} &
+            \cdots &
+            \beta_1
+        \end{pmatrix}^T
+    \end{equation*}
+    for some $\beta_1,\ldots,\beta_{k-1}\in\K$. Therefore $\mathcal{R}(A^\flat,b^\flat)=n$.
+\end{proof}
+
+\begin{lemma}
+\label{lem:simCont}
+    Let $\K$ be a field and let $A_1,A_2\in\K^{n\times n},b_1,b_2\in\K^n$, such that the pairs $(A_1,b_1),(A_2,b_2)$ are controllable. The pairs $(A_1,b_1),(A_2,b_2)$ are similar if and only if characteristic polynomials of $A_1$ and $A_2$ are the same.
+\end{lemma}
+
+\begin{proof}
+    TODO
+\end{proof}
+
+\begin{cor}
+    If the \termdef{single-input} ($m=1$) pair $(A,b)$ is controllable, then it is similar to its controller form.
+\end{cor}
+
+\begin{proof}
+    Follows from Lemmas \ref{lem:flatCharPol}, \ref{lem:flatControllable} and \ref{lem:simCont}. 
+\end{proof}
+
 \begin{theorem}
     Let $\K$ be a field. Let $A\in\K^{n\times n}$, $B\in\K^{n\times m}$. The assignable polynomials for pair $(A,B)$ are precisely of the form $$\chi_{AB+F}=\chi\chi_u$$ where $\chi$ is an arbitrary monic polynomial of degree $r=\text{dim}\mathcal{R}(A,B)$ and $\chi_u$ is the uncontrollable part of the assignable polynomial.
 
@@ -43,13 +115,13 @@
     $$\chi_{A+BF}=\chi_{A_1+B_1F_1}\chi_{A_3}=\chi_{A_1+B_1F_1}\chi_u$$
     We see that any assignable polynomial has the desired factored form.
 
-    Conversely, we want to show that the first factor can be made arbitrary by a suitable choice of $F_1$. This does make sense only for $r>0$, otherwise the assignable polynomial is equal to $\chi_u$, which cannot be changed by modifying $F$. Assume that we are given a polynomial $\chi$. If we find such a matrix $F_1$ that 
+    Conversely, we want to show that the first factor can be made arbitrary by a suitable choice of $F_1$. This does make sense only for $r>0$, otherwise the assignable polynomial is equal to $\chi_u$, which cannot be changed by modifying the matrix $F$. Assume that we are given a monic polynomial $\chi$. If we find such a matrix $F_1$ that 
     $$\chi_{A_1+B_1F_1}=\chi$$
-    then by putting $F=(F_1,0)$ we get the desired characteristic polynomial, that is, $\chi_{A+BF}=\chi\chi_u$. Since the pair $(A_1,B_1)$ is controllable as shown in Lemma \ref{lem:A_1B_1controllable}, it is sufficient only to prove that the controllable systems can be assigned an arbitrary polynomial $\chi$. Therefore, from this point on, we assume that the pair $(A,B)$ is controllable.
+    then by putting $F=(F_1,0)$ we get the desired characteristic polynomial, that is, $\chi_{A+BF}=\chi\chi_u$. Since the pair $(A_1,B_1)$ is controllable as shown in Lemma \ref{lem:A_1B_1controllable}, it is sufficient only to prove that controllable systems can be assigned an arbitrary monic polynomial $\chi$ or respective degree. Therefore, from this point on, we assume that the pair $(A,B)$ is controllable.
 
-    We will first first the theorem for case $m=1$ and then we will express general case as the case $m=1$. That will conclude the proof.
+    We will first prove the theorem for the case $m=1$ and then we will express a general case as the case $m=1$. That will conclude the proof.
 
-    So let $m=1$. From Lemmas ????????? we can consider the pair $(A,b)$ to be in the controller form. For a vector 
+    Let $m=1$. By Lemmas \ref{lem:simPairsAssignablePolynomial} and ???? we can consider the pair $(A,b)$ to be in the controller form. For a vector 
     \begin{equation*}
         f=\begin{pmatrix}
             f_1&f_2&\ldots&f_n
@@ -85,15 +157,69 @@
 			\vdots & \vdots & \vdots & \ddots & \vdots \\
 			0 & 0 & 0 & \ldots & 1 \\
             \alpha_1+f_1 & \alpha_2+f_2 & \alpha_3+f_3 & \ldots & \alpha_n+f_n
-        \end{pmatrix}
+        \end{pmatrix}\ .
     \end{align*}
-    Now we can see that for a given polynomial
+    One can see that for a given monic polynomial
     $$\chi=s^n-\beta_ns^{n-1}-\ldots-\beta_2s-\beta_1$$
     we can choose
     $$f=\begin{pmatrix}
         \beta_1-\alpha_1&\beta_2-\alpha_2&\ldots&\beta_n-\alpha_n
-    \end{pmatrix}$$
-    and we then obtain $\chi_{A+bf}=\chi$.
+    \end{pmatrix}\ ,$$
+    and then it holds $\chi_{A+bf}=\chi$. We have shown that for the case $m=1$, a controllable pair $(A,b)$ can be assigned an arbitrary monic polynomial of degree $n$.
 
-    For a general case, where $m$ is arbitrary, we choose any vector $u\in\K^m$ such that $Bv\neq \nullvector$, and let $b=Bv$. If we show that the pair $(A+BF_1,b)$ is controllable, we can then use the result for the case $m=1$, and for any desired polynomial $\chi$ find such $f$ that the characteristic polynomial of matrix $$A+BF_1+bf=A+BF_1+Bvf=A+B(F_1+vf)$$ is $\chi$ and the Theorem will be proved using $F=(F_1+vf)$. 
+    For a general case, where $m$ is arbitrary, we choose any vector $v\in\K^m$ such that $Bv\neq \nullvector$, and let $b=Bv$. We will use the fact that a pair $(A+BF_1,b)$ can be assigned the same polynomials as a pair $(A,B)$, because for any $f\in\K^{1\times n}$ it holds
+    $${A+BF_1+bf}={A+BF_1+Bvf}={A+B(F_1+vf)}$$
+    and therefore, for $F=F_1+vf$ we have 
+    $$\chi_{A+BF_1+bf}=\chi_{A+BF}\ .$$
+    Using the result for $m=1$, the proof will be concluded by showing that the pair $(A+BF_1,b)$ is controllable.
+       
+    Let us have an arbitrary sequence of linearly independent vectors $\{Bv=x_1,\ldots,x_k\}$, $x_i\in\K^n$, where
+    \begin{equation}
+    \label{eq:indSeq}
+        x_{i}=Ax_{i-1}+Bu_{i-1},\ i\in\{1,\ldots,k\}
+    \end{equation}
+    for some $u_i\in\K^m$, and $x_0=\nullvector$. Consider $k$ to be as large as possible. We denote $\mathcal{V}=\text{Im}\{x_1,\ldots,x_k\}$. By maximality of $k$ we have
+    \begin{equation}
+    \label{eq:inV}    
+        x_{k+1}=Ax_k+Bu\in\mathcal{V}
+    \end{equation}
+    for any $u\in\K^m$. Therefore, in particular for $u=\nullvector$, we get 
+    $$Ax_k\in\mathcal{V}\ .$$
+    It follows by (\ref{eq:inV}), that for any $u\in\K^m$ it holds
+    $$Bu\in\mathcal{V}-\{Ax_k\}\subseteq\mathcal{V}\ .$$
+    Thus, for the column space of the matrix $B$ (denoted by $\mathcal{B}$) we have $\mathcal{B}\subseteq \mathcal{V}$. By equality (\ref{eq:indSeq}) it is true
+    $$x_i-Ax_{i-1}\in\mathcal{B}\subseteq \mathcal{V}\ ,$$
+    for $i\in\{1,\ldots,k\}$. We can now write 
+    $$-Ax_{i-1}\in\mathcal{V}-\{x_i\}\subseteq \mathcal{V}\ .$$
+    Since $\mathcal{V}$ is an vector space, also $Ax_{i-1}\in\mathcal{V}$. This means, that $\mathcal{V}$ is an $A$-invariant subspace containing $\mathcal{B}$. One can see that
+    $$\mathcal{V}\supseteq\text{Im}(B|AB|A^2B|\ldots|A^kB|\ldots)=\text{Im}(B|AB|A^2B|\ldots|A^kB)=\mathcal{R}(A,B)\ ,$$
+    where the second equality holds by discussion around the equality (\ref{eq:cayleHamilReachable}). Because of this relation, we observe that
+    $$\text{dim}\mathcal{R}(A,B)\leq\text{dim}\mathcal{V}=k\leq\text{dim}\K^n=n\ .$$
+    Since the pair $(A,B)$ is by the assumption controllable, we know that $\text{dim}\mathcal{R}(A,B)=n$. Therefore, $n=k$.
+
+    Finally, we need to show that
+    $$\text{dim}\mathcal{R}(A+BF_1,x_1)=n\ .$$
+    By letting 
+    $$F_1x_i=u_i\ ,$$
+    which is equivalent with 
+    \begin{equation}
+        F_1
+        \begin{pmatrix}
+            x_1 & x_2 & \ldots & x_n
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            u_1 & u_2 & \ldots & u_n
+        \end{pmatrix}\ ,
+    \end{equation}
+    we achieve
+    $$(A+BF_1)x_i=Ax_i+BF_1x_i=Ax_i+Bu_i=x_{i+1}\ ,$$
+    and therefore 
+    \begin{equation}
+    \label{eq:reachIm}
+        \mathcal{R}(A+BF_1,x_1)=\text{Im}\{x_1,x_2,\ldots,x_n\}\ .
+    \end{equation}
+    We can define the matrix $F_1$ in this way, because the matrix $\begin{pmatrix} x_1 & x_2 & \ldots & x_n \end{pmatrix}$ is a square matrix with linearly independent columns and therefore, its rows are also linearly independent. Using this fact, and the fact that $i$-th row of the matrix $\begin{pmatrix} u_1 & u_2 & \ldots & u_n \end{pmatrix}$ is the result of linear combination of the rows of the matrix $\begin{pmatrix} x_1 & x_2 & \ldots & x_n \end{pmatrix}$ with coefficients in $i$-th row of the matrix $F_1$, one can see that the definition of $F_1$ is valid.
+
+    Finally, the equality (\ref{eq:reachIm}) implies, by linear independence of the vectors $x_1,\ldots,x_n$, that $\text{dim}\mathcal{R}(A+BF_1,x_1)=n$. We have shown that the pair $\mathcal{R}(A+BF_1,Bv)$ is controllable, and thus the proof is concluded.
 \end{proof}

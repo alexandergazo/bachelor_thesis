@@ -53,12 +53,12 @@ For this definition to be valid, we need to show that the series converges for a
 \end{lemma}
 
 \begin{proof}
-	Can be simply shown from the definition of Frobenius form and properties of the absolute value.
+	Can be simply shown using the definition of Frobenius form and properties of the absolute value.
 \end{proof}
 
 \begin{lemma}
 \label{lem:elementAbsoluteSize}
-	Absolute value of any element of a matrix is always less or equal to the Frobenius norm of the matrix. In particular, for matrix $A^k=(a_{i,j}^{(k)})$, where $A\in\K^{n\times n}$, it holds $\abs*{a_{i,j}^{(k)}}\leq\norm{A^k}_F\leq\norm{A}^k_F$.
+	Absolute value of any element of a matrix is always less or equal to the Frobenius norm of the matrix. In particular, for a matrix $A^k=(a_{i,j}^{(k)})$, where $A\in\K^{n\times n}$, it holds $\abs*{a_{i,j}^{(k)}}\leq\norm{A^k}_F\leq\norm{A}^k_F$.
 \end{lemma}
 
 \begin{proof}
@@ -67,28 +67,29 @@ For this definition to be valid, we need to show that the series converges for a
 	where second inequality follows from Lemma \ref{lem:frobNormProperties}.4.
 \end{proof}
 
+\begin{cor}
+	\label{cor:elementConvergence}
+	Let us have $A^k=(a_{i,j}^{(k)})$. Then the series $\sum^\infty_{k=0}\frac{b^k}{k!}a_{i,j}^{(k)}$ converges absolutely for any $b\in\K$.
+\end{cor}
+
+\begin{proof}
+	By Lemma \ref{lem:elementAbsoluteSize} we have
+	$$\abs{\sum^\infty_{k=0}\frac{bc^k}{k!}a_{i,j}^{(k)}}\leq\sum^\infty_{k=0}\frac{\abs{b}\abs{c}^k}{k!}\abs{a_{i,j}^{(k)}}\leq\sum^\infty_{k=0}\frac{\abs{b}\abs{c}^k}{k!}\norm{A}_F^{k}=\sum^\infty_{k=0}\frac{\norm{cA}_F^k}{k}=e^{\norm{cA}_F}$$
+\end{proof}
+
 \begin{definition}
 	A matrix sequence $\{A_k\}_{k=0}^\infty$ of $n \times m$ matrices is said to \termdef{converge} to $n\times m$ matrix $A$, denoted by $A_k\longrightarrow A$, if $$\forall\varepsilon\in\R, \varepsilon>0\quad\exists n_0\in\N\quad\forall n\in\N,n\geq n_0:||A_n-A||_F<\varepsilon\ .$$
 \end{definition}
 
 \begin{lemma}
 \label{lem:elementwiseConvergence}
-	A matrix sequence $\{A_k=(a^{(k)}_{i,j})\}_{k=0}^\infty$ of $n\times m$ matrices converges to a matrix $A$ if and only if it converges elementwise, in other words $$\forall i\in\{1,\ldots,n\}\quad\forall j\in\{1,\ldots,m\} : a^{(k)}_{i,j}\xrightarrow{k\rightarrow\infty}a_{i,j}\ .$$
+	A matrix sequence $\{A_k=(a^{(k)}_{i,j})_{n\times m}\}_{k=0}^\infty$ converges to a matrix $A=(a_{i,j})_{n\times m}$ if and only if it converges elementwise, in other words $$\forall i\in\{1,\ldots,n\}\quad\forall j\in\{1,\ldots,m\} : a^{(k)}_{i,j}\xrightarrow{k\rightarrow\infty}a_{i,j}\ .$$
 \end{lemma}
 
 \begin{proof}
 	Let $A_k \rightarrow A$. Then we can for any $\varepsilon>0$ find such $n_0$ that $\norm{A_n-A}_F<\varepsilon$ for every $n\geq n_0$. Using Lemma \ref{lem:elementAbsoluteSize} we can write $$\abs*{a^{(n)}_{i,j}-a_{i,j}}\leq \norm{A_n-A}_F<\varepsilon\ .$$ It follows that $\{A_k\}_{k=0}^\infty$ converges to $A$ elementwise.
 
 	Conversely, let $\varepsilon$ be a positive real number. For every position $(i,j)$ we find such $n_{i,j}$ that $$\forall n\geq n_{i,j}:\abs*{a^{(n)}_{i,j}-a_{i,j}}<\frac{\varepsilon}{\sqrt{nm}}\ .$$ We put $N_0=\text{min}\{n_{i,j}\}$. Now $\forall n\in\N, n\geq N_0$ we have $$||A_n-A||_F=\sqrt{\sum^n_{i=1}\sum^m_{j=1}|a^{(n)}_{i,j}-a_{i,j}|^2}<\sqrt{nm\frac{\varepsilon^2}{nm}}=\varepsilon\ .$$
-\end{proof}
-
-\begin{lemma}
-	Let $\{A_k\}_{k=0}^\infty$ be a sequence of matrices over $\K$. This sequence converges if and only if it is a \termdef{Cauchy sequence}, that is when the following condition is satisfied $$\forall\varepsilon\in\R, \varepsilon>0\quad\exists n_0\in\N\quad\forall m,n\in\N,m\geq n_0, n\geq n_0:||A_n-A_m||_F<\varepsilon\ .$$
-\end{lemma}
-
-\begin{proof}
-	By Lemma \ref{lem:elementwiseConvergence} the sequence converges if and only if it also converges elementwise. This happens if and only if all the sequences of elements are Cauchy what occurs if and only if the matrix sequence itself is Cauchy. The proof of the last equivalence is similar to the proof of Lemma \ref{lem:elementwiseConvergence}.
-	TODO
 \end{proof}
 
 \begin{lemma}
@@ -131,46 +132,61 @@ For this definition to be valid, we need to show that the series converges for a
 \begin{proof}
 	\begin{enumerate}
 		\sloppy
-		\item This can be shown by showing that sequence of partial sums $\{\sum^N_{k=0}\frac{1}{k!}X^k\}_{N=0}^\infty$ is Cauchy. Let $M$, $N\in \N$, then by Lemma \ref{lem:frobNormProperties} it holds
-		
-		\begin{longeq}
-			\norm{\sum^M_{k=0}\frac{1}{k!}X^k-\sum^N_{l=0}\frac{1}{l!}X^l}_F=\norm{\sum^M_{k=N+1}\frac{1}{k!}X^k}_F\leq\sum^M_{k=N+1}\frac{1}{k!}||X||^k_F=\norm{\sum^M_{k=0}\frac{1}{k!}\norm{X}_F^k-\sum^N_{l=0}\frac{1}{l!}\norm{X}_F^l}_F.
-		\end{longeq}
-
-		Since $\{\sum^N_{k=0}\frac{||X||^k_F}{k!}\}_{N=0}^\infty$ is Cauchy, as it is sequence of partial sums of $e^{\norm{X}_F}$, which always converges, we can for any $\varepsilon\in\R^+$ find such $N_0\in\N$ that for every $N, M\geq N_0$ is the last term, hence also the first one, strictly less then $\varepsilon$. Therefore, the sequence $\{\sum^N_{k=0}\frac{1}{k!}X^k\}_{N=0}^\infty$ is Cauchy.
+		\item Let $X^k=(x_{i,j}^{(k)})_{n\times n}$. By Corollary \ref{cor:elementConvergence} every element of matrix $\sum^\infty_{k=0}\frac{1}{k!}X^k=\left(\sum^\infty_{k=0}\frac{1}{k!}x^{(k)}_{i,j}\right)_{n\times n}$ converges absolutely. Therefore the matrix series converges elementwise to some matrix $Y$. By Lemma \ref{lem:elementwiseConvergence} the matrix series converges to matrix $Y$.
 
 		\item
 		Because of the convergence of the matrix exponential we can use Lemma \ref{lem:matrixSeriesFactoring} and we get
 		$$e^{A}B=\sum^\infty_{k=0}\frac{1}{k!}A^{k}B\stackrel{AB=BA}{=\joinrel=\joinrel=}\sum^\infty_{k=0}\frac{1}{k!}BA^{k}=B\sum^\infty_{k=0}\frac{1}{k!}A^{k}=Be^{A}\ .$$
 		
-		\item From Lemma \ref{lem:matrixSeriesFactoring} follows
+		\item By Lemma \ref{lem:matrixSeriesFactoring} follows
 		\begin{longeq}
 			e^{R^{-1}XR}=\sum^\infty_{k=0}\frac{1}{k!}(R^{-1}XR)^{k}=\sum^\infty_{k=0}\frac{1}{k!}R^{-1}X^{k}R=R^{-1}\left(\sum^\infty_{k=0}\frac{1}{k!}X^{k}\right)R=R^{-1}e^{X}R\ . 
 		\end{longeq}
 
-		\item The elements of the matrix $e^{tX}=\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}=(e_{i,j}(t))$ are equal to
+		\item The elements of the matrix $e^{tX}=\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}=(e_{i,j}(t))_{n\times n}$ are equal to
 		$$e_{i,j}(t)=\sum^\infty_{k=0}\frac{t^k}{k!}a^{(k)}_{i,j}\ ,$$
-		where $X^k=(a^{(k)}_{i,j})$. To differentiate the elements of $e^{tX}$ we need to first show that the series converges for any $t\in\R$. By Lemma \ref{lem:elementAbsoluteSize} it holds $\abs*{a_{i,j}^{(k)}}\leq \norm{X}_F^k$. It follows
-		$$\abs{\sum^\infty_{k=0}\frac{t^k}{k!}a^{(k)}_{i,j}}\leq\sum^\infty_{k=0}\frac{\abs{t}^k}{k!}\abs*{a^{(k)}_{i,j}}\leq \sum^\infty_{k=0}\frac{\norm{tX}_F^k}{k!}=e^{\norm{tX}_F}\ .$$
-		This shows that the series is absolutely convergent for every $t\in\R$. We can now differentiate the individual elements 
+		where $X^k=(a^{(k)}_{i,j})$. To differentiate the elements of $e^{tX}$ we need to first show that the series converges for any $t\in\R$. By Corollary \ref{cor:elementConvergence} the series $\sum^\infty_{k=0}\frac{t^k}{k!}a^{(k)}_{i,j}$ is absolutely convergent for every $t\in\K$. We can now differentiate the individual elements 
 		$$\frac{d}{dt}e_{i,j}(t)=\frac{d}{dt}\sum^\infty_{k=0}\frac{t^k}{k!}a^{(k)}_{i,j}=\sum^\infty_{k=1}\frac{t^{k-1}}{(k-1)!}a^{(k)}_{i,j}=\sum^\infty_{k=0}\frac{t^{k}}{k!}a^{(k+1)}_{i,j}\ .$$ 
 		Using Lemma \ref{lem:matrixSeriesFactoring} we get the desired result
 		\begin{longeq}
 			\frac{d}{dt}e^{tX}=\left(\frac{d}{dt}e_{i,j}(t)\right)_{n\times n}=\left(\sum^\infty_{k=0}\frac{t^{k}}{k!}a^{(k+1)}_{i,j}\right)_{n\times n}=\sum^\infty_{k=0}\frac{t^k}{k!}X^{k+1}=X\sum^\infty_{k=0}\frac{t^k}{k!}X^{k}=Xe^{tX}\ .
 		\end{longeq}
 
-		\item Let us write 
+		\item Let us denote elements of matrix $A^kB^l=(\alpha^{(k,l)}_{i,j})_{n\times n}$. Then
 		\begin{align*}
 			e^{A}e^{B}
 			&=\sum^\infty_{k=0}\frac{1}{k!}A^{k}\cdot\sum^\infty_{l=0}\frac{1}{l!}B^{l}
-			=\sum^\infty_{k=0}\sum^k_{l=0}\frac{1}{l!(k-l)!}A^{l}B^{k-l}
+			=\sum^\infty_{k=0}\left(\frac{1}{k!}A^{k}\sum^\infty_{l=0}\frac{1}{l!}B^{l}\right)
+			=\sum^\infty_{k=0}\sum^\infty_{l=0}\frac{1}{k!l!}A^kB^l
+			\\
+			&=\left(\sum^\infty_{k=0}\sum^\infty_{l=0}\frac{1}{k!l!}\alpha^{(k,l)}_{i,j}\right)_{n\times n}
+			=\left(\sum^\infty_{k=0}\sum^k_{l=0}\frac{1}{l!(k-l)!}\alpha^{(l,k-l)}\right)_{n\times n}
+			\\
+			&=\sum^\infty_{k=0}\sum^k_{l=0}\frac{1}{l!(k-l)!}A^{l}B^{k-l}
 			=\sum^\infty_{k=0}\sum^k_{l=0}\binom{k}{l}\frac{1}{k!}A^{l}B^{k-l}
 			\\
 			&=\sum^\infty_{k=0}\frac{1}{k!}(A+B)^{k}
 			=e^{A+B}\ .
 		\end{align*}
-		TODO
-		The crucial point is the second equation in which we use Mertens' theorem. The theorem states that $\left(\sum_{i=0}^\infty a_i x^i\right) \cdot(\sum_{j=0}^\infty b_j x^j) = \sum_{k=0}^\infty a_l b_{k-l} x^k$ as long as at least one of the series on the left side is absolutely convergent. This condition is satisfied because matrix exponential converges absolutely for any matrix, as shown in the proof of the previous point. In the forth equality, we are using the assumption $AB=BA$. 
+		The second and the third equalities hold by Lemma \ref{lem:matrixSeriesFactoring}. The crucial point is the fifth equality in which we reorder the elements of the series as depicted in Figure \ref{fig:reordering}. 
+		\begin{center}
+			\includegraphics[width=70mm]{reordering.pdf}
+			\captionof{figure}{}
+			\label{fig:reordering}
+		\end{center}
+		%\begingroup
+		%\renewcommand*{\arraystretch}{1.5}
+		%$$
+		%\begin{matrix}
+		%	\alpha^{(1,1)}_{(i,j)} & \alpha^{(1,2)}_{(i,j)} & \alpha^{(1,3)}_{(i,j)} & \alpha^{(1,4)}_{(i,j)} & \ldots \\
+		%	\alpha^{(2,1)}_{(i,j)} & \alpha^{(2,1)}_{(i,j)} & \alpha^{(2,1)}_{(i,j)} & \alpha^{(2,1)}_{(i,j)} & \ldots \\
+		%	\alpha^{(3,1)}_{(i,j)} & \alpha^{(3,1)}_{(i,j)} & \alpha^{(3,1)}_{(i,j)} & \alpha^{(3,1)}_{(i,j)} & \ldots \\
+		%	\alpha^{(4,1)}_{(i,j)} & \alpha^{(4,1)}_{(i,j)} & \alpha^{(4,1)}_{(i,j)} & \alpha^{(4,1)}_{(i,j)} & \ldots \\
+		%	\vdots & \vdots & \vdots & \vdots & \ddots
+		%\end{matrix}
+		%$$
+		%\endgroup
+		The equality holds as long as the original series is absolutely convergent, which is true by the Corollary \ref{cor:elementConvergence}. In the penultimate equality, we are using the assumption $AB=BA$. 
 	\end{enumerate}
 \end{proof}
 
@@ -188,7 +204,7 @@ For this definition to be valid, we need to show that the series converges for a
 	Follows straight from the definition of the matrix exponential.
 \end{proof}
 
-Now, using properties from Lemma \ref{lem:expprop}, we can see that $\dot{x}(t)=Ax(t)$ is (uniquely) solved by $x(t)=e^{tA}x(0)$. Let us now discuss under what circumstances does the state $x(t)$ converge to $\nullvector$ for $t\rightarrow\infty$. 
+Now, using properties in Lemma \ref{lem:expprop}, we can see that $\dot{x}(t)=Ax(t)$ is (uniquely) solved by $x(t)=e^{tA}x(0)$. Let us now discuss under what circumstances does the state $x(t)$ converge to $\nullvector$ for $t\rightarrow\infty$. 
 
 Let $A$ be real or complex matrix. Then there is a regular matrix $R\in \C^{n\times n}$ such that the matrix $$J=R^{-1}AR$$ is in the Jordan normal form. By substituting $x(t)=Ry(t)$, which is equivalent with changing the basis of our system, we get 
 \begin{align*}
@@ -239,18 +255,18 @@ Because any block diagonal matrix to the power of any natural number preserves i
 \begin{equation*}
 	J=
 	\begin{pmatrix}
-		J_{\lambda_1,n_1} & 0 & \ldots & 0 \\
-		0 & J_{\lambda_2,n_2} & \ldots & 0 \\
+		J_{\lambda_1,n_1} & 0 & \cdots & 0 \\
+		0 & J_{\lambda_2,n_2} & \cdots & 0 \\
 		\vdots & \vdots & \ddots & \vdots \\
-		0 & 0 & \ldots & J_{\lambda_r,n_r}
+		0 & 0 & \cdots & J_{\lambda_r,n_r}
 	\end{pmatrix},
 	\quad 
 	e^J=
 	\begin{pmatrix}
-		e^{J_{\lambda_1,n_1}} & 0 & \ldots & 0 \\
-		0 & e^{J_{\lambda_2,n_2}} & \ldots & 0 \\
+		e^{J_{\lambda_1,n_1}} & 0 & \cdots & 0 \\
+		0 & e^{J_{\lambda_2,n_2}} & \cdots & 0 \\
 		\vdots & \vdots & \ddots & \vdots \\
-		0 & 0 & \ldots & e^{J_{\lambda_r,n_r}}
+		0 & 0 & \cdots & e^{J_{\lambda_r,n_r}}
 	\end{pmatrix}
 	,
 \end{equation*}
@@ -265,11 +281,11 @@ where zeroes in the matrices represent zero matrices of appropriate sizes. There
 	\begin{equation*}
 		A=
 		\begin{pmatrix}
-			0 & 1 & 0 & \ldots & 0 \\
-			0 & 0 & 1 & \ldots & 0 \\
+			0 & 1 & 0 & \cdots & 0 \\
+			0 & 0 & 1 & \cdots & 0 \\
 			\vdots & \vdots & \vdots & \ddots & \vdots \\
-			0 & 0 & 0 & \ldots & 1 \\
-			-a_n & -a_{n-1} & -a_{n-2} & \ldots & -a_1
+			0 & 0 & 0 & \cdots & 1 \\
+			-a_n & -a_{n-1} & -a_{n-2} & \cdots & -a_1
 		\end{pmatrix}
 		, z(t)=
 		\begin{pmatrix}
@@ -291,9 +307,13 @@ where zeroes in the matrices represent zero matrices of appropriate sizes. There
 
 In a general case, this is called an \termdef{open-loop control} system because the control is not dependent on previous state of the system.
 
+TODO
+
 We can imagine this system as follows. The first part of the right side, $Ax(t)$, of the equation $\dot{x}(t)=Ax(t)+Bu(t)$ can be thought of as the model of machine or event that we want to control and the second part, $Bu(t)$, as our control mechanism. The $B$ matrix is our ``control board'' and the control vector $u(t)$ is us deciding, which levers and buttons we want to push. 
 
 Of course, if we want this system to be self-regulating, we cannot input our own values into $u(t)$, and therefore it has to be calculated from the current state of our system.
+
+END TODO
 
 \begin{definition}
 	Let us have linear differential system with control $u(t)$ defined as
@@ -321,7 +341,7 @@ Through our observations we got to a conclusion, that we need to find a feedback
     Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. We say that polynomial $\chi$ is \termdef{assignable} for the pair $(A,B)$ if there exists such matrix $F\in\K^{m \times n}$ that $$\chi_{A+BF}=\chi\ .$$
 \end{definition}
 
-The pole shifting theorem states, that if $A$ and $B$ are ``sensible'' in a sense that we will discuss in the next section, then arbitrary polynomial $\chi$ of degree $n$ can be assigned to the pair $(A,B)$. It also claims that it is immaterial over what field $A$ and $B$ are.
+The pole shifting theorem states, that if $A$ and $B$ are ``sensible'' in a sense that we will discuss in the next section, then an arbitrary monic polynomial $\chi$ of degree $n$ can be assigned to the pair $(A,B)$. It also claims that it is immaterial over what field $A$ and $B$ are.
 
 \section{Controllable pairs}
 
@@ -367,14 +387,17 @@ $$x_{k+1}=Ax_k+Bu_k$$
 The starting condition is $x_0=\textbf{o}$ and we can choose an arbitrary $u_k$. Then, for $k=0$ we have $$x_1=Ax_0+Bu_0=Bu_0 \in \text{Im}B.$$ For $k=1$ we get
 $$x_2=Ax_1+Bu_1=ABu_0+Bu_1\in\text(AB|B)$$
 It is clear, that
-$$x_k\in\text{Im}(A^{k-1}B|\ldots|AB|B)$$
-We can observe that $\text{Im}(B|AB|\ldots|A^kB) \subseteq \text{Im}(B|AB|\ldots|A^{k+1}B)$. From Cayley-Hamilton theorem we know that $\chi_A(A)=O_{n\times n}$. That means that $A^n$ can be expressed as linear combination of matrices $\{I,A,\ldots,A^{n-1}\}$ or equivalently that $A^nB$ can be expressed as linear combination of matrices $\{B,AB,\ldots,A^{n-1}B\}$. We now see that $\text{Im}(B|AB|\ldots|A^kB) \supseteq \text{Im}(B|AB|\ldots|A^{k+1}B)$ holds. I t follows
-$$\text{Im}(B|AB|\ldots|A^{n-1}B)=\text{Im}(B|AB|\ldots|A^{n-1}B|A^nB)$$
+$$x_k\in\text{Im}(A^{k-1}B|\cdots|AB|B)$$
+We can observe that $\text{Im}(B|AB|\cdots|A^kB) \subseteq \text{Im}(B|AB|\cdots|A^{k+1}B)$. By Cayley-Hamilton theorem we know that $\chi_A(A)=O_{n\times n}$. That means that $A^n$ can be expressed as linear combination of matrices $\{I,A,\ldots,A^{n-1}\}$ or equivalently that $A^nB$ can be expressed as linear combination of matrices $\{B,AB,\ldots,A^{n-1}B\}$. We now see that $\text{Im}(B|AB|\cdots|A^kB) \supseteq \text{Im}(B|AB|\cdots|A^{k+1}B)$ holds. It follows
+\begin{equation}
+\label{eq:cayleHamilReachable}
+	\text{Im}(B|AB|\cdots|A^{n-1}B)=\text{Im}(B|AB|\cdots|A^{n-1}B|A^nB)
+\end{equation}
 Therefore, all the states we could ever reach are already in space
-$$\text{Im}(B|AB|\ldots|A^{n-1}B)$$
+$$\text{Im}(B|AB|\cdots|A^{n-1}B)$$
 
 \begin{definition}
-	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. We define \termdef{reachable space} $\mathcal{R}(A,B)$ of the pair $(A,B)$ as $\text{Im}(B|AB|\ldots|A^{n-1}B)$.
+	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. We define \termdef{reachable space} $\mathcal{R}(A,B)$ of the pair $(A,B)$ as $\text{Im}(B|AB|\cdots|A^{n-1}B)$.
 \end{definition}
 
 We have seen that by left multiplying $\mathcal{R}(A,B)$ by $A$, we get the same subspace. This leads to an important property of some subspaces.
@@ -418,8 +441,19 @@ Note, we used $-AA=A(-A)\Rightarrow e^{-tA}A=Ae^{-tA}$ from Lemma \ref{lem:exppr
 
 Now it is clear that in system where $x(0)=\nullvector$ can every state in time $t\in \R^+$ be expressed as $$x(t)=\int^t_0 e^{(t-s)A}Bu(s)ds$$
 
+\begin{definition}
+	We say that a state $x(t)$ can be \termdef{reached} in time $t$, if there exists a control $u(x)\colon[0,t]\rightarrow\K^m$ such that
+	$$x(t)=\int^t_0 e^{(t-s)A}Bu(s)ds\ .$$
+
+	The set of all states that can be reached in the times $t$ is denoted by $\mathcal{R}^t$. The set $\mathcal{R}=\cup_{t\in\R^+}\mathcal{R}^t$ of all states that can be reached, is called a \termdef{reachable space}.
+\end{definition}
+
+\begin{definition}
+	A $n$-dimensional continuous-time linear system is \termdef{controllable}, if $\mathcal{R}=\K^n$.
+\end{definition}
+
 \begin{theorem}
-	The $n$-dimensional continuous-time linear system is controllable, meaning that $x(t)$ can be equal to any vector in $\K^n$, if and only if $\text{dim}\mathcal{R}(A,B)=n$.
+	The $n$-dimensional continuous-time linear system is controllable if and only if $\text{dim}\mathcal{R}(A,B)=n$.
 \end{theorem}
 
 \begin{proof}
@@ -435,16 +469,7 @@ Now it is clear that in system where $x(0)=\nullvector$ can every state in time 
 		=\int^t_0\sum^\infty_{k=0}\sum^m_{j=1}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
 	$$
 	
-	Now, in order to be able to modify this expression, we will prove that the series $\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)$ are convergent for every position $(i, j)$. To show this, we will use the estimate from Lemma \ref{lem:elementAbsoluteSize}, that is, $\abs*{\alpha_{i,j}^{(k)}}\leq\norm{A^kB}_F\leq\norm{A}^k_F\norm{B}_F$. Then
-	\begin{align*}
-		&\abs{\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)}
-		\leq\sum^\infty_{k=0}\frac{\abs{t-s}^k}{k!}\abs*{\alpha^{(k)}_{i,j}}\abs{u_j(s)}\leq
-		\\
-		\leq&\sum^\infty_{k=0}\frac{\norm{(t-s)A}_F^k}{k!}\norm{B}_F\abs{u_j(s)}
-		=\norm{B}_F\abs{u_j(s)}\sum^\infty_{k=0}\frac{\norm{(t-s)A}_F^k}{k!}
-		=\norm{B}_F\abs{u_j(s)}e^{\norm{(t-s)A}_F}
-	\end{align*}
-	Because of the the convergence, we can now swap the integral and the series.
+	Now, in order to be able to modify this expression, we will prove that the series $\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)$ is convergent for every position $(i, j)$. This comes from Corollary \ref{cor:elementConvergence}, and from the fact that we can factor constants out of convergent number series. Because of the the convergence, we can now swap the integral and the series:
 	\begin{align*}
 		x_i(t)
 		&=\int^t_0\sum^\infty_{k=0}\sum^m_{j=1}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
@@ -456,11 +481,12 @@ Now it is clear that in system where $x(0)=\nullvector$ can every state in time 
 		&=\sum^m_{j=1}\sum^\infty_{k=0}\alpha^{(k)}_{i,j}\int^t_0\frac{(t-s)^k}{k!}u_j(s)ds
 		=\sum^\infty_{k=0}\sum^m_{j=1}\alpha^{(k)}_{i,j}\int^t_0\frac{(t-s)^k}{k!}u_j(s)ds
 		\\
-		&=\sum^\infty_{k=0}\sum^m_{j=1}\alpha^{(k)}_{i,j}v^{(k)}_i(t)
+		&=\sum^\infty_{k=0}\sum^m_{j=1}\alpha^{(k)}_{i,j}v^{(k)}_i(t)\ ,
 	\end{align*}
 	where $v^{(k)}(t)=\int^t_0\frac{(t-s)^k}{k!}u(s)ds$ is a vector of length $m$. Therefore, we have 
 	$$x(t)=\sum^\infty_{k=0}A^kBv_k(t)=\sum^\infty_{k=0}A^kB\int^t_0\frac{(t-s)^k}{k!}u(s)ds$$
-	Now it its clear that $$x(t) \in \text{Im}(B|AB|\ldots|A^kB|\ldots)\subseteq \text{Im}(B|AB|\ldots|A^{n-1}B)=\mathcal{R}(A,B)$$ 
+	Now it its clear that $$x(t) \in \text{Im}(B|AB|\ldots|A^kB|\ldots)=\text{Im}(B|AB|\ldots|A^{n-1}B)=\mathcal{R}(A,B)$$ 
+	The first equality follows from the equality (\ref{eq:cayleHamilReachable}).
 	
 	If the system is controllable then $x(t)$ can be equal to any of the vectors of an arbitrary basis of $\K^n$. Therefore, we know that $n$ linearly independent vectors belong into $\mathcal{R}(A,B)$, and naturally it follows $\text{dim}\mathcal{R}(A,B)=n$.
 
@@ -513,7 +539,7 @@ If $(A,B)$ is not controllable, then there exists subspace of our state space th
 	$$[f_A]^C_C=[\text{id}]^K_C[f_A]^K_K[\text{id}]^C_K=[\text{id}]^K_CA[\text{id}]^C_K$$ 
 	is in a block triangular form. By putting $T=[\text{id}]^C_K=C$ we get that $\widetilde{A}=[f_A]^C_C$ is now in the desired form.
 
-	Consider now matrix mapping $f_B$. We have $$\widetilde{B}=TB=[\text{id}]^{K_n}_C[f_B]^{K_m}_{K_n}=[f_B]^{K_m}_C=([f_B(e_1)]_C,\ldots,[f_B(e_m)]_C)$$ Since $f_B(e_i)$ is $i$-th column of matrix $B$ and trivially from definition of reachable space it holds $\text{Im}(B)\subseteq \mathcal{R}(A,B)$, we see that $\widetilde{B}$ is in the requested form.
+	Consider now matrix mapping $f_B$. We have $$\widetilde{B}=TB=[\text{id}]^{K_n}_C[f_B]^{K_m}_{K_n}=[f_B]^{K_m}_C=([f_B(e_1)]_C,\ldots,[f_B(e_m)]_C)$$ Since $f_B(e_i)$ is $i$-th column of matrix $B$ and trivially by definition of a reachable space it holds $\text{Im}(B)\subseteq \mathcal{R}(A,B)$, we see that $\widetilde{B}$ is in the requested form.
 \end{proof}
 
 We achieved the new form of matrices $A$ and $B$ by changing the basis of our state space. We now define the relation between $(A,B)$ and $(\widetilde{A},\widetilde{B}).$
@@ -568,13 +594,13 @@ It is also true that $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is a controll
 \begin{proof}
 	We know that $\text{dim}\mathcal{R}(A,B)=r$. We desire $\text{dim}\mathcal{R}(A_1,B_1)=r$. We will show that $\mathcal{R}(\widetilde{A},\widetilde{B})=\mathcal{R}(A,B)$ and that each vector in $\mathcal{R}(\widetilde{A},\widetilde{B})$ has its last $n-r$ elements equal to 0 and that $\mathcal{R}(\widetilde{A},\widetilde{B})$ restricted on its first $r$ coordinates is equal to $\mathcal{R}(A_1,B_1)$. 
 	\begin{align*}
-		\mathcal{R}(\widetilde{A},\widetilde{B})&=\text{Im}(\widetilde{A}^{n-1}\widetilde{B}|\ldots|\widetilde{A}\widetilde{B}|\widetilde{B}) \\
-		&=\text{Im}((T^{-1}AT)^{n-1}T^{-1}B|\ldots|T^{-1}ATT^{-1}B|T^{-1}B) \\
-		&=\text{Im}(T^{-1}A^{n-1}B|\ldots|T^{-1}AB|T^{-1}B) \\
-		&=\{(T^{-1}A^{n-1}B|\ldots|T^{-1}AB|T^{-1}B)\cdot v | v \in \K^{n\cdot m}\} \\
-		&=\{T^{-1}(A^{n-1}B|\ldots|AB|B)\cdot v | v \in \K^{n\cdot m}\} \\
-		&=T^{-1}\cdot\{(A^{n-1}B|\ldots|AB|B)\cdot v | v \in \K^{n\cdot m}\} \\
-		&=T^{-1}\cdot(\text{Im}(A^{n-1}B|\ldots|AB|B)) \\
+		\mathcal{R}(\widetilde{A},\widetilde{B})&=\text{Im}(\widetilde{A}^{n-1}\widetilde{B}|\cdots|\widetilde{A}\widetilde{B}|\widetilde{B}) \\
+		&=\text{Im}((T^{-1}AT)^{n-1}T^{-1}B|\cdots|T^{-1}ATT^{-1}B|T^{-1}B) \\
+		&=\text{Im}(T^{-1}A^{n-1}B|\cdots|T^{-1}AB|T^{-1}B) \\
+		&=\{(T^{-1}A^{n-1}B|\cdots|T^{-1}AB|T^{-1}B)\cdot v | v \in \K^{n\cdot m}\} \\
+		&=\{T^{-1}(A^{n-1}B|\cdots|AB|B)\cdot v | v \in \K^{n\cdot m}\} \\
+		&=T^{-1}\cdot\{(A^{n-1}B|\cdots|AB|B)\cdot v | v \in \K^{n\cdot m}\} \\
+		&=T^{-1}\cdot(\text{Im}(A^{n-1}B|\cdots|AB|B)) \\
 		&=T^{-1}\cdot(\mathcal{R}(A,B))
 	\end{align*}
 	where by $\cdot\colon\K^{n\times m}\times V\rightarrow W$ where $V$, $W$ are vector spaces is defined as $A\cdot V=\{Av|v\in V\}$.
@@ -620,7 +646,7 @@ It is also true that $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is a controll
                 A_1^{n-1}B_1 \\
                 0 
             \end{pmatrix}
-            & \ldots &
+            & \cdots &
             \begin{pmatrix}
                 A_1B_1 \\
                 0 
@@ -633,7 +659,7 @@ It is also true that $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is a controll
         \end{pmatrix}
     \end{equation*}
 	
-	From Cayle-Hemilton theorem we therefore again have that the restriction to first $r$ coordinates (those which are not 0) of $\mathcal{R}(\widetilde{A},\widetilde{B})$ are equal to $\mathcal{R}(A_1,B_1)$. Finally, it follows that $$\text{dim}\mathcal{R}(A_1,B_1)=\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}\mathcal{R}(A,B)=r$$
+	By Cayle-Hemilton theorem we therefore again have that the restriction to first $r$ coordinates (those which are not 0) of $\mathcal{R}(\widetilde{A},\widetilde{B})$ are equal to $\mathcal{R}(A_1,B_1)$. Finally, it follows that $$\text{dim}\mathcal{R}(A_1,B_1)=\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}\mathcal{R}(A,B)=r$$
 \end{proof}
 
 Now we can see that the decomposition from Theorem \ref{theorem:decomp} decomposes the matrix $A$ into ``controllable'' and ``uncontrollable'' parts $A_1$ and $A_3$ respectively.
@@ -653,7 +679,7 @@ For this definition to be correct, we need to show that polynomials $\chi_{A_1}$
 \end{lemma}
 
 \begin{proof}
-	From definition we have $\chi_c=\chi_{A_1}$ where $A_1$ is some matrix for a specific decomposition of matrix $A$ thanks to basis $C$ used in a proof of Theorem \ref{theorem:decomp}. Consider different basis $D$ which suffices the conditions from the said proof. Then we obtain a similar matrix $\widetilde{B}=[id]^K_DA[id]^D_K$. We denote the $r \times r$ matrix in the top left corner of $\widetilde{B}$ by $B_1$. We want to show $\chi_{A_1}=\chi_{B_1}$.
+	By definition we have $\chi_c=\chi_{A_1}$ where $A_1$ is some matrix for a specific decomposition of matrix $A$ thanks to basis $C$ used in a proof of Theorem \ref{theorem:decomp}. Consider different basis $D$ which suffices the conditions from the said proof. Then we obtain a similar matrix $\widetilde{B}=[id]^K_DA[id]^D_K$. We denote the $r \times r$ matrix in the top left corner of $\widetilde{B}$ by $B_1$. We want to show $\chi_{A_1}=\chi_{B_1}$.
 	
 	Let us have matrices
 	\begin{equation*}
