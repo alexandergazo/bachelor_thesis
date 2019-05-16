@@ -12,6 +12,14 @@
 *.cb2
 .*.lb
 
+## Personal rules
+
+reordering2.pdf
+reordering2.png
+reordering_correct.pdf
+reordering_correct.png
+title_orig.tex
+
 ## Intermediate documents:
 *.dvi
 *.xdv

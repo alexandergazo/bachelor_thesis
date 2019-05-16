@@ -1,5 +1,7 @@
 \chapter{The Pole Shifting Theorem}
 
+The following chapter is based on the fifth chapter of \cite{Sontag1998}.
+
 \begin{definition}
     The \termdef{controller form} associated to the pair $(A,b)$ is the pair 
     \begin{equation*}
@@ -73,7 +75,7 @@
 \end{proof}
 
 \begin{theorem}
-    Let $\K$ be a field. Let $A\in\K^{n\times n}$, $B\in\K^{n\times m}$. The assignable polynomials for pair $(A,B)$ are precisely of the form $$\chi_{AB+F}=\chi\chi_u$$ where $\chi$ is an arbitrary monic polynomial of degree $r=\text{dim}\mathcal{R}(A,B)$ and $\chi_u$ is the uncontrollable part of the assignable polynomial.
+    Let $\K$ be a field. Let $A\in\K^{n\times n}$, $B\in\K^{n\times m}$. The assignable polynomials for the pair $(A,B)$ are precisely of the form $$\chi_{AB+F}=\chi\chi_u$$ where $\chi$ is an arbitrary monic polynomial of degree $r=\text{dim}\mathcal{R}(A,B)$ and $\chi_u$ is the uncontrollable part of the assignable polynomial.
 
     In particular, the pair $(A,B)$ is controllable if and only if every nth degree monic polynomial can be assigned to it.
 \end{theorem}
@@ -113,7 +115,7 @@
     \end{align*}
     It follows 
     $$\chi_{A+BF}=\chi_{A_1+B_1F_1}\chi_{A_3}=\chi_{A_1+B_1F_1}\chi_u$$
-    We see that any assignable polynomial has the desired factored form.
+    We see that any assignable polynomial is a multiple of the uncontrollable part $\chi_u$.
 
     Conversely, we want to show that the first factor can be made arbitrary by a suitable choice of $F_1$. This does make sense only for $r>0$, otherwise the assignable polynomial is equal to $\chi_u$, which cannot be changed by modifying the matrix $F$. Assume that we are given a monic polynomial $\chi$. If we find such a matrix $F_1$ that 
     $$\chi_{A_1+B_1F_1}=\chi$$
@@ -159,67 +161,60 @@
             \alpha_1+f_1 & \alpha_2+f_2 & \alpha_3+f_3 & \ldots & \alpha_n+f_n
         \end{pmatrix}\ .
     \end{align*}
-    One can see that for a given monic polynomial
-    $$\chi=s^n-\beta_ns^{n-1}-\ldots-\beta_2s-\beta_1$$
+    One can see that given a monic polynomial
+    $$\chi=s^n-\beta_ns^{n-1}-\ldots-\beta_2s-\beta_1\ ,$$
     we can choose
     $$f=\begin{pmatrix}
         \beta_1-\alpha_1&\beta_2-\alpha_2&\ldots&\beta_n-\alpha_n
     \end{pmatrix}\ ,$$
     and then it holds $\chi_{A+bf}=\chi$. We have shown that for the case $m=1$, a controllable pair $(A,b)$ can be assigned an arbitrary monic polynomial of degree $n$.
 
-    For a general case, where $m$ is arbitrary, we choose any vector $v\in\K^m$ such that $Bv\neq \nullvector$, and let $b=Bv$. We will use the fact that a pair $(A+BF_1,b)$ can be assigned the same polynomials as a pair $(A,B)$, because for any $f\in\K^{1\times n}$ it holds
-    $${A+BF_1+bf}={A+BF_1+Bvf}={A+B(F_1+vf)}$$
-    and therefore, for $F=F_1+vf$ we have 
-    $$\chi_{A+BF_1+bf}=\chi_{A+BF}\ .$$
-    Using the result for $m=1$, the proof will be concluded by showing that the pair $(A+BF_1,b)$ is controllable.
+    For a general case, where $m$ is arbitrary, we choose any vector $v\in\K^m$ such that $Bv\neq \nullvector$, and let $b=Bv$. We will use the fact that a pair $(A+BG,b)$ can be assigned the same polynomials as a pair $(A,B)$, because for any $f\in\K^{1\times n}$ it holds
+    $${A+BG+bf}={A+BG+Bvf}={A+B(G+vf)}$$
+    and therefore, for $F=G+vf$ we have 
+    $$\chi_{A+BG+bf}=\chi_{A+BF}\ .$$
+    Using the result for $m=1$, the proof will be concluded by showing that the pair $(A+BG,b)$ is controllable.
        
     Let us have an arbitrary sequence of linearly independent vectors $\{Bv=x_1,\ldots,x_k\}$, $x_i\in\K^n$, where
     \begin{equation}
     \label{eq:indSeq}
         x_{i}=Ax_{i-1}+Bu_{i-1},\ i\in\{1,\ldots,k\}
     \end{equation}
-    for some $u_i\in\K^m$, and $x_0=\nullvector$. Consider $k$ to be as large as possible. We denote $\mathcal{V}=\text{Im}\{x_1,\ldots,x_k\}$. By maximality of $k$ we have
+    for some $u_i\in\K^m$, and $x_0=\nullvector$. Consider $k$ to be as large as possible. We denote $\mathcal{V}=\text{Im}(x_1,\ldots,x_k)$. By maximality of $k$ we have $x_{k+1}\in\mathcal{V}$, which implies that
     \begin{equation}
     \label{eq:inV}    
-        x_{k+1}=Ax_k+Bu\in\mathcal{V}
+        Ax_k+Bu=x_{k+1}\in\mathcal{V}
     \end{equation}
     for any $u\in\K^m$. Therefore, in particular for $u=\nullvector$, we get 
-    $$Ax_k\in\mathcal{V}\ .$$
-    It follows by (\ref{eq:inV}), that for any $u\in\K^m$ it holds
-    $$Bu\in\mathcal{V}-\{Ax_k\}\subseteq\mathcal{V}\ .$$
-    Thus, for the column space of the matrix $B$ (denoted by $\mathcal{B}$) we have $\mathcal{B}\subseteq \mathcal{V}$. By equality (\ref{eq:indSeq}) it is true
-    $$x_i-Ax_{i-1}\in\mathcal{B}\subseteq \mathcal{V}\ ,$$
-    for $i\in\{1,\ldots,k\}$. We can now write 
-    $$-Ax_{i-1}\in\mathcal{V}-\{x_i\}\subseteq \mathcal{V}\ .$$
-    Since $\mathcal{V}$ is an vector space, also $Ax_{i-1}\in\mathcal{V}$. This means, that $\mathcal{V}$ is an $A$-invariant subspace containing $\mathcal{B}$. One can see that
-    $$\mathcal{V}\supseteq\text{Im}(B|AB|A^2B|\ldots|A^kB|\ldots)=\text{Im}(B|AB|A^2B|\ldots|A^kB)=\mathcal{R}(A,B)\ ,$$
-    where the second equality holds by discussion around the equality (\ref{eq:cayleHamilReachable}). Because of this relation, we observe that
+    \begin{equation}
+    \label{eq:AxkinV}
+        Ax_k\in\mathcal{V}\ .
+    \end{equation}
+    It follows by (\ref{eq:inV}) and (\ref{eq:AxkinV}) and the maximality of $k$, that for any $u\in\K^m$ it holds
+    $$Bu=x_{k+1}-Ax_k\in\mathcal{V}\ ,$$
+    which implies that the column space $\mathcal{B}=\text{Im}B$ is included in $\mathcal{V}$. Following from this and the equality (\ref{eq:indSeq}), we have 
+    $$Ax_{i-1}=x_i-Bu_{i-1}\in\mathcal{V}$$
+    for $i\in\{1,\ldots,k\}$. This result together with the equation (\ref{eq:AxkinV}) shows that for any $i\in\{1,\ldots,k\}$ it is true $Ax_i\in\mathcal{V}$. This means, that $\mathcal{V}$ is an $A$-invariant subspace containing $\mathcal{B}$. Using these two facts and the fact that for any two matrices $A_{n\times m},B_{m\times o}$ it holds $A(\text{Im}(B))=\{Av|v\in\text{Im(B)}\}=\text{Im}(AB)$, one can then construct a sequence
+    \begin{align*}
+        \mathcal{B}&\subseteq\mathcal{V} \\
+        A\mathcal{B}&\subseteq A\mathcal{V}\subseteq\mathcal{V} \\
+        A^2\mathcal{B}&\subseteq A(A\mathcal{V})\subseteq\mathcal{V} \\
+        &\vdotswithin{\subseteq} \\
+        A^k\mathcal{B}&\subseteq\mathcal{V}
+        \ .
+    \end{align*}
+    We can now see
+    $$\mathcal{V}\supseteq\text{Im}(B|AB|A^2B|\ldots|A^kB)=\mathcal{R}(A,B)\ .$$
+    Using this relation, we observe that
     $$\text{dim}\mathcal{R}(A,B)\leq\text{dim}\mathcal{V}=k\leq\text{dim}\K^n=n\ .$$
-    Since the pair $(A,B)$ is by the assumption controllable, we know that $\text{dim}\mathcal{R}(A,B)=n$. Therefore, $n=k$.
+    Since the pair $(A,B)$ is by the assumption controllable (meaning $\text{dim}\mathcal{R}(A,B)=n$) we arrive at conclusion $n=k$.
 
     Finally, we need to show that
-    $$\text{dim}\mathcal{R}(A+BF_1,x_1)=n\ .$$
-    By letting 
-    $$F_1x_i=u_i\ ,$$
-    which is equivalent with 
-    \begin{equation}
-        F_1
-        \begin{pmatrix}
-            x_1 & x_2 & \ldots & x_n
-        \end{pmatrix}
-        =
-        \begin{pmatrix}
-            u_1 & u_2 & \ldots & u_n
-        \end{pmatrix}\ ,
-    \end{equation}
-    we achieve
-    $$(A+BF_1)x_i=Ax_i+BF_1x_i=Ax_i+Bu_i=x_{i+1}\ ,$$
-    and therefore 
-    \begin{equation}
-    \label{eq:reachIm}
-        \mathcal{R}(A+BF_1,x_1)=\text{Im}\{x_1,x_2,\ldots,x_n\}\ .
-    \end{equation}
-    We can define the matrix $F_1$ in this way, because the matrix $\begin{pmatrix} x_1 & x_2 & \ldots & x_n \end{pmatrix}$ is a square matrix with linearly independent columns and therefore, its rows are also linearly independent. Using this fact, and the fact that $i$-th row of the matrix $\begin{pmatrix} u_1 & u_2 & \ldots & u_n \end{pmatrix}$ is the result of linear combination of the rows of the matrix $\begin{pmatrix} x_1 & x_2 & \ldots & x_n \end{pmatrix}$ with coefficients in $i$-th row of the matrix $F_1$, one can see that the definition of $F_1$ is valid.
+    $$\text{dim}\mathcal{R}(A+BG,x_1)=n\ .$$
 
-    Finally, the equality (\ref{eq:reachIm}) implies, by linear independence of the vectors $x_1,\ldots,x_n$, that $\text{dim}\mathcal{R}(A+BF_1,x_1)=n$. We have shown that the pair $\mathcal{R}(A+BF_1,Bv)$ is controllable, and thus the proof is concluded.
+    Let us define a linear mapping $g\colon\mathcal{V}\to\mathcal{B}$ by equation $g(x_i)=u_i$. This definition is correct and unique since the vectors $v_i$ form a basis for $\mathcal{V}$ (see \cite{Barto}). Let $G$ be the matrix of the linear mapping $g$. Then for every $i\in\{1,\ldots,k=n\}$ we have
+    $$(A+BG)x_i=Ax_i+BGx_i=Ax_i+Bu_i=x_{i+1}\ .$$
+    It follows 
+    $$\mathcal{R}(A+BG,x_1)=\text{Im}(x_1,x_2,\ldots,x_n)\ .$$
+    Finally, by linear independence of the vectors $x_1,\ldots,x_n$, it is proved that $\text{dim}\mathcal{R}(A+BG,x_1)=n$. We have shown that the pair $\mathcal{R}(A+BG,Bv)$ is controllable, and thus the proof is concluded.
 \end{proof}

@@ -20,6 +20,8 @@ Pole shifting theorem is one of the basic results of the theory of linear dynami
 		\dot{x}_n(t)&=a_{n,1}x_1(t)+\ldots+a_{n,n}x_n(t)\ .
 	\end{align*}
 	The system can be written in a matrix form $$\dot{x}(t)=Ax(t)\ ,$$ where $x(t)=(x_1(t),\ldots,x_n(t))^T \in \C^n$ is a \termdef{state vector} (shortly \termdef{state}) of the system. The matrix $A\in \C^{n\times n}$, $A=(a_{i,j})$ is a \termdef{fundamental matrix} of the system. The \termdef{initial condition} of the system is the state $x(0)$.
+
+	This system is also called a \termdef{linear autonomous system}.
 \end{definition}
 
 We will use the matrix form, as it is a very compact way of describing the system.
@@ -215,15 +217,23 @@ For this definition to make sense, we need to show that the series converges for
 	Follows straight from the definition of the matrix exponential.
 \end{proof}
 
-Now, using properties in Lemma \ref{lem:expprop}, we can see that $\dot{x}(t)=Ax(t)$ is solved by $x(t)=e^{tA}x(0)$. The solution is unique which follows from advanced calculus. Let us now discuss under what circumstances does the state $x(t)$ converge to $\nullvector$ for $t\rightarrow\infty$. 
+Now, using properties in Lemma \ref{lem:expprop}, we can see that $\dot{x}(t)=Ax(t)$ is solved by $x(t)=e^{tA}x(0)$. The solution is unique which follows from intermediate calculus. 
 
-Let $A$ be a real or complex matrix. Then there is a regular matrix $R\in \K^{n\times n}$ such that the matrix $$J=R^{-1}AR$$ is in the Jordan normal form. By substituting $x(t)=Ry(t)$, which is equivalent with changing the basis of our system, we get 
+Typically, we require the autonomous system to stabilize itself back into its stable state after some disturbances.
+
+\begin{definition}
+	The linear autonomous system $\dot{x}(t)=Ax(t)$ is \termdef{stable}, if for any initial state $x(0)\in\K^n$ the system converges to $\nullvector$ for $t\to\infty$.
+\end{definition}
+
+Let us now discuss under what circumstances is a linear autonomous system stable. 
+
+Let $A$ be a real or complex matrix. Then there is a regular matrix $R\in \K^{n\times n}$ such that the matrix $$J=R^{-1}AR$$ is in the Jordan normal form. By substituting $x(t)=Ry(t)$, which is equivalent to changing the basis of our system, we get 
 \begin{align*}
 	R\dot{y}(t)&=ARy(t) \\
 	\dot{y}(t)&=R^{-1}ARy(t) \\
 	\dot{y}(t)&=Jy(t)
 \end{align*}
-and therefore the unique solution is $$y(t)=e^{tJ}y(0)\ ,$$ where $y(0)=R^{-1}x(0)$. It is sufficient to show that $y(t)$ converges to \nullvector, because since $R$ is an invertible matrix,  $x(t)$ converges to $\nullvector$ if and only if $y(t)$ converges to $\nullvector$.
+and therefore the unique solution is $$y(t)=e^{tJ}y(0)\ ,$$ where $y(0)=R^{-1}x(0)$. It is sufficient to determine when $y(t)$ does converge to \nullvector, because since $R$ is an invertible matrix, $x(t)$ converges to $\nullvector$ if and only if $y(t)$ converges to $\nullvector$.
 
 We know that every Jordan block $J_{\lambda,n}$ in the matrix $J$ can be decomposed as $J_{\lambda,n}=\lambda I_n+N_n$, $n \in\N$ where $N_n$ is $n \times n$ nilpotent matrix satisfying $n_{i,j}=\delta_{i,j-1}$. For example, in case of $n=4$ we have
 \begin{equation*}
@@ -252,15 +262,15 @@ We know that every Jordan block $J_{\lambda,n}$ in the matrix $J$ can be decompo
 \end{equation*}
 It is also true that $(N_n)^k_{i,j}=\delta_{i,j-k}$ and $(N_n)^n=O_{n \times n}$, since every right multiplication by matrix $N$ shifts the multiplied matrix's columns to the right by one column, that is, it maps matrix $(v_1,\ldots,v_n)$ onto $(\nullvector,v_1,\ldots,v_{n-1})$. 
 
-By using Lemma \ref{lem:expprop}, we now for each Jordan block $J_{\lambda,n}$ have
+By Lemma \ref{lem:expprop}, for each Jordan block $J_{\lambda,n}$, we now have
 $$e^{tJ_{\lambda,n}}=e^{t(\lambda I + N)}=e^{t\lambda I}e^{tN}=e^{\lambda t}e^{tN}\ .$$
 Let $\lambda = a+ib$ where $a$,$b \in \R$. Then we have
 $$e^{tJ_{\lambda,n}}=e^{at}e^{ibt}e^{tN}\ .$$
 We know that $|e^{ibt}|=1$ and that
 $$e^{tN}=\sum^\infty_{k=0}\frac{t^k}{k!}N^k=\sum^{n-1}_{k=0}\frac{t^k}{k!}N^k$$
-since $(N_n)^n=O_{n \times n}$. Therefore, we can see that every element of matrix $e^{tN}$ is a polynomial in $t$ of degree less than $n$. It follows that $e^{tJ_{\lambda,n}}$ approaches $O_{n \times n}$ in infinity if
+since $(N_n)^n=O_{n \times n}$. Therefore, we can see that every element of matrix $e^{tN}$ is a polynomial in $t$ of degree less than $n$. It follows that $e^{tJ_{\lambda,n}}$ approaches $O_{n \times n}$ for $t\rightarrow\infty$ if and only if
 $$\lim_{t\to\infty}e^{at}t^{n-1}=0\ .$$
-This holds for any $n\in\N$ as long as $a<0$. 
+This holds for any $n\in\N$ if and only if $a<0$. 
 
 Because any block diagonal matrix to the power of any natural number preserves its block form, we can write
 \begin{equation*}
@@ -318,29 +328,28 @@ where zeroes in the matrices represent zero matrices of appropriate sizes. There
 
 In a general case, this is called an \termdef{open-loop control} system because the control is not dependent on previous state of the system.
 
-TODO
+We can imagine this system as follows. The first part of the right-hand side, $Ax(t)$, of the equation $\dot{x}(t)=Ax(t)+Bu(t)$ can be thought of as the model of the machine or the event that we want to control and the second part, $Bu(t)$, as our control mechanism. The $B$ matrix is then our ``control board'' and the control vector $u(t)$ is us deciding, which ``levers'' and ``buttons'' we want to push. 
 
-We can imagine this system as follows. The first part of the right side, $Ax(t)$, of the equation $\dot{x}(t)=Ax(t)+Bu(t)$ can be thought of as the model of machine or event that we want to control and the second part, $Bu(t)$, as our control mechanism. The $B$ matrix is our ``control board'' and the control vector $u(t)$ is us deciding, which levers and buttons we want to push. 
-
-Of course, if we want this system to be self-regulating, we cannot input our own values into $u(t)$, and therefore it has to be calculated from the current state of our system.
-
-END TODO
+Of course, if we want this system to be self-regulating, we cannot input our own values into $u(t)$, and therefore $u(t)$ has to be calculated from the current state of our system.
 
 \begin{definition}
 	Let us have linear differential system with control $u(t)$ defined as
 	$$u(t)=Fx(t)\ ,$$
 	where $F\in\C^{m\times n}$ is a \termdef{feedback matrix}. This system is then called a \termdef{closed-loop control} system or a \termdef{linear feedback control} system.
+
+	We will call this system shortly $(A,B,F)$ system.
 \end{definition}
 
-Typically, we require a feedback control system to stabilize itself back into its stable state after some disturbances. 
+The feedback control system can be expressed as a first order linear differential system
+$$\dot{x}(t)=Ax(t)+BFx(t)=(A+BF)x(t)\ .$$
 
 \begin{definition}
-	We say that the system $(A,B)$ is \termdef{stable}, if it converges to the null vector.
+	The linear feedback system $(A,B,F)$ is \termdef{stable}, if the linear autonomous system $\dot{x}(t)=(A+BF)x(t)$ is stable.
 \end{definition}
 
-The feedback control system can be expressed as a first order linear differential system $$\dot{x}(t)=Ax(t)+BFx(t)=(A+BF)x(t)\ .$$ As discussed in the first section, we now know that the system converges to $\nullvector$ if all of the eigenvalues of matrix $A+BF$ have negative real parts. 
+As discussed in the first section, we now know that the system is stable (converges to $\nullvector$ for $t\to\infty$) if all the eigenvalues of matrix $A+BF$ have negative real parts. 
 
-Therefore, the system can stabilize itself if we find such matrix $F \in \C^{n \times n}$ that all the eigenvalues of the matrix $A+BF$ have negative real parts. This requirement can be expressed through characteristic polynomial of the matrix $A+BF$, since roots of the characteristic polynomial of a matrix are precisely the eigenvalues of the matrix.
+Therefore, the system can stabilize itself if we find such matrix $F \in \C^{n \times n}$ that all the eigenvalues of the matrix $A+BF$ have negative real parts. This requirement can be expressed through the characteristic polynomial of the matrix $A+BF$, since roots of the characteristic polynomial of a matrix are precisely eigenvalues of the matrix.
 
 \begin{definition}
 	Let $A$ be a $n\times n$ matrix. Then the \termdef{characteristic polynomial} of A, denoted by $\chi_A$, is defined as $$\chi_A(s)=\textnormal{det}(sI_n-A)\ .$$
@@ -349,7 +358,7 @@ Therefore, the system can stabilize itself if we find such matrix $F \in \C^{n \
 Through our observations we got to a conclusion, that we need to find a feedback matrix $F$ such that the characteristic polynomial of the matrix $A+BF$ is $$\chi_{A+BF}=(x-\lambda_1)(x-\lambda_2)\cdots(x-\lambda_n)\ ,$$ where all its roots $\lambda_1,\lambda_2,\ldots,\lambda_n \in \C$ have negative real parts. This leads to an important definition.
 
 \begin{definition}
-    Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. We say that polynomial $\chi$ is \termdef{assignable} for the pair $(A,B)$ if there exists such matrix $F\in\K^{m \times n}$ that $$\chi_{A+BF}=\chi\ .$$
+    Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. We say that polynomial $\chi$ is \termdef{assignable for the pair} $(A,B)$ if there exists such matrix $F\in\K^{m \times n}$ that $$\chi_{A+BF}=\chi\ .$$
 \end{definition}
 
 The pole shifting theorem states, that if $A$ and $B$ are ``sensible'' in a sense that we will discuss in the next section, then an arbitrary monic polynomial $\chi$ of degree $n$ can be assigned to the pair $(A,B)$. It also claims that it is immaterial over what field $A$ and $B$ are.
@@ -381,6 +390,8 @@ by choosing $A=e^{\delta A_1}$. We see that we can calculate the next value of $
 	where $x_k\in \K^n$ is a \termdef{state vector} (shortly \termdef{state}) of the system, the matrix $A\in \K^{n\times n}$ is a \termdef{fundamental matrix} of the system. The \termdef{initial condition} of the system is the state $x(0)$.
 \end{definition}
 
+Similarly, we can define a discrete dynamical linear system with control.
+
 \begin{definition}
 	A \termdef{discrete dynamical linear system with control u} is a system of equations
 	$$x_{k+1}=Ax_k+Bu_k,\ k\in\N_0\ ,$$
@@ -390,41 +401,48 @@ by choosing $A=e^{\delta A_1}$. We see that we can calculate the next value of $
 \end{definition}
 
 \begin{definition}
-	We say that a state $x$ can be \termdef{reached} in time $k\in\N_0$ if there exists such a sequence of control vectors $u_0,u_1,\ldots,u_k$ that for starting condition $x_0=\nullvector$ we get $x=x_k$, after $k$ iterations of $x_{l+1}=Ax_l+Bx_l$, where $l\in\{0,1,\ldots,k-1\}$.
+	We say that a state $x$ can be \termdef{reached} in time $k\in\N_0$ if there exists such a sequence of control vectors $u_0,u_1,\ldots,u_{k-1}$ that for the initial condition $x_0=\nullvector$ we get $x=x_k$.
 \end{definition}
 
-States that we can reach in set number of iterations in a open-loop control discrete-time systems can be derived as follows. From state $x_k$ and control vector $u_k$ is the next state $x_{k+1}$ computed by equation
-$$x_{k+1}=Ax_k+Bu_k$$
-The starting condition is $x_0=\textbf{o}$ and we can choose an arbitrary $u_k$. Then, for $k=0$ we have $$x_1=Ax_0+Bu_0=Bu_0 \in \text{Im}B.$$ For $k=1$ we get
-$$x_2=Ax_1+Bu_1=ABu_0+Bu_1\in\text(AB|B)$$
-It is clear, that
-$$x_k\in\text{Im}(A^{k-1}B|\cdots|AB|B)$$
-We can observe that $\text{Im}(B|AB|\cdots|A^kB) \subseteq \text{Im}(B|AB|\cdots|A^{k+1}B)$. By Cayley-Hamilton theorem we know that $\chi_A(A)=O_{n\times n}$. That means that $A^n$ can be expressed as linear combination of matrices $\{I,A,\ldots,A^{n-1}\}$ or equivalently that $A^nB$ can be expressed as linear combination of matrices $\{B,AB,\ldots,A^{n-1}B\}$. We now see that $\text{Im}(B|AB|\cdots|A^kB) \supseteq \text{Im}(B|AB|\cdots|A^{k+1}B)$ holds. It follows
+\sloppy
+States that we can reach in time $k\in\N$ in an open-loop control discrete-time systems can be derived as follows. The initial condition is $x_0=\nullvector$ and we can choose arbitrary $u_0,u_1,\ldots,u_k$. Then for $k=1$ we have 
+$$x_1=Ax_0+Bu_0=Bu_0 \in \text{Im}B\ .$$
+For $k=2$ we get
+$$x_2=Ax_1+Bu_1=ABu_0+Bu_1\in\text{Im}(AB|B)\ .$$
+It is clear, that for every $k\in\N$
+$$x_k\in\text{Im}(A^{k-1}B|\cdots|AB|B)\ .$$
+We can observe that
+$$\text{Im}(B|AB|\cdots|A^kB) \subseteq \text{Im}(B|AB|\cdots|A^{k+1}B),\ \forall k\in\N\ .$$
+By the Cayley–Hamilton theorem we know that $\chi_A(A)=O_{n\times n}$. That means, that $A^n$ can be expressed as a linear combination of matrices $\{I,A,\ldots,A^{n-1}\}$ which implies that $A^nB$ can be expressed as a linear combination of matrices $\{B,AB,\ldots,A^{n-1}B\}$. We now see that $$\text{Im}(B|AB|\cdots|A^{n}B) \subseteq \text{Im}(B|AB|\cdots|A^{n-1}B)\ .$$
+It follows
 \begin{equation}
 \label{eq:cayleHamilReachable}
-	\text{Im}(B|AB|\cdots|A^{n-1}B)=\text{Im}(B|AB|\cdots|A^{n-1}B|A^nB)
+	\text{Im}(B|AB|\cdots|A^{n-1}B)=\text{Im}(B|AB|\cdots|A^{n-1}B|A^nB)\ .
 \end{equation}
-Therefore, all the states we could ever reach are already in space
-$$\text{Im}(B|AB|\cdots|A^{n-1}B)$$
-
+For an arbitrary $k\in\N,k>n$ we have $$A^kB=A^{k-n}A^nB=A^{k-n}\sum^{n-1}_{i=0}\alpha_i A^iB=\sum^{n-1}_{i=0}\alpha_i A^{k-n+i}B\in\text{Im}(B|AB|\ldots|A^{k-1}B)\ ,$$
+for some $\alpha_0,\ldots,\alpha_{n-1}\in\K$.
+Therefore, it holds 
+$$\text{Im}(B|AB|\cdots|A^{k}B)=\text{Im}(B|AB|\cdots|A^{n-1}B)\ ,$$
+and all the states we could reach in time $k$ are already in the space 
+$$\text{Im}(B|AB|\cdots|A^{n-1}B)\ .$$
 \begin{definition}
 	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. We define \termdef{reachable space} $\mathcal{R}(A,B)$ of the pair $(A,B)$ as $\text{Im}(B|AB|\cdots|A^{n-1}B)$.
 \end{definition}
 
-We have seen that by left multiplying $\mathcal{R}(A,B)$ by $A$, we get the same subspace. This leads to an important property of some subspaces.
+We have seen that by left multiplying $\mathcal{R}(A,B)$ by $A$, we get a subspace which is already included in $\mathcal{R}(A,B)$. This leads to an important property of some subspaces.
 
 \begin{definition}
-	Let $V$ be a vector space, $W$ be its subspace and $f$ be a mapping from $V$ to $V$. We call $W$ an \termdef{invariant subspace} of $f$ if $f(W)\subseteq W$.
+	Let $V$ be a vector space, $W$ be its subspace and let $f$ be a mapping from $V$ to $V$. We call $W$ an \termdef{invariant subspace} of $f$ if $f(W)\subseteq W$.
 
 	We also say that $W$ is \termdef{$f$-invariant}. When $f=f_A$ for some matrix $A$, we also shortly say that W is \termdef{$A$-invariant}.
 \end{definition}
 
 \begin{remark}
 	\label{rem:reachinv}
-	$\mathcal{R}(A,B)$ is a $A$-invariant subspace.
+	$\mathcal{R}(A,B)$ is an $A$-invariant subspace.
 \end{remark} 
 
-The maximum dimension of $\mathcal{R}(A,B)$ is, of course, $n$. This leads us to important property of pair $(A,B)$, where we want to be able to get the system into any state in state space by controlling it with our control vector $u(t)$, i.e., choosing appropriate $u(t)$. Therefore, we desire that $\mathcal{R}(A,B)=\K^n$. The equivalent condition is $\text{dim}\mathcal{R}(A,B)=n$.
+The maximum dimension of $\mathcal{R}(A,B)$ is, of course, $n$. This leads us to important property of pair $(A,B)$, where we want to be able to get the system into any state in state space by controlling it with our control $u$, i.e., choosing appropriate $u_k,k\in\{0,\ldots,n-1\}$. Therefore, we desire that $\mathcal{R}(A,B)=\K^n$. The equivalent condition is $\text{dim}\mathcal{R}(A,B)=n$.
 
 \begin{definition}
 	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. The pair $(A,B)$ is \termdef{controllable} if $\textnormal{dim}\mathcal{R}(A,B)=n$.
@@ -441,16 +459,20 @@ We will now show that the condition for controllability of \textit{discrete-time
 We utilize matrix exponential in solving system of inhomogeneous linear system $\dot{x}(t)=Ax(t)+Bu(t)$. By left multiplying it by $e^{-tA}$ we get
 \begin{align*}
 	e^{-tA}\dot{x}(t)-e^{-tA}Ax(t) &=e^{-tA}Bu(t) \\
-	\frac{d}{dt} (e^{-tA}x(t)) &=e^{-tA}Bu(t) 
+	\frac{d}{dt} (e^{-tA}x(t)) &=e^{-tA}Bu(t)\ .
 \end{align*}
 Note, we used $-AA=A(-A)\Rightarrow e^{-tA}A=Ae^{-tA}$ from Lemma \ref{lem:expprop}. After integrating both sides with respect to $t$ on interval $(t_0,t_1)$ we have 
 \begin{align*}
 	[e^{-tA}x(t)]^{t_1}_{t_0}&=\int^{t_1}_{t_0}e^{-tA}Bu(t)dt \\
 	e^{-t_1A}x(t_1)-e^{-t_0A}x(t_0)&=\int^{t_1}_{t_0}e^{-tA}Bu(t)dt \\
-	x(t_1)&=e^{(t_1-t_0)A}x(t_0)+\int^{t_1}_{t_0}e^{(t_1-t)A}Bu(t)dt
+	x(t_1)&=e^{(t_1-t_0)A}x(t_0)+\int^{t_1}_{t_0}e^{(t_1-t)A}Bu(t)dt\ .
 \end{align*}
 
-Now it is clear that in system where $x(0)=\nullvector$ can every state in time $t\in \R^+$ be expressed as $$x(t)=\int^t_0 e^{(t-s)A}Bu(s)ds$$
+Now it is clear that in system where $x(0)=\nullvector$ can every state in time $t\in \R^+$ be expressed as
+\begin{equation}
+\label{eq:coolVzorec}
+	x(t)=\int^t_0 e^{(t-s)A}Bu(s)ds\ .
+\end{equation}
 
 \begin{definition}
 	We say that a state $x\in\K^n$ can be \termdef{reached in the time $t$}, if there exists a control $u(x)\colon[0,t]\rightarrow\K^m$ such that
@@ -468,23 +490,27 @@ Now it is clear that in system where $x(0)=\nullvector$ can every state in time 
 \end{theorem}
 
 \begin{proof}
-	From discussion above we have 
+	From the discussion above we have 
 	$$
 		x(t)=\int^t_0e^{(t-s)A}Bu(s)ds
-		=\int^t_0\sum^\infty_{k=0}\frac{(t-s)^k}{k!}A^kBu(s)ds
+		=\int^t_0\sum^\infty_{k=0}\frac{(t-s)^k}{k!}A^kBu(s)ds\ .
 	$$
-	The $n$-dimensional vector $w^{(k)}(s)=A^kBu(s)$ has elements $$w^{(k)}_i(s)=\sum^m_{j=1}\alpha^{(k)}_{i,j}u_j(s)$$ where $\alpha^{(k)}_{i,j}$ is the element of the matrix $A^kB$ on the position $(i,j)$. Therefore, the elements of $x(t)$ are
+	The $n$-dimensional vector $w^{(k)}(s)=A^kBu(s)$ has elements
+	$$w^{(k)}_i(s)=\sum^m_{j=1}\alpha^{(k)}_{i,j}u_j(s)\ ,$$
+	where $\alpha^{(k)}_{i,j}$ is the element of the matrix $A^kB$ on the position $(i,j)$. Therefore, the elements of $x(t)$ are
 	$$
 		x_i(t)
 		=\int^t_0\sum^\infty_{k=0}\frac{(t-s)^k}{k!}w^{(k)}_ids
-		=\int^t_0\sum^\infty_{k=0}\sum^m_{j=1}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
+		=\int^t_0\sum^\infty_{k=0}\sum^m_{j=1}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds\ .
 	$$
 	
-	Now, in order to be able to modify this expression, we will prove that the series $\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)$ is convergent for every position $(i, j)$. This follows from
-	\begin{longeq}
-		\abs{\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha_{i,j}^{(k)}u_j(s)}\leq \sum^\infty_{k=0}\frac{\abs{t-s}^k}{k!}\abs*{\alpha_{i,j}^{(k)}}\abs*{u_j(s)}\leq\sum^\infty_{k=0}\frac{\norm{(t-s)A}_F^k}{k!}\norm{B}_F\abs*{u_j(s)}\leq\abs*{u_j(s)}\norm{B}_Fe^{\norm{(t-s)A}}\ ,
-	\end{longeq}
-	where the second inequality holds by Corollary \ref{cor:elementConvergence}, and the third inequality by the fact that we can factor constants $\norm{B}_F$ and $u_j(s)$ out of convergent number series $e^{\norm{(t-s)A}}$. Because of the absolute convergence, we can now swap the integral and the series:
+	Now, in order to be able to modify this expression, we will prove that the series $\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)$ is absolutely convergent for every position $(i, j)$. This follows from the fact that for any $N\in\N$ by Lemma \ref{lem:elementAbsoluteSize} we have
+	\begin{equation*}
+		\sum^N_{k=0}\abs{\frac{(t-s)^k}{k!}\alpha_{i,j}^{(k)}u_j(s)}\leq \sum^N_{k=0}\frac{\abs{t-s}^k}{k!}\abs*{\alpha_{i,j}^{(k)}}\abs*{u_j(s)}\leq\abs*{u_j(s)}\norm{B}_F\sum^N_{k=0}\frac{\norm{(t-s)A}_F^k}{k!}\ .
+	\end{equation*}
+	This gives us
+	$$\sum^\infty_{k=0}\abs{\frac{(t-s)^k}{k!}\alpha_{i,j}^{(k)}u_j(s)}=\lim_{N\to\infty}\sum^N_{k=0}\abs{\frac{(t-s)^k}{k!}\alpha_{i,j}^{(k)}u_j(s)}\leq \abs*{u_j(s)}\norm{B}_Fe^{\norm{(t-s)A}_F}\ .$$
+	Because of the absolute convergence, we can now swap the integral and the series:
 	\begin{align*}
 		x_i(t)
 		&=\int^t_0\sum^\infty_{k=0}\sum^m_{j=1}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
@@ -496,16 +522,27 @@ Now it is clear that in system where $x(0)=\nullvector$ can every state in time 
 		&=\sum^m_{j=1}\sum^\infty_{k=0}\alpha^{(k)}_{i,j}\int^t_0\frac{(t-s)^k}{k!}u_j(s)ds
 		=\sum^\infty_{k=0}\sum^m_{j=1}\alpha^{(k)}_{i,j}\int^t_0\frac{(t-s)^k}{k!}u_j(s)ds
 		\\
-		&=\sum^\infty_{k=0}\sum^m_{j=1}\alpha^{(k)}_{i,j}v^{(k)}_i(t)\ ,
+		&=\sum^\infty_{k=0}\sum^m_{j=1}\frac{\alpha^{(k)}_{i,j}}{k!}v^{(k)}_j(t)\ ,
 	\end{align*}
-	where $v^{(k)}(t)=\int^t_0\frac{(t-s)^k}{k!}u(s)ds$ is a vector of length $m$. Therefore, we have 
-	$$x(t)=\sum^\infty_{k=0}A^kBv_k(t)=\sum^\infty_{k=0}A^kB\int^t_0\frac{(t-s)^k}{k!}u(s)ds$$
-	Now it its clear that $$x(t) \in \text{Im}(B|AB|\ldots|A^kB|\ldots)=\text{Im}(B|AB|\ldots|A^{n-1}B)=\mathcal{R}(A,B)$$ 
-	The first equality follows from the equality (\ref{eq:cayleHamilReachable}).
+	where $v^{(k)}(t)=\int^t_0(t-s)^ku(s)ds$ is a vector of length $m$. Therefore, we have 
+	$$x(t)=\sum^\infty_{k=0}\frac{1}{k!}A^kBv^{(k)}(t)=\sum^\infty_{k=0}\frac{1}{k!}A^kB\int^t_0(t-s)^ku(s)ds\ .$$
+	By the Cayley-Hamilton theorem it then holds
+	$$x(t)=\sum^\infty_{i=0}\frac{1}{i!}A^iBv^{(i)}(t)=\sum^\infty_{i=0}\sum^{n-1}_{j=0}\frac{1}{i!}\alpha_{i,j}A^jBv^{(i)}(t)=\sum^{n-1}_{j=0}\sum^\infty_{i=0}\frac{1}{i!}\alpha_{i,j}A^jBv^{(i)}(t)\ .$$
+	The third equality follows from the absolute convergence of the resulting series. This can be shown in a similar way as above. 
+
+	Now it is clear that $$x(t) \in \text{Im}(B|AB|\ldots|A^{n-1}B)=\mathcal{R}(A,B)\ .$$ 
 	
 	If the system is controllable then $x(t)$ can be equal to any of the vectors of an arbitrary basis of $\K^n$. Therefore, we know that $n$ linearly independent vectors belong into $\mathcal{R}(A,B)$, and naturally it follows $\text{dim}\mathcal{R}(A,B)=n$.
 
-	Conversely, if dimension of reachable space is equal to $n$ we then have $x(t)\in\mathcal{R}(A,B)=\C^n$, therefore the system is controllable.
+	The ``if'' part of the proof is adapted from \cite{Sontag1998}, Theorem 3.
+
+	Conversely, if controllability fails, then there exists a non-trivial complement $\mathcal{S}$ to the reachable space $\mathcal{R}$. For any time $t\in\R^+$ and any vector $\rho\in\mathcal{S}$ it holds $\rho^T x(t)=\nullvector$. Let us put $\tau=\rho^T$. By choosing the control $u(t)=B^\ast e^{(t-s)A^\ast}\tau^\ast$ on the interval $[0,t]$, where ``$\ast$'' indicates conjugate transpose, we get by equation (\ref{eq:coolVzorec})
+	$$\nullvector=\tau x(t)=\int^t_0\tau e^{(t-s)A}BB^\ast e^{(t-s)A^\ast}\tau^ \ast ds=\int^t_0\norm{B^\ast e^{(t-s)A^\ast}\tau^\ast}^2\ .$$
+	This implies that the norm 
+	$$0=\norm{B^\ast e^{(t-s)A^\ast}\tau^\ast}^2=\norm{\tau e^{(t-s)A}B}^2$$
+	and hence
+	$$\nullvector=\tau e^{(t-s)A}B=\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\tau A^kB$$
+	which by similar usage of Cayley-Hamilton as above implies that there exists a vector $\rho$ perpendicular on $\mathcal{R}(A,B)$ and therefore $\text{dim}\mathcal{R}(A,B)$ cannot be equal to $n$.
 \end{proof}
 
 \subsection{Decomposition theorem}
@@ -518,16 +555,18 @@ Now it is clear that in system where $x(0)=\nullvector$ can every state in time 
 		\begin{pmatrix}
 			F_1 & F_2 \\
 			0   & F_3 
-		\end{pmatrix}
+		\end{pmatrix}\ ,
 	\end{equation*}
 	where $F_1$ is $r\times r$, $r=\text{dim}W$.
 \end{lemma}
 
 \begin{proof}
-	Let $(w_1,\ldots,w_r)$ be an arbitrary basis of subspace $W$. We complete this sequence into basis $C$ of $V$ with vectors $v_1,\ldots,v_{n-r}$ where $n=\text{dim}V$, thus $C=(w_1,\ldots,w_r,v_1,\ldots,v_{n-r})$. We know that $$[f]^C_C=([f(w_1)]_C,\ldots,[f(w_r)]_C,[f(v_1)]_C,\ldots,[f(v_{n-r})]_C)$$ Since $W$ is an $A$-invariant subspace, it holds that $f(w_i)\in W$ and therefore, because of our choice of the basis $C$, the matrix $[f]^C_C$ is of the desired form.
+	Let $(w_1,\ldots,w_r)$ be an arbitrary basis of the subspace $W$. We complete this sequence into basis $C$ of $V$ with vectors $v_1,\ldots,v_{n-r}$ where $n=\text{dim}V$, thus $C=(w_1,\ldots,w_r,v_1,\ldots,v_{n-r})$. We know that
+	$$[f]^C_C=([f(w_1)]_C,\ldots,[f(w_r)]_C,[f(v_1)]_C,\ldots,[f(v_{n-r})]_C)\ .$$
+	Since $W$ is an $A$-invariant subspace, it holds that $f(w_i)\in W$ and therefore, because of our choice of the basis $C$, the matrix $[f]^C_C$ is of the desired form.
 \end{proof}
 
-If $(A,B)$ is not controllable, then there exists subspace of our state space that is not affected by our input. This can be shown using following theorem.
+If $(A,B)$ is not controllable, then there exists a part of the state space that is not affected by the input. This can be shown using the following theorem.
 
 \begin{theorem}
 	\label{theorem:decomp}
@@ -544,9 +583,9 @@ If $(A,B)$ is not controllable, then there exists subspace of our state space th
 		\begin{pmatrix}
 			B_1  \\
 			0
-		\end{pmatrix}
+		\end{pmatrix}\ ,
 	\end{equation}
-	where $A_1$ is $r \times r$ and $B_1$ is $r \times m$.
+	where $A_1\in\K^{r \times r}$ and $B_1\in\K^{r \times m}$.
 \end{theorem}
 
 \begin{proof}
@@ -554,13 +593,16 @@ If $(A,B)$ is not controllable, then there exists subspace of our state space th
 	$$[f_A]^C_C=[\text{id}]^K_C[f_A]^K_K[\text{id}]^C_K=[\text{id}]^K_CA[\text{id}]^C_K$$ 
 	is in a block triangular form. By putting $T=[\text{id}]^C_K=C$ we get that $\widetilde{A}=[f_A]^C_C$ is now in the desired form.
 
-	Consider now matrix mapping $f_B$. We have $$\widetilde{B}=TB=[\text{id}]^{K_n}_C[f_B]^{K_m}_{K_n}=[f_B]^{K_m}_C=([f_B(e_1)]_C,\ldots,[f_B(e_m)]_C)$$ Since $f_B(e_i)$ is $i$-th column of matrix $B$ and trivially by definition of a reachable space it holds $\text{Im}(B)\subseteq \mathcal{R}(A,B)$, we see that $\widetilde{B}$ is in the requested form.
+	Consider now matrix mapping $f_B$. We have
+	$$\widetilde{B}=TB=[\text{id}]^{K_n}_C[f_B]^{K_m}_{K_n}=[f_B]^{K_m}_C=([f_B(e_1)]_C,\ldots,[f_B(e_m)]_C)\ .$$
+	Since $f_B(e_i)$ is $i$-th column of matrix $B$ and trivially by definition of a reachable space it holds $\text{Im}(B)\subseteq \mathcal{R}(A,B)$, we see that $\widetilde{B}$ is in the requested form.
 \end{proof}
 
 We achieved the new form of matrices $A$ and $B$ by changing the basis of our state space. We now define the relation between $(A,B)$ and $(\widetilde{A},\widetilde{B}).$
 
 \begin{definition}
-	Let $(A,B)$ and $(\widetilde{A},\widetilde{B})$ be pairs as in Theorem \ref{theorem:decomp} above. Then $(A,B)$ \termdef{is similar to} $(\widetilde{A},\widetilde{B})$, denoted $(A,B) \sim (\widetilde{A},\widetilde{B})$, if there exists an invertible matrix $T$ for which it holds that $$\widetilde{A}=T^{-1}AT\quad and\quad\widetilde{B}=T^{-1}B$$
+	Let $(A,B)$ and $(\widetilde{A},\widetilde{B})$ be pairs as in Theorem \ref{theorem:decomp} above. Then $(A,B)$ \termdef{is similar to} $(\widetilde{A},\widetilde{B})$, denoted $(A,B) \sim (\widetilde{A},\widetilde{B})$, if there exists an invertible matrix $T$ for which it holds that
+	$$\widetilde{A}=T^{-1}AT\quad and\quad\widetilde{B}=T^{-1}B\ .$$
 \end{definition}
 
 \begin{lemma}
@@ -569,37 +611,38 @@ We achieved the new form of matrices $A$ and $B$ by changing the basis of our st
 \end{lemma}
 
 \begin{proof}
-	We will use the properties of the matrix determinant.
+	We will use properties of the matrix determinant:
 	\begin{align*}
 		\chi_A&=\text{det}(sI-A)=\text{det}(sI-R^{-1}BR) \\
 		&=\text{det}(sR^{-1}IR-R^{-1}BR)=\text{det}(R^{-1}(sI-B)R) \\
 		&=(\text{det}R)^{-1}\text{det}(sI-B)\text{det}R=\text{det}(sI-B) \\
-		&=\chi_B
+		&=\chi_B\ .
 	\end{align*}
 \end{proof}
 
 \begin{lemma}
 	\label{lem:simPairsAssignablePolynomial}
-	If $(A,B)\sim(\widetilde{A},\widetilde{B})$ the they can be assigned the same polynomials.
+	If $(A,B)\sim(\widetilde{A},\widetilde{B})$, then the assignable polynomials for the pairs $(A,B)$ and $(\widetilde{A},\widetilde{B})$ are the same.
 \end{lemma}
 
 \begin{proof}
-	Since a matrix similar to $A+BF$ is in the form $T^{-1}(A+BF)T=T^{-1}ATT^{-1}BFT=\widetilde{A}+\widetilde{B}\widetilde{F}$, where $\widetilde{F}=FT$ ans $T$ is some invertible matrix, using Lemma \ref{lem:simMatrices} we can write $$\chi_{A+BF}=\chi_{\widetilde{A}+\widetilde{B}\widetilde{F}}$$
-	Therefore, the same polynomial can be assigned to pair $(\widetilde{A},\widetilde{B})$ using matrix~$\widetilde{F}$.
+	Let $T$ be a regular matrix over $\K$ such that $\widetilde{A}=T^{-1}AT$ and $\widetilde{B}=T^{-1}B$. Then for any feedback matrix $F$ we have 
+	$$T^{-1}(A+BF)T=T^{-1}ATT^{-1}BFT=\widetilde{A}+\widetilde{B}\widetilde{F}\ ,$$
+	where $\widetilde{F}=FT$. It follows from Lemma \ref{lem:simMatrices} that $$\chi_{A+BF}=\chi_{\widetilde{A}+\widetilde{B}\widetilde{F}}\ .$$
 \end{proof}
 
-We can interpret the decomposition as follows. Consider our system $\dot{x}(t)=Ax(t)+Bu(t)$. By changing the basis by putting $x(t)=Ty(t)$ we get 
-$$T\dot{y}(t)=ATy(t)+Bu(t)$$ 
-which we can write as 
-$$\dot{y}(t)=T^{-1}ATy(t)+T^{-1}Bu(t)=\widetilde{A}y(t)+\widetilde{B}u(t)$$ 
-Which gives us 
-\begin{alignat*}{2}
-	\dot{y}_1(t)&=A_1y_1(t)+&A_2y_2(t)&+B_1u_1(t) \\
-	\dot{y}_2(t)&=&A_3y_2(t)&
+Theorem \ref{theorem:decomp} has the following interesting consequence. Let $(A,B)$ be a dynamical system with initial condition $x(0)=\nullvector$, and let $T$ be a regular matrix over $\K$ as in Theorem \ref{theorem:decomp}. By changing the basis by putting $x(t)=Ty(t)$ we get 
+$$T\dot{y}(t)=ATy(t)+Bu(t)\ ,$$ 
+which we can rewrite as 
+$$\dot{y}(t)=T^{-1}ATy(t)+T^{-1}Bu(t)=\widetilde{A}y(t)+\widetilde{B}u(t)\ .$$ 
+This gives us 
+\begin{alignat*}{3}
+	\dot{y}_1(t)&=A_1y_1(t)+&A_2y_2(t)&+B_1u(t)& \\
+	\dot{y}_2(t)&=&A_3y_2(t)&&\ ,
 \end{alignat*}
-where the vector $y_1(t)$ is composed of the first $r$ elements of the vector $y(t)$, $y_2(t)$ is composed of the last $n-r$ elements of $y(t)$ and the vector $u_1(t)$ is composed of the first $r$ elements of the vector $u(t)$. Since $\dot{y}_2(t)$ does not depend on the control vector $u(t)$, we see that we cannot change the last $n-r$ coordinates of $y(t)$ by changing the vector $u(t)$.
+where $y(t)=(y_1(t),y_2(t))^T$, $y_1(t)\in\K^r$, $y_2(t)\in\K^{n-r}$. The component $\dot{y}_2(t)$ cannot be controlled and it is, for the initial condition $y(0)=Tx(0)=\nullvector$, always equal to \nullvector, since it does not depend on the control vector $u(t)$. 
 
-It is also true that $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is a controllable pair which we will state in a lemma.
+It is also true that the system $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is a controllable pair, which we will state as a lemma.
 
 \begin{lemma}
 	\label{lem:A_1B_1controllable}
@@ -608,6 +651,7 @@ It is also true that $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is a controll
 
 \begin{proof}
 	We know that $\text{dim}\mathcal{R}(A,B)=r$. We desire $\text{dim}\mathcal{R}(A_1,B_1)=r$. We will show that $\mathcal{R}(\widetilde{A},\widetilde{B})=\mathcal{R}(A,B)$ and that each vector in $\mathcal{R}(\widetilde{A},\widetilde{B})$ has its last $n-r$ elements equal to 0 and that $\mathcal{R}(\widetilde{A},\widetilde{B})$ restricted on its first $r$ coordinates is equal to $\mathcal{R}(A_1,B_1)$. 
+	First, we have 
 	\begin{align*}
 		\mathcal{R}(\widetilde{A},\widetilde{B})&=\text{Im}(\widetilde{A}^{n-1}\widetilde{B}|\cdots|\widetilde{A}\widetilde{B}|\widetilde{B}) \\
 		&=\text{Im}((T^{-1}AT)^{n-1}T^{-1}B|\cdots|T^{-1}ATT^{-1}B|T^{-1}B) \\
@@ -617,12 +661,12 @@ It is also true that $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is a controll
 		&=T^{-1}\cdot\{(A^{n-1}B|\cdots|AB|B)\cdot v | v \in \K^{n\cdot m}\} \\
 		&=T^{-1}\cdot(\text{Im}(A^{n-1}B|\cdots|AB|B)) \\
 		&=T^{-1}\cdot(\mathcal{R}(A,B))
+		\ ,
 	\end{align*}
-	where by $\cdot\colon\K^{n\times m}\times V\rightarrow W$ where $V$, $W$ are vector spaces is defined as $A\cdot V=\{Av|v\in V\}$.
+	where the mapping $\cdot\colon\K^{n\times m}\times V\rightarrow W$, where $V$, $W$ are vector spaces, is defined as $A\cdot V=\{Av|v\in V\}$. Since $T$ is an invertible matrix, which preserves linear independence, we have
+	$$\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}(T^{-1}\mathcal{R}(A,B))=\text{dim}(\mathcal{R}(A,B))=r\ .$$
 
-	Since $T$ is an invertible matrix, which preserves linear independence, we have $$\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}(T^{-1}\mathcal{R}(A,B))=\text{dim}(\mathcal{R}(A,B))=r$$
-
-	Now let us focus on the structure of $\mathcal{R}(\widetilde{A},\widetilde{B})$: We know that last $n-r$ rows of $\widetilde{B}$ are $\nullvector$. Also because of structure of $\widetilde{A}$ we have for an arbitrary matrix $X\in\K^{r\times m}$ that 
+	Now let us focus on the structure of $\mathcal{R}(\widetilde{A},\widetilde{B})$. We know that the last $n-r$ rows of $\widetilde{B}$ are $\nullvector$. Also, because of structure of $\widetilde{A}$, for an arbitrary matrix $X\in\K^{r\times m}$ we have that 
 	\begin{equation*}
 		\widetilde{A}
 		\begin{pmatrix}
@@ -642,16 +686,16 @@ It is also true that $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is a controll
 		\begin{pmatrix}
 			A_1X \\
 			0
-		\end{pmatrix}
+		\end{pmatrix}\ ,
 	\end{equation*}
-	where again are the last $n-r$ rows equal to $\nullvector$. Therefore we see that for any positive integer $k$ we have 
+	where again are the last $n-r$ rows equal to $\nullvector$. Therefore, for any positive integer $k$ we have 
 	\begin{equation*}
 		\widetilde{A}^k\widetilde{B}=
 		\begin{pmatrix}
 			A_1^{k}B_1 \\
 			0
         \end{pmatrix}
-        ,A_1^kB_1\in\K^{r\times r}
+        \ ,A_1^kB_1\in\K^{r\times r}\ .
     \end{equation*}
     It follows
     \begin{equation*}
@@ -671,26 +715,32 @@ It is also true that $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is a controll
                 B_1 \\
                 0 
             \end{pmatrix}
-        \end{pmatrix}
+        \end{pmatrix}\ .
     \end{equation*}
 	
-	By Cayle-Hemilton theorem we therefore again have that the restriction to first $r$ coordinates (those which are not 0) of $\mathcal{R}(\widetilde{A},\widetilde{B})$ are equal to $\mathcal{R}(A_1,B_1)$. Finally, it follows that $$\text{dim}\mathcal{R}(A_1,B_1)=\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}\mathcal{R}(A,B)=r$$
+	By Cayley–Hamilton theorem we therefore again have that the restriction to first $r$ coordinates (those which are not 0) of $\mathcal{R}(\widetilde{A},\widetilde{B})$ are equal to $\mathcal{R}(A_1,B_1)$. Finally, it follows that
+	$$\text{dim}\mathcal{R}(A_1,B_1)=\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}\mathcal{R}(A,B)=r\ .$$
 \end{proof}
 
-Now we can see that the decomposition from Theorem \ref{theorem:decomp} decomposes the matrix $A$ into ``controllable'' and ``uncontrollable'' parts $A_1$ and $A_3$ respectively.
+Now we can see that the decomposition described in Theorem \ref{theorem:decomp} decomposes the matrix $A$ into the ``controllable'' and the ``uncontrollable'' parts $A_1$ and $A_3$ respectively.
 
 \begin{cor}
-	For matrix $A$ and its similar matrix $\widetilde{A}$ as in Theorem \ref{theorem:decomp} it holds $$\chi_A=\chi_{\widetilde{A}}=\chi_{A_1}\chi_{A_3}$$
+	Let $(A,B)$ be a dynamical system, and let $T$ be a regular matrix and $\widetilde{A}=T^{-1}AT$ as in Theorem \ref{theorem:decomp}. Then it holds
+	$$\chi_A=\chi_{\widetilde{A}}=\chi_{A_1}\chi_{A_3}=\chi_c\chi_u\ .$$
 \end{cor} 
 
+\begin{proof}
+	Follows from Theorem \ref{theorem:decomp} and Lemma \ref{lem:simMatrices}.
+\end{proof}
+
 \begin{definition}
-	The characteristic polynomial of matrix $A$ splits into \termdef{controllable} and \termdef{uncontrollable parts} with respect to pair $(A,B)$ which we denote by $\chi_c$ and $\chi_u$ respectively. We define these polynomials as $$\chi_c=\chi_{A_1} \qquad \chi_u=\chi_{A_3}$$ In case $r=0$ we put $\chi_c=1$ and in case $r=n$ we put $\chi_u=1$.
+	The polynomials $\chi_c$ and $\chi_u$ are respectively the \termdef{controllable} and the \termdef{uncontrollable parts} of the characteristic polynomial $\chi_A$ with respect to the pair $(A,B)$. In case $r=0$ we put $\chi_c=1$ and in case $r=n$ we put $\chi_u=1$.
 \end{definition}
 
-For this definition to be correct, we need to show that polynomials $\chi_{A_1}$ and $\chi_{A_3}$ are not dependent on the choice of a basis on $\mathcal{R}(A,B)$. Since $\chi_{A_3}=\chi_A/\chi_{A_1}$, it is enough to show that $\chi_{A_1}$ is independent of the choice.
+For this definition to be correct, we need to show that polynomials $\chi_{A_1}$ and $\chi_{A_3}$ are not dependent on the choice of the regular matrix $T$ from Theorem \ref{theorem:decomp}. Since $\chi_{A_3}=\chi_A/\chi_{A_1}$, it is sufficient only to show that $\chi_{A_1}$ is independent of the choice.
 
 \begin{lemma}
-	$\chi_c$ is independent of the choice of basis on $\mathcal{R}(A,B)$.
+	$\chi_c$ is independent of the choice of the basis for $\mathcal{R}(A,B)$.
 \end{lemma}
 
 \begin{proof}
@@ -711,5 +761,5 @@ For this definition to be correct, we need to show that polynomials $\chi_{A_1}$
 		\end{pmatrix}
 	\end{equation*}
 	It holds $$\chi_{A'}(s)=\chi_{A_1}\cdot s^n \quad \chi_{A''}(s)=\chi_{B_1}\cdot s^n$$
-	Therefore, it is sufficient to prove $\chi_{A'}=\chi_{A''}$ which according to Lemma \ref{lem:simMatrices} holds if $A'$ and $A''$ are similar. Since $A'=$  
+	Therefore, it is sufficient to prove $\chi_{A'}=\chi_{A''}$ which according to Lemma \ref{lem:simMatrices} holds if $A'$ and $A''$ are similar. Since $A'=$
 \end{proof}
