@@ -1,6 +1,6 @@
 \chapter{The Pole Shifting Theorem}
 
-The following chapter is based on the fifth chapter of \cite{Sontag1998}.
+The following chapter is based on the first section of the fifth chapter of \citet{Sontag1998}.
 
 \begin{definition}
     The \termdef{controller form} associated to the pair $(A,b)$ is the pair 
@@ -41,7 +41,7 @@ The following chapter is based on the fifth chapter of \cite{Sontag1998}.
 \end{lemma}
 
 \begin{proof}
-    Because of the form of the matrix $A^\flat$ and $b^\flat$ is $(A^\flat)^kb^\flat$ equal to the last column of $(A^\flat)^k$ which creates vectors of form 
+    Because of the form of the vector $b^\flat$, the matrix $(A^\flat)^kb^\flat$ is equal to the last column of $(A^\flat)^k$, that is
     \begin{equation*}
         \begin{pmatrix}
             0 &
@@ -59,14 +59,46 @@ The following chapter is based on the fifth chapter of \cite{Sontag1998}.
 
 \begin{lemma}
 \label{lem:simCont}
-    Let $\K$ be a field and let $A_1,A_2\in\K^{n\times n},b_1,b_2\in\K^n$, such that the pairs $(A_1,b_1),(A_2,b_2)$ are controllable. The pairs $(A_1,b_1),(A_2,b_2)$ are similar if and only if characteristic polynomials of $A_1$ and $A_2$ are the same.
+    Let $\K$ be a field and let $A_1,A_2\in\K^{n\times n},b_1,b_2\in\K^n$, such that the pairs $(A_1,b_1),(A_2,b_2)$ are controllable. If the characteristic polynomials of $A_1$ and $A_2$ are the same, then the pairs $(A_1,b_1),(A_2,b_2)$ are similar.
 \end{lemma}
 
 \begin{proof}
-    TODO
+    Let us have a pair
+    $$A^\dagger=(A^\flat)^T=
+    \begin{pmatrix}
+        0 & 0 & \cdots & 0 & \alpha_1 \\
+        1 & 0 & \cdots & 0 & \alpha_2 \\
+        0 & 1 & \cdots & 0 & \alpha_3 \\
+        \vdots & \vdots & \ddots & \vdots & \vdots \\
+        0 & 0 & \cdots & 1 & \alpha_n
+    \end{pmatrix}\qquad
+    b^\dagger=
+    \begin{pmatrix}
+        1 \\ 0 \\ 0 \\ \vdots \\ 0
+    \end{pmatrix}\ .$$
+    The characteristic polynomial of the matrix $A^\dagger$ is the same as the one of the matrix $A^\flat$ since transposing a matrix preserves its characteristic polynomial. Therefore, by Cayley-Hamilton theorem and by Lemma \ref{lem:flatCharPol}, it holds that
+    $$O=\chi_{A^\dagger}(A)=\chi_{A^\flat}(A)=A^n-\alpha_nA^{n-1}-\ldots-\alpha_2A-\alpha_1\ ,$$
+    implying
+    $$A^n=\alpha_nA^{n-1}+\ldots+\alpha_2A+\alpha_1\ .$$
+    It then follows 
+    $$\mathbf{R}(A,b)A^\dagger=
+        \begin{pmatrix} 
+            b & Ab & \ldots & A^{n-1}b
+        \end{pmatrix}
+    A^\dagger=
+        \begin{pmatrix}
+            Ab & A^2b & \ldots & A^nb
+        \end{pmatrix}
+    =A\mathbf{R}(A,b)\ .$$
+    By controllability of $(A,b)$ is the column space of the matrix $\mathbf{R}(A,b)$ of dimension $n$, which means, that the matrix is invertible. Therefore, we can write 
+    $$A=\mathbf{R}(A,b)A^\dagger\mathbf{R}(A,b)^{-1}\ .$$
+    We see that the matrices $A$ and $A^\dagger$ are similar. It is also true that $$\mathbf{R}(A,b)b^\dagger=b\ .$$ Therefore $(A,b)\sim(A^\dagger,b^\dagger)$.
+
+    Since the pair $(A^\dagger,b^\dagger)$ depends only on the characteristic polynomial of the matrix $A$, we conclude by the transitivity of the matrix similarity, that any two controllable pairs with the same characteristic polynomials are similar to each other.
 \end{proof}
 
 \begin{cor}
+\label{cor:controllerForm}
     If the \termdef{single-input} ($m=1$) pair $(A,b)$ is controllable, then it is similar to its controller form.
 \end{cor}
 
@@ -123,7 +155,7 @@ The following chapter is based on the fifth chapter of \cite{Sontag1998}.
 
     We will first prove the theorem for the case $m=1$ and then we will express a general case as the case $m=1$. That will conclude the proof.
 
-    Let $m=1$. By Lemmas \ref{lem:simPairsAssignablePolynomial} and ???? we can consider the pair $(A,b)$ to be in the controller form. For a vector 
+    Let $m=1$. By Lemma \ref{lem:simPairsAssignablePolynomial} and Corollary \ref{cor:controllerForm} we can consider the pair $(A,b)$ to be in the controller form. For a vector 
     \begin{equation*}
         f=\begin{pmatrix}
             f_1&f_2&\ldots&f_n
@@ -167,20 +199,20 @@ The following chapter is based on the fifth chapter of \cite{Sontag1998}.
     $$f=\begin{pmatrix}
         \beta_1-\alpha_1&\beta_2-\alpha_2&\ldots&\beta_n-\alpha_n
     \end{pmatrix}\ ,$$
-    and then it holds $\chi_{A+bf}=\chi$. We have shown that for the case $m=1$, a controllable pair $(A,b)$ can be assigned an arbitrary monic polynomial of degree $n$.
+    and the equality $\chi_{A+bf}=\chi$ will be satisfied. We have shown that for the case $m=1$, the controllable pair $(A,b)$ can be assigned an arbitrary monic polynomial of degree $n$.
 
-    For a general case, where $m$ is arbitrary, we choose any vector $v\in\K^m$ such that $Bv\neq \nullvector$, and let $b=Bv$. We will use the fact that a pair $(A+BG,b)$ can be assigned the same polynomials as a pair $(A,B)$, because for any $f\in\K^{1\times n}$ it holds
+    For a general case, where $m$ is arbitrary, we choose any vector $v\in\K^m$ such that $Bv\neq \nullvector$, and let $b=Bv$. We will use the fact that for any matrix $G\in\K^{m\times n}$ a pair $(A+BG,b)$ can be assigned the same polynomials as the pair $(A,B)$, because for any $f\in\K^{1\times n}$ it holds
     $${A+BG+bf}={A+BG+Bvf}={A+B(G+vf)}$$
     and therefore, for $F=G+vf$ we have 
     $$\chi_{A+BG+bf}=\chi_{A+BF}\ .$$
     Using the result for $m=1$, the proof will be concluded by showing that the pair $(A+BG,b)$ is controllable.
        
-    Let us have an arbitrary sequence of linearly independent vectors $\{Bv=x_1,\ldots,x_k\}$, $x_i\in\K^n$, where
+    Let us have a of linearly independent vectors $\{Bv=x_1,\ldots,x_k\}$, $x_i\in\K^n$, where
     \begin{equation}
     \label{eq:indSeq}
         x_{i}=Ax_{i-1}+Bu_{i-1},\ i\in\{1,\ldots,k\}
     \end{equation}
-    for some $u_i\in\K^m$, and $x_0=\nullvector$. Consider $k$ to be as large as possible. We denote $\mathcal{V}=\text{Im}(x_1,\ldots,x_k)$. By maximality of $k$ we have $x_{k+1}\in\mathcal{V}$, which implies that
+    for some $u_i\in\K^m$, and $x_0=\nullvector$, and assume that $k$ is as large as possible. We denote $\mathcal{V}=\text{Im}(x_1,\ldots,x_k)$. By maximality of $k$ we have $x_{k+1}\in\mathcal{V}$, which implies that
     \begin{equation}
     \label{eq:inV}    
         Ax_k+Bu=x_{k+1}\in\mathcal{V}
@@ -190,7 +222,7 @@ The following chapter is based on the fifth chapter of \cite{Sontag1998}.
     \label{eq:AxkinV}
         Ax_k\in\mathcal{V}\ .
     \end{equation}
-    It follows by (\ref{eq:inV}) and (\ref{eq:AxkinV}) and the maximality of $k$, that for any $u\in\K^m$ it holds
+    It follows by (\ref{eq:inV}) and (\ref{eq:AxkinV}), that for any $u\in\K^m$ it holds
     $$Bu=x_{k+1}-Ax_k\in\mathcal{V}\ ,$$
     which implies that the column space $\mathcal{B}=\text{Im}B$ is included in $\mathcal{V}$. Following from this and the equality (\ref{eq:indSeq}), we have 
     $$Ax_{i-1}=x_i-Bu_{i-1}\in\mathcal{V}$$
@@ -200,21 +232,21 @@ The following chapter is based on the fifth chapter of \cite{Sontag1998}.
         A\mathcal{B}&\subseteq A\mathcal{V}\subseteq\mathcal{V} \\
         A^2\mathcal{B}&\subseteq A(A\mathcal{V})\subseteq\mathcal{V} \\
         &\vdotswithin{\subseteq} \\
-        A^k\mathcal{B}&\subseteq\mathcal{V}
+        A^{n-1}\mathcal{B}&\subseteq\mathcal{V}
         \ .
     \end{align*}
     We can now see
-    $$\mathcal{V}\supseteq\text{Im}(B|AB|A^2B|\ldots|A^kB)=\mathcal{R}(A,B)\ .$$
-    Using this relation, we observe that
-    $$\text{dim}\mathcal{R}(A,B)\leq\text{dim}\mathcal{V}=k\leq\text{dim}\K^n=n\ .$$
-    Since the pair $(A,B)$ is by the assumption controllable (meaning $\text{dim}\mathcal{R}(A,B)=n$) we arrive at conclusion $n=k$.
+    $$\mathcal{R}(A,B)=\text{Im}(B|AB|A^2B|\ldots|A^{n-1}B)\subseteq\mathcal{V}\ .$$
+    By controllability of $\mathcal{R}(A,B)$, we obtain
+    $$n=\text{dim}\mathcal{R}(A,B)\leq\text{dim}\mathcal{V}=k\leq\text{dim}\K^n=n\ .$$
+    This implies $k=n$, $\mathcal{V}=\K^n$.
 
     Finally, we need to show that
     $$\text{dim}\mathcal{R}(A+BG,x_1)=n\ .$$
 
-    Let us define a linear mapping $g\colon\mathcal{V}\to\mathcal{B}$ by equation $g(x_i)=u_i$. This definition is correct and unique since the vectors $v_i$ form a basis for $\mathcal{V}$ (see \cite{Barto}). Let $G$ be the matrix of the linear mapping $g$. Then for every $i\in\{1,\ldots,k=n\}$ we have
+    Let us define a linear mapping $g\colon\mathcal{V}\to\mathcal{B}\subset \mathcal{V}$ by equation $g(x_i)=u_i$ for every $i\in\{1,\dots,n-1\}$, where $u_i$ is element such that $Ax_i+Bu_i=x_{i+1}$. This definition is correct and unique since the vectors $v_i$ form a basis for $\mathcal{V}$ \citep[see][Tvrzení 6.4]{Barto}. Let $G$ be the matrix of the linear mapping $g$ with respect to the standard basis. Then for every $i\in\{1,\ldots,n-1\}$ we have
     $$(A+BG)x_i=Ax_i+BGx_i=Ax_i+Bu_i=x_{i+1}\ .$$
     It follows 
-    $$\mathcal{R}(A+BG,x_1)=\text{Im}(x_1,x_2,\ldots,x_n)\ .$$
-    Finally, by linear independence of the vectors $x_1,\ldots,x_n$, it is proved that $\text{dim}\mathcal{R}(A+BG,x_1)=n$. We have shown that the pair $\mathcal{R}(A+BG,Bv)$ is controllable, and thus the proof is concluded.
+    $$\mathcal{R}(A+BG,x_1)=\text{Im}(x_1,(A+BG)x_1,\ldots,(A+BG)^{n-1}x_1)=\text{Im}(x_1,x_2,\ldots,x_n)\ .$$
+    Finally, by linear independence of the vectors $x_1,\ldots,x_n$, it holds $\text{dim}\mathcal{R}(A+BG,x_1)=n$. We have shown that the pair $\mathcal{R}(A+BG,Bv)$ is controllable, and thus the proof is concluded.
 \end{proof}
