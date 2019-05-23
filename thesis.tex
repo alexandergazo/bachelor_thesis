@@ -1,27 +1,18 @@
-%\documentclass[a4paper,11pt]{article}
-%\documentclass[12pt,a4paper]{report}
+%%% The main file. It contains definitions of basic parameters and includes all other parts.
+
+%% Settings for single-side (simplex) printing
+% Margins: left 40mm, right 25mm, top and bottom 25mm
+% (but beware, LaTeX adds 1in implicitly)
 \documentclass[12pt,a4paper]{report}
 	\usepackage[utf8]{inputenc}
 	\usepackage[english]{babel}
 	\usepackage{amsmath, amsthm, amssymb}
 	\usepackage{graphicx, tabularx}
 	\usepackage{mathtools}
-	%\usepackage{lastpage}
 	\usepackage{nomencl}
+	\usepackage[font=small]{caption}
 	\usepackage{epigraph}
-	%\setlength{\hoffset}{-10pt}
-	%\setlength{\voffset}{-20pt}
-	%\setlength{\marginparwidth }{0pt}
-	%\setlength{\marginparsep}{0pt}
-	%\setlength{\oddsidemargin}{0pt}
-	%\setlength{\topmargin}{0pt}
-	%\setlength{\headheight}{0pt}
-	%\setlength{\headsep}{12pt}
-	%\setlength{\footskip}{75pt}
-	%\setlength{\textwidth}{473pt}
-	%\setlength{\textheight}{660pt}
-	%\setlength{\tabcolsep}{0pt}
-
+	
 	\setlength\textwidth{145mm}
 	\setlength\textheight{247mm}
 	\setlength\oddsidemargin{15mm}
@@ -30,8 +21,49 @@
 	\setlength\headsep{0mm}
 	\setlength\headheight{0mm}
 	% \openright makes the following text appear on a right-hand page
-	\let\openright=\cleardoublepage
+	\let\openright=\clearpage
 
+	%% Settings for two-sided (duplex) printing
+	% \documentclass[12pt,a4paper,twoside,openright]{report}
+	% \setlength\textwidth{145mm}
+	% \setlength\textheight{247mm}
+	% \setlength\oddsidemargin{14.2mm}
+	% \setlength\evensidemargin{0mm}
+	% \setlength\topmargin{0mm}
+	% \setlength\headsep{0mm}
+	% \setlength\headheight{0mm}
+	% \let\openright=\cleardoublepage
+
+	%% Generate PDF/A-2u
+	\usepackage[a-2u]{pdfx}
+
+	%% Character encoding: usually latin2, cp1250 or utf8:
+	\usepackage[utf8]{inputenc}
+
+	%% Prefer Latin Modern fonts
+	\usepackage{lmodern}
+
+	%% Further useful packages (included in most LaTeX distributions)
+	\usepackage{amsmath}        % extensions for typesetting of math
+	\usepackage{amsfonts}       % math fonts
+	\usepackage{amsthm}         % theorems, definitions, etc.
+	%\usepackage{bbding}         % various symbols (squares, asterisks, scissors, ...)
+	\usepackage{bm}             % boldface symbols (\bm)
+	\usepackage{graphicx}       % embedding of pictures
+	\usepackage{fancyvrb}       % improved verbatim environment
+	\usepackage[round]{natbib}         % citation style AUTHOR (YEAR), or AUTHOR [NUMBER]
+	\usepackage[nottoc]{tocbibind} 
+					% makes sure that bibliography and the lists
+				    % of figures/tables are included in the table
+				    % of contents
+	\usepackage{dcolumn}        % improved alignment of table columns
+	\usepackage{booktabs}       % improved horizontal lines in tables
+	\usepackage{paralist}       % improved enumerate and itemize
+	%\usepackage[usenames]{xcolor}  % typesetting in color
+
+	%%% Basic information on the thesis
+
+	% Thesis title in English (exactly as in the formal assignment)
 	\def\ThesisTitle{Pole Shifting Theorem in Control Theory}
 
 	% Author of the thesis
@@ -58,35 +90,53 @@
 	\def\StudyProgramme{Mathematics}
 	\def\StudyBranch{Mathematical Structures}
 
+	% An optional dedication: you can thank whomever you wish (your supervisor,
+	% consultant, a person who lent the software, etc.)
+	\def\Dedication{%
+	Dedication.
+	}
+
+	% Abstract (recommended length around 80-200 words; this is not a copy of your thesis assignment!)
+	\def\Abstract{%
+	Abstract.
+	}
+
 	% 3 to 5 keywords (recommended), each enclosed in curly braces
 	\def\Keywords{%
 		{Pole-Shifting Theorem}
 	}
 
-	\usepackage[pdftex,unicode]{hyperref}   % Must follow all other packages
+	\hypersetup{unicode}
 	\hypersetup{breaklinks=true}
-	\hypersetup{pdftitle={\ThesisTitle}}
-	\hypersetup{pdfauthor={\ThesisAuthor}}
-	\hypersetup{pdfkeywords=\Keywords}
-	\hypersetup{urlcolor=blue}
+	%\usepackage[pdftex,unicode]{hyperref}   % Must follow all other packages
+	%\hypersetup{breaklinks=true}
+	%\hypersetup{pdftitle={\ThesisTitle}}
+	%\hypersetup{pdfauthor={\ThesisAuthor}}
+	%\hypersetup{pdfkeywords=\Keywords}
+	%\hypersetup{urlcolor=blue}
 
 \include{macros}
 
 \begin{document}
-
 \include{title}
 
-\openright
-\pagestyle{plain}
-\pagenumbering{arabic}
-\setcounter{page}{1}
-
-%\thispagestyle{empty} % to suppress page number
-%\pagebreak
+%%% A page with automatically generated table of contents of the bachelor thesis
 
 \tableofcontents
 
+%%% Each chapter is kept in a separate file
+\include{preface}
 \include{chap1}
 \include{chap2}
 
+\include{epilog}
+
+%%% Bibliography
+\include{bibliography}
+
+%%% Abbreviations used in the thesis, if any, including their explanation
+%%% In mathematical theses, it could be better to move the list of abbreviations to the beginning of the thesis.
+%\chapwithtoc{List of Abbreviations}
+
+\openright
 \end{document}
