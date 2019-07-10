@@ -474,77 +474,11 @@ Now it is clear that in the system where $x(0)=\nullvector$, the state in time $
 \end{definition}
 
 \begin{theorem}
+\label{theorem:controllabilityContinuous}
 	The $n$-dimensional continuous-time linear system is controllable if and only if $\text{dim}\mathcal{R}(A,B)=n$.
 \end{theorem}
 
 \begin{proof}
-	From the discussion above we have 
-	$$
-		x(t)=\int^t_0e^{(t-s)A}Bu(s)ds
-		=\int^t_0\sum^\infty_{k=0}\frac{(t-s)^k}{k!}A^kBu(s)ds\ .
-	$$
-	The $n$-dimensional vector $w^{(k)}(s)=A^kBu(s)$ has the elements
-	$$w^{(k)}_i(s)=\sum^m_{j=1}\alpha^{(k)}_{i,j}u_j(s)\ ,$$
-	where $\alpha^{(k)}_{i,j}$ is the element of the matrix $A^kB$ on the position $(i,j)$. Therefore, the $i$-th element of $x(t)$ is equal to
-	$$
-		x_i(t)
-		=\int^t_0\sum^\infty_{k=0}\frac{(t-s)^k}{k!}w^{(k)}_ids
-		=\int^t_0\sum^\infty_{k=0}\sum^m_{j=1}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds\ .
-	$$
-	
-	Now, in order to be able to modify this expression, we will prove that the series $\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)$ is uniformly convergent on $[0,t]$ for every position $(i, j)$. Since $u(s)$ is continuous on $[0,t]$, there exists $K\in\R^+$ such that $\forall s\in [0,t]\colon\abs{f(s)} \leq K$. Therefore, following from Lemma \ref{lem:elementAbsoluteSize}, it holds
-	\begin{equation*}
-		\sigma_k=
-		\sup_{x\in[0,t]}\abs{\frac{(t-s)^k}{k!}\alpha_{i,j}^{(k)}u_j(s)}
-		\leq
-		\frac{t^k}{k!}\abs*{\alpha_{i,j}^{(k)}}\abs{u_j(s)}
-		\leq
-		K\frac{\norm{tA}^k_F}{k!}\ .
-	\end{equation*}
-	Since 
-	$$\sum_{n=0}^\infty\sigma_n
-	\leq
-	\sum_{n=0}^\infty K\frac{\norm{tA}^n_F}{n!}
-	=
-	Ke^{\norm{tA}_F}
-	<
-	\infty
-	\ ,
-	$$
-	by Weierstrass criterion is the series $\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)$ uniformly convergent on $[0,t]$ for every position $(i, j)$. 
-
-	Because of the uniform convergence, we can now swap the integral and the series:
-	\begin{align*}
-		x_i(t)
-		&=\int^t_0\sum^\infty_{k=0}\sum^m_{j=1}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
-		=\sum^\infty_{k=0}\int^t_0\sum^m_{j=1}\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
-		\\
-		&=\sum^\infty_{k=0}\sum^m_{j=1}\int^t_0\frac{(t-s)^k}{k!}\alpha^{(k)}_{i,j}u_j(s)ds
-		=\sum^\infty_{k=0}\sum^m_{j=1}\frac{\alpha^{(k)}_{i,j}}{k!}\int^t_0(t-s)^ku_j(s)ds
-		\\
-		&=\sum^\infty_{k=0}\sum^m_{j=1}\frac{\alpha^{(k)}_{i,j}}{k!}v^{(k)}_j(t)\ ,
-	\end{align*}
-	where $v^{(k)}(t)=\int^t_0(t-s)^ku(s)ds$ is a vector of length $m$. Therefore, we have 
-	$$x(t)=\sum^\infty_{k=0}\frac{1}{k!}A^kBv^{(k)}(t)=\sum^\infty_{k=0}\frac{1}{k!}A^kB\int^t_0(t-s)^ku(s)ds\ .$$
-	By the Cayley-Hamilton theorem it then holds
-	\begin{align*}
-		x(t)
-		&=\sum^\infty_{k=0}\frac{1}{k!}A^kBv^{(k)}(t)
-		=\sum^\infty_{k=0}\frac{1}{k!}\left(\sum^{n-1}_{j=0}\alpha_{k,j}A^j\right)Bv^{(k)}(t)
-		\\
-		&=\sum^\infty_{k=0}\sum^{n-1}_{j=0}\frac{1}{k!}\alpha_{k,j}A^jBv^{(k)}(t)
-		=\sum^{n-1}_{j=0}\sum^\infty_{k=0}\frac{1}{k!}\alpha_{k,j}A^jBv^{(k)}(t)
-		\\
-		&=\sum^{n-1}_{j=0}\sum^\infty_{k=0}A^jB\left(\frac{1}{k!}\alpha_{k,j}v^{(k)}(t)\right)
-		=\sum^{n-1}_{j=0}A^jB\sum^\infty_{k=0}\left(\frac{1}{k!}\alpha_{k,j}v^{(k)}(t)\right)
-		\ .
-	\end{align*}
-	The fourth equality follows from the absolute convergence of the resulting series, which can be shown in a similar way as above. 
-
-	Now we see that $$x(t) \in \text{Im}(B|AB|\ldots|A^{n-1}B)=\mathcal{R}(A,B)\ .$$ 
-	
-	If the system is controllable, then $x(t)$ can be equal to any of the vectors of an arbitrary basis of $\K^n$. Therefore, we know that $n$ linearly independent vectors belong into $\mathcal{R}(A,B)$, and it follows that $\text{dim}\mathcal{R}(A,B)=n$.
-
 	For the proof of the ``if'' part we use \citet[Theorem 3]{Sontag1998}.
 
 	Conversely, if controllability fails, then there exists a non-trivial complement $\mathcal{S}$ to the reachable space $\mathcal{R}$. For any time $t\in\R^+$ and any vector $\rho\in\mathcal{S}$ it holds that $\rho^\ast x(t)=\nullvector$. By choosing the control $u(t)=B^\ast e^{(t-s)A^\ast}\rho$, which is continuous, on the interval $[0,s]$, we get by the equation (\ref{eq:coolVzorec})
@@ -554,6 +488,9 @@ Now it is clear that in the system where $x(0)=\nullvector$, the state in time $
 	and hence
 	$$\nullvector=\rho^\ast e^{(t-s)A}B=\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\rho^\ast A^kB\ .$$
 	This implies, by similar usage of Cayley-Hamilton as in the ``only if'' part of the proof, that the vector $\rho$ is perpendicular to $\mathcal{R}(A,B)$ and therefore $\text{dim}\mathcal{R}(A,B)$ cannot be equal to $n$.
+	
+	The ``only if'' part of the proof will be shown in the following sections.
+
 \end{proof}
 
 \subsection{Decomposition theorem}
@@ -651,7 +588,7 @@ This gives us
 	\dot{y}_1(t)&=A_1y_1(t)+&A_2y_2(t)&+B_1u(t)& \\
 	\dot{y}_2(t)&=&A_3y_2(t)&&\ ,
 \end{alignat*}
-where $y(t)=(y_1(t),y_2(t))^T$, $y_1(t)\in\K^r$ and $y_2(t)\in\K^{n-r}$. The component $y_2(t)$ cannot be controlled and it is, for the initial condition $y(0)=Tx(0)=\nullvector$, always equal to \nullvector, since it does not depend on the control vector $u(t)$. 
+where $y(t)=(y_1(t),y_2(t))^T$, $y_1(t)\in\K^r$ and $y_2(t)\in\K^{n-r}$. The component $y_2(t)$ cannot be controlled and it is, for the initial condition $y(0)=Tx(0)=\nullvector$, always equal to \nullvector, since it does not depend on the control vector $u(t)$. This observation provides a proof by contraposition of the ``only if'' part of Theorem \ref{theorem:controllabilityContinuous}.
 
 It is also true that the system $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is a controllable pair, which we will state as a lemma.
 
