@@ -53,8 +53,8 @@ For this definition to make sense, we need to show that the series converges for
 	The first three points can be simply shown using the definition of the Frobenius form and properties of the absolute value. 
 
 	The fourth point follows from the Cauchy–Schwarz inequality 
-	$$\norm{CD}^2_F=\sum^m_{i=1}\sum^r_{j=1}\norm{c_id_j}_2^2 \leq \sum^m_{i=1}\sum^r_{j=1}\norm{c_i}_2^2\norm{d_j}_2^2=\sum^m_{i=1}\norm{c_i}_2^2\sum^r_{j=1}\norm{d_j}_2^2=\norm{C}^2_F\norm{D}^2_F\ ,$$
-	where $\norm*{\cdot}_2$ denotes the Euclidean norm, and $c_i,d_i$ denote the $i$-th column of the matrices $C$ and $D$ respectively.
+	$$\norm{CD}^2_F=\sum^n_{i=1}\sum^r_{j=1}\abs{c_i\cdot d_j}^2 \leq \sum^n_{i=1}\sum^r_{j=1}\norm{c_i}_2^2\norm{d_j}_2^2=\sum^n_{i=1}\norm{c_i}_2^2\sum^r_{j=1}\norm{d_j}_2^2=\norm{C}^2_F\norm{D}^2_F\ ,$$
+	where $\norm*{\cdot}_2$ denotes the Euclidean norm, $c_i$ denotes the $i$-th row vector of the matrix $C$ and $d_i$ denotes the $i$-th column vector of the matrix $D$.
 \end{proof}
 
 \begin{lemma}
@@ -84,7 +84,7 @@ For this definition to make sense, we need to show that the series converges for
 \end{proof}
 
 \begin{definition}
-	A matrix sequence $\{A_k\}_{k=0}^\infty$ of $n \times m$ matrices is said to \termdef{converge} to $n\times m$ matrix $A$, denoted $A_k\longrightarrow A$, if $$\forall\varepsilon\in\R, \varepsilon>0\quad\exists n_0\in\N\quad\forall n\in\N,n\geq n_0:||A_n-A||_F<\varepsilon\ .$$
+	A matrix sequence $\{A_k\}_{k=0}^\infty$ of $n \times m$ matrices is said to \termdef{converge} to a $n\times m$ matrix $A$, denoted $A_k\longrightarrow A$, if $$\forall\varepsilon\in\R, \varepsilon>0\quad\exists n_0\in\N\quad\forall n\in\N,n\geq n_0:||A_n-A||_F<\varepsilon\ .$$
 \end{definition}
 
 \begin{lemma}
@@ -95,7 +95,7 @@ For this definition to make sense, we need to show that the series converges for
 \begin{proof}
 	Let $A_k \rightarrow A$. For any $\varepsilon\in\R^+$ we can find such $n_0$ that $\norm{A_n-A}_F<\varepsilon$ for every $n\geq n_0$. By Lemma \ref{lem:elementAbsoluteSize}, we then have $$\abs*{a^{(n)}_{i,j}-a_{i,j}}\leq \norm{A_n-A}_F<\varepsilon\ .$$ It follows that $\{A_k\}_{k=0}^\infty$ converges to $A$ elementwise.
 
-	Conversely, let $\varepsilon$ be a positive real number. For every position $(i,j)$ we find such $n_{i,j}$ that $$\forall n\geq n_{i,j}:\abs*{a^{(n)}_{i,j}-a_{i,j}}<\frac{\varepsilon}{\sqrt{nm}}\ .$$ We put $N_0=\text{min}\{n_{i,j}\}$. Now $\forall n\in\N, n\geq N_0$ it holds $$||A_n-A||_F=\sqrt{\sum^n_{i=1}\sum^m_{j=1}|a^{(n)}_{i,j}-a_{i,j}|^2}<\sqrt{nm\frac{\varepsilon^2}{nm}}=\varepsilon\ .$$
+	Conversely, let $\varepsilon$ be a positive real number. For every position $(i,j)$ we find such $k_{i,j}$ that $$\forall k\geq k_{i,j}:\abs*{a^{(k)}_{i,j}-a_{i,j}}<\frac{\varepsilon}{\sqrt{nm}}\ .$$ We put $N_0=\text{max}\{k_{i,j}\}$. Now $\forall k\in\N, k\geq N_0$ it holds $$||A_k-A||_F=\sqrt{\sum^n_{i=1}\sum^m_{j=1}|a^{(k)}_{i,j}-a_{i,j}|^2}<\sqrt{nm\frac{\varepsilon^2}{nm}}=\varepsilon\ .$$
 \end{proof}
 
 \begin{claim}
@@ -263,11 +263,11 @@ It is also true that $(N_n)^k_{i,j}=\delta_{i,j-k}$ and $(N_n)^n=O_{n \times n}$
 \end{equation*}
 
 By Lemma \ref{lem:expprop}, for each Jordan block $J_{\lambda,n}$, we have
-$$e^{tJ_{\lambda,n}}=e^{t(\lambda I_n + N_n)}=e^{t\lambda I_n}e^{tN}=e^{\lambda t}e^{tN_n}\ .$$
+$$e^{tJ_{\lambda,n}}=e^{t(\lambda I_n + N_n)}=e^{t\lambda I_n}e^{tN_n}=e^{\lambda t}e^{tN_n}\ .$$
 Let $\lambda = a+ib$ where $a$,$b \in \R$, then
 $$e^{tJ_{\lambda,n}}=e^{at}e^{ibt}e^{tN}\ .$$
 We know that $|e^{ibt}|=1$ and that
-$$e^{tN}=\sum^\infty_{k=0}\frac{t^k}{k!}N^k=\sum^{n-1}_{k=0}\frac{t^k}{k!}N^k$$
+$$e^{tN}=\sum^\infty_{k=0}\frac{t^k}{k!}N^k=\sum^{n-1}_{k=0}\frac{t^k}{k!}N^k\ ,$$
 since $(N_n)^n=O_{n \times n}$. Therefore, we can see that every element of the matrix $e^{tN}$ is a polynomial in $t$ of degree less than $n$. It follows that $e^{tJ_{\lambda,n}}$ approaches $O_{n \times n}$ for $t\rightarrow\infty$ if and only if
 $$\lim_{t\to\infty}e^{at}t^{n-1}=0\ .$$
 This holds for any $n\in\N$ if and only if $a<0$. 
@@ -308,9 +308,9 @@ where the zeroes in the matrices represent zero matrices of appropriate sizes. T
 
 In a general case, this is called an \termdef{open-loop control} system because the control is not dependent on the previous state of the system.
 
-We can imagine such a system as follows. The first summand of the right-hand side, $Ax(t)$, of the equation $\dot{x}(t)=Ax(t)+Bu(t)$ can be thought of as the model of the machine or the event that we want to control and the second summand, $Bu(t)$, as our control mechanism. The $B$ matrix fulfils the role of a ``control board'' and the control vector $u(t)$ is us deciding, which ``levers'' and ``buttons'' we want to push. 
+We can imagine such a system as follows. The first summand of the right-hand side, $Ax(t)$, of the equation $\dot{x}(t)=Ax(t)+Bu(t)$ can be thought of as the model of the machine or the event that we want to control and the second summand, $Bu(t)$, as our control mechanism. The matrix $B$ fulfils the role of a ``control board'' and the control vector $u(t)$ is us deciding, which ``levers'' and ``buttons'' we want to push. 
 
-Of course, if we want this system to be self-regulating, we cannot input our own values into $u(t)$, and therefore $u(t)$ has to be calculated from the current state of our system.
+Of course, if we want this system to be self-regulating, we cannot input our own values into $u(t)$, and therefore $u(t)$ has to be calculated from the state of our system.
 
 \begin{definition}
 	Let us have a linear differential system with the control $u(t)$ defined as
@@ -343,7 +343,7 @@ The pole shifting theorem states, that if $A$ and $B$ are ``sensible'' in a sens
 
 \section{Controllable pairs}
 
-In this section we will establish the notion of controllability. We will first explain this concept for \textit{discrete-time systems} and then we will show that the requirement for controllability of \textit{continuous-time systems} is the same as the one for \textit{discrete-time systems}.
+In this section we will establish the notion of controllability. We will first explain this concept for \textit{discrete-time systems} and then we will show that the requirement for controllability of \textit{continuous-time systems} is the same as the one for discrete-time systems.
 
 \subsection{Discrete-time systems}
 
@@ -424,7 +424,7 @@ We have seen that by left multiplying $\mathcal{R}(A,B)$ by $A$, we obtain a sub
 	It follows from the discussion above.
 \end{proof}
 
-This leads us to an important property of the pair $(A,B)$. We want to be able to get the system into any state by controlling it with our control $u$, i.e., choosing an appropriate sequence $u_0,\ldots,u_{n-1}$. Therefore, we desire that $\mathcal{R}(A,B)=\K^n$. An equivalent condition is $\text{dim}\mathcal{R}(A,B)=n$.
+Ideally, we want to be able to get the system into any state by controlling it with our control $u$, i.e., choosing an appropriate sequence $u_0,\ldots,u_{n-1}$. Therefore, we desire that $\mathcal{R}(A,B)=\K^n$. An equivalent condition is $\text{dim}\mathcal{R}(A,B)=n$.
 
 \begin{definition}
 	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. The pair $(A,B)$ is \termdef{controllable} if $\textnormal{dim}\mathcal{R}(A,B)=n$.
@@ -436,7 +436,7 @@ This leads us to an important property of the pair $(A,B)$. We want to be able t
 	In this section we assume, that $\K$ is a field of either real or complex numbers and that $A\in\K^{n\times n}$, $B\in\K^{n\times m}$.
 \end{remark}
 
-We will now show that the condition for controllability of discrete-time systems also characterizes controllable continuous-time systems. In order to prove this idea, we will express the solution of such a system as a linear combination of the matrices $A^iB$, for $i\in \N_0$.
+We will now show that the condition for controllability of discrete-time systems also characterizes controllable continuous-time systems.
 
 \begin{definition}
 	Let us have a vector function $v(t)\colon\R\to\K^n$. Then the definite integral of the function on an interval $[a,b]$, $a,b\in\R$ is
@@ -481,13 +481,14 @@ Now it is clear that in the system where $x(0)=\nullvector$, the state in time $
 \begin{proof}
 	For the proof of the ``if'' part we use \citet[Theorem 3]{Sontag1998}.
 
-	Conversely, if controllability fails, then there exists a non-trivial complement $\mathcal{S}$ to the reachable space $\mathcal{R}$. For any time $t\in\R^+$ and any vector $\rho\in\mathcal{S}$ it holds that $\rho^\ast x(t)=\nullvector$. By choosing the control $u(t)=B^\ast e^{(t-s)A^\ast}\rho$, which is continuous, on the interval $[0,s]$, we get by the equation (\ref{eq:coolVzorec})
+	If controllability fails, then there exists a non-trivial orthogonal complement $\mathcal{S}$ to the reachable space $\mathcal{R}$. For any time $t\in\R^+$ and any non-trivial  vector $\rho\in\mathcal{S}$ it holds that $\rho^\ast x(t)=0$. By choosing the control $u(s)=B^\ast e^{(t-s)A^\ast}\rho$, which is continuous, on the interval $[0,t]$, we get by the equation (\ref{eq:coolVzorec}) that
 	$$\nullvector=\rho^\ast x(t)=\int^t_0\rho^\ast e^{(t-s)A}BB^\ast e^{(t-s)A^\ast}\rho ds=\int^t_0\norm{B^\ast e^{(t-s)A^\ast}\rho}^2\ .$$
 	This implies
 	$$0=\norm{B^\ast e^{(t-s)A^\ast}\rho}^2=\norm{\rho^\ast e^{(t-s)A}B}^2$$
 	and hence
-	$$\nullvector=\rho^\ast e^{(t-s)A}B=\sum^\infty_{k=0}\frac{(t-s)^k}{k!}\rho^\ast A^kB\ .$$
-	This implies, by similar usage of Cayley-Hamilton as in the ``only if'' part of the proof, that the vector $\rho$ is perpendicular to $\mathcal{R}(A,B)$ and therefore $\text{dim}\mathcal{R}(A,B)$ cannot be equal to $n$.
+	$$\nullvector=\rho^\ast e^{(t-s)A}B\ .$$
+	By setting $s=t$, we obtain $\rho^\ast B=\nullvector$. By differentiating the equation and again setting $s=t$ we get $\rho^\ast AB = \nullvector$. Repeating this procedure gets us $\rho^\ast A^iB=\nullvector$ for $i\in\{1,\ldots, n-1\}$.
+	This implies that the vector $\rho$ is orthogonal to $\mathcal{R}(A,B)$ and therefore $\text{dim}\mathcal{R}(A,B)$ cannot be equal to $n$.
 	
 	The ``only if'' part of the proof will be shown in the following sections.
 
@@ -505,7 +506,7 @@ Now it is clear that in the system where $x(0)=\nullvector$, the state in time $
 			0   & F_3 
 		\end{pmatrix}\ ,
 	\end{equation*}
-	where $F_1$ is $r\times r$, $r=\text{dim}W$.
+	where $F_1$ is a $r\times r$ matrix, $r=\text{dim}W$.
 \end{lemma}
 
 \begin{proof}
@@ -526,7 +527,7 @@ If $(A,B)$ is not controllable, then there exists a part of the state space that
 			A_1 & A_2 \\
 			0   & A_3 
 		\end{pmatrix}
-		\qquad
+		\ , \qquad
 		\widetilde{B}=
 		\begin{pmatrix}
 			B_1  \\
@@ -549,7 +550,7 @@ If $(A,B)$ is not controllable, then there exists a part of the state space that
 We achieved the new form of matrices $A$ and $B$ by changing the basis of our state space. We now define the relation between $(A,B)$ and $(\widetilde{A},\widetilde{B}).$
 
 \begin{definition}
-	Let $(A,B)$ and $(\widetilde{A},\widetilde{B})$ be pairs as the ones described in Theorem \ref{theorem:decomp}. Then $(A,B)$ \termdef{is similar to} $(\widetilde{A},\widetilde{B})$, denoted $(A,B) \sim (\widetilde{A},\widetilde{B})$, if there exists an invertible matrix $T$ for which it holds that
+	Let $\K$ be a field, let $A,\widetilde{A}\in\K^{n\times n}$ and $B,\widetilde{B}\in \K^{n\times m}$. Then $(A,B)$ \termdef{is similar to} $(\widetilde{A},\widetilde{B})$, denoted $(A,B) \sim (\widetilde{A},\widetilde{B})$, if there exists an invertible matrix $T$ for which it holds that
 	$$\widetilde{A}=T^{-1}AT\quad and\quad\widetilde{B}=T^{-1}B\ .$$
 \end{definition}
 
@@ -575,11 +576,11 @@ We achieved the new form of matrices $A$ and $B$ by changing the basis of our st
 
 \begin{proof}
 	Let $T$ be a regular matrix over $\K$ such that $\widetilde{A}=T^{-1}AT$ and $\widetilde{B}=T^{-1}B$. Then for any feedback matrix $F$ we have 
-	$$T^{-1}(A+BF)T=T^{-1}ATT^{-1}BFT=\widetilde{A}+\widetilde{B}\widetilde{F}\ ,$$
+	$$T^{-1}(A+BF)T=T^{-1}AT+T^{-1}BFT=\widetilde{A}+\widetilde{B}\widetilde{F}\ ,$$
 	where $\widetilde{F}=FT$. It follows from Lemma \ref{lem:simMatrices} that $$\chi_{A+BF}=\chi_{\widetilde{A}+\widetilde{B}\widetilde{F}}\ .$$
 \end{proof}
 
-Theorem \ref{theorem:decomp} has the following interesting consequence. Let $(A,B)$ be a dynamic system with the initial condition $x(0)=\nullvector$, and let $T$ be a regular matrix over $\K$ as in Theorem \ref{theorem:decomp}. By putting $x(t)=Ty(t)$ we get 
+Theorem \ref{theorem:decomp} has the following consequence. Let $(A,B)$ be a dynamic system with the initial condition $x(0)=\nullvector$, and let $T$ be a regular matrix over $\K$ as in Theorem \ref{theorem:decomp}. By putting $x(t)=Ty(t)$ we get 
 $$T\dot{y}(t)=ATy(t)+Bu(t)\ ,$$ 
 which can be rewriten as 
 $$\dot{y}(t)=T^{-1}ATy(t)+T^{-1}Bu(t)=\widetilde{A}y(t)+\widetilde{B}u(t)\ .$$ 
@@ -611,7 +612,7 @@ It is also true that the system $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is
 		&=T^{-1}\cdot(\mathcal{R}(A,B))
 		\ .
 	\end{align*}
-	Since $T$ is an invertible matrix, which preserves linear independence, we have
+	Since $T$ is an invertible matrix we have
 	$$\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}(T^{-1}\mathcal{R}(A,B))=\text{dim}(\mathcal{R}(A,B))=r\ .$$
 
 	Now let us focus on the structure of $\mathcal{R}(\widetilde{A},\widetilde{B})$. We know that the last $n-r$ rows of $\widetilde{B}$ are equal to $\nullvector$. Also, because of the structure of $\widetilde{A}$, for an arbitrary matrix $X\in\K^{r\times m}$ we have that 
@@ -643,7 +644,7 @@ It is also true that the system $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is
 			A_1^{k}B_1 \\
 			0
         \end{pmatrix}
-        \ ,A_1^kB_1\in\K^{r\times r}\ .
+        \ ,A_1^kB_1\in\K^{r\times m}\ .
     \end{equation*}
     It follows
     \begin{equation*}
@@ -666,7 +667,7 @@ It is also true that the system $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is
         \end{pmatrix}\ .
     \end{equation*}
 	
-	By the equality (\ref{eq:cayleHamilReachable}) we have that the restriction to the first $r$ coordinates of $\mathcal{R}(\widetilde{A},\widetilde{B})$ is equal to $\mathcal{R}(A_1,B_1)$. Finally, it follows that
+	TODO By the equality (\ref{eq:cayleHamilReachable}) we have that the restriction to the first $r$ coordinates of $\mathcal{R}(\widetilde{A},\widetilde{B})$ is equal to $\mathcal{R}(A_1,B_1)$. Finally, it follows that
 	$$\text{dim}\mathcal{R}(A_1,B_1)=\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}\mathcal{R}(A,B)=r\ .$$
 \end{proof}
 

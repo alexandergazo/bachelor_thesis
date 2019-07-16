@@ -71,7 +71,7 @@ The following chapter is based on the first section of the fifth chapter of \cit
         0 & 1 & \cdots & 0 & \alpha_3 \\
         \vdots & \vdots & \ddots & \vdots & \vdots \\
         0 & 0 & \cdots & 1 & \alpha_n
-    \end{pmatrix}\qquad
+    \end{pmatrix}\ ,\qquad
     b^\dagger=
     \begin{pmatrix}
         1 \\ 0 \\ 0 \\ \vdots \\ 0
@@ -153,7 +153,7 @@ The following chapter is based on the first section of the fifth chapter of \cit
     $$\chi_{A_1+B_1F_1}=\chi\ ,$$
     then by putting $F=(F_1,0)$ we get the desired characteristic polynomial, that is, $\chi_{A+BF}=\chi\chi_u$. Since the pair $(A_1,B_1)$ is controllable as shown in Lemma~\ref{lem:A_1B_1controllable}, it is sufficient only to prove that controllable systems can be assigned an arbitrary monic polynomial $\chi$ of respective degree. Hence, from this point on, we assume that the pair $(A,B)$ is controllable.
 
-    We will first prove the theorem for $m=1$ and then we will generalize it. That will conclude the proof.
+    We will first prove the theorem for $m=1$ and then we will generalize this result. That will conclude the proof.
 
     Let $m=1$. By Lemma \ref{lem:simPairsAssignablePolynomial} and Corollary \ref{cor:controllerForm} we can consider the pair $(A,b)$ to be in the controller form. For a vector 
     \begin{equation*}
@@ -199,7 +199,7 @@ The following chapter is based on the first section of the fifth chapter of \cit
     $$f=\begin{pmatrix}
         \beta_1-\alpha_1&\beta_2-\alpha_2&\ldots&\beta_n-\alpha_n
     \end{pmatrix}\ ,$$
-    and the equality $\chi_{A+bf}=\chi$ will be satisfied. We have shown that for the case where $m=1$, the controllable pair $(A,b)$ can be assigned an arbitrary monic polynomial of degree $n$.
+    and the equality $\chi_{A+bf}=\chi$ will be satisfied. We have shown that for the case where $m=1$, any controllable pair $(A,b)$ can be assigned an arbitrary monic polynomial of degree $n$.
 
     For the case where $m>1$, we choose any vector $v\in\K^m$ satisfying that $Bv\neq \nullvector$ and put $b=Bv$. For any $f\in\K^{1\times n}$ and for any matrix $G\in\K^{m\times n}$, it then holds
     $${A+BG+bf}={A+BG+Bvf}={A+B(G+vf)}$$
@@ -212,7 +212,7 @@ The following chapter is based on the first section of the fifth chapter of \cit
     \label{eq:indSeq}
         x_{i}=Ax_{i-1}+Bu_{i-1},\ i\in\{2,\ldots,k\}
     \end{equation}
-    for some $u_i\in\K^m$, and assume that $k$ is as large as possible. We denote the span of $\{x_1,\ldots,x_k\}$ by $\mathcal{V}$. By the maximality of $k$ we have $x_{k+1}\in\mathcal{V}$, which implies that
+    for some $u_{i-1}\in\K^m$, and assume that $k$ is as large as possible. We denote the span of $\{x_1,\ldots,x_k\}$ by $\mathcal{V}$. By the maximality of $k$ we have $x_{k+1}\in\mathcal{V}$, which implies that
     \begin{equation}
     \label{eq:inV}    
         Ax_k+Bu=x_{k+1}\in\mathcal{V}
@@ -241,7 +241,7 @@ The following chapter is based on the first section of the fifth chapter of \cit
     $$n=\text{dim}\mathcal{R}(A,B)\leq\text{dim}\mathcal{V}=k\leq\text{dim}\K^n=n\ .$$
     This implies that $k=n$, $\mathcal{V}=\K^n$.
 
-    Let us define a linear mapping $g\colon\mathcal{V}\to\mathcal{B}\subseteq \mathcal{V}$ by the equation $g(x_i)=u_i$ for every $i\in\{1,\dots,n-1\}$, where $u_i$ is  such an element that $Ax_i+Bu_i=x_{i+1}$, and we define $g(x_n)$ arbitrarily. This definition is correct and unique since the vectors $x_i$ form a basis of $\mathcal{V}$ \citep[see][Tvrzení 6.4]{Barto}. Let $G$ be the matrix of the linear mapping $g$ with respect to the standard basis. Then for every $i\in\{1,\ldots,n-1\}$ we have
+    Let us now define a linear mapping $g\colon\mathcal{V}\to\mathcal{B}\subseteq \mathcal{V}$ by the equation $g(x_i)=u_i$ for every $i\in\{1,\dots,n-1\}$, where $u_i$ is  such an element that $Ax_i+Bu_i=x_{i+1}$, and we define $g(x_n)$ arbitrarily. This definition is correct and unique since the vectors $x_i$ form a basis of $\mathcal{V}$ \citep[see][Tvrzení 6.4]{Barto}. Let $G$ be the matrix of the linear mapping $g$ with respect to the standard basis. Then for every $i\in\{1,\ldots,n-1\}$ we have
     $$(A+BG)x_i=Ax_i+BGx_i=Ax_i+Bu_i=x_{i+1}\ .$$
     It follows 
     $$\mathbf{R}(A+BG,x_1)=(x_1|(A+BG)x_1|\cdots|(A+BG)^{n-1}x_1)=(x_1|x_2|\cdots|x_n)\ .$$
