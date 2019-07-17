@@ -5,7 +5,7 @@
 % (but beware, LaTeX adds 1in implicitly)
 \documentclass[12pt,a4paper]{report}
 	\usepackage[utf8]{inputenc}
-	\usepackage[english]{babel}
+	\usepackage[slovak, english]{babel}
 	\usepackage{amsmath, amsthm, amssymb}
 	\usepackage{graphicx, tabularx}
 	\usepackage{mathtools}
@@ -65,6 +65,7 @@
 
 	% Thesis title in English (exactly as in the formal assignment)
 	\def\ThesisTitle{Pole Shifting Theorem in Control Theory}
+	\def\ThesisTitleSk{Věta o přiřazení pólů v teorii řízení}
 
 	% Author of the thesis
 	\def\ThesisAuthor{Alexander Gažo}
@@ -76,15 +77,18 @@
 	% (according to the Organizational Structure of MFF UK in English,
 	% or a full name of a department outside MFF)
 	\def\Department{Department of Algebra}
+	\def\DepartmentSk{Katedra algebry}
 	
 	% Is it a department (katedra), or an institute (ústav)?
 	\def\DeptType{Department}
+	\def\DeptTypeSk{Katedra}
 	
 	% Thesis supervisor: name, surname and titles
 	\def\Supervisor{doc. RNDr. Jiří Tůma, DrSc.}
 	
 	% Supervisor's department (again according to Organizational structure of MFF)
 	\def\SupervisorsDepartment{Department of Algebra}
+	\def\SupervisorsDepartmentSk{Katedra algebry}
 	
 	% Study programme and specialization
 	\def\StudyProgramme{Mathematics}
@@ -93,17 +97,38 @@
 	% An optional dedication: you can thank whomever you wish (your supervisor,
 	% consultant, a person who lent the software, etc.)
 	\def\Dedication{%
-	Dedication.
+		I would like to thank doc. RNDr. Jiří Tůma, DrSc. for always pleasant consultations, valuable advice and patience. I would also like to thank Peter Guba for his time in assisting me with the English side of the thesis.
 	}
 
 	% Abstract (recommended length around 80-200 words; this is not a copy of your thesis assignment!)
 	\def\Abstract{%
-		
+		In this thesis, I describe the notions needed for understanding and proving the pole-shifting theorem, as well as the theorem itself. I do this by frist defining first order dynamical linear systems with constant coefficients with control and defining controllability of such a system. 
+		Then I show that the definition of controllability motivated by discrete-time systems also holds for continuous-time systems.
+		Using these notions, the pole-shifting theorem can be formulated and proved.
+	}
+	\def\AbstractSk{%
+
 	}
 
 	% 3 to 5 keywords (recommended), each enclosed in curly braces
 	\def\Keywords{%
-		{Pole-Shifting Theorem}
+		{discrete linear dynamical system with constant coefficients},
+		{continuous linear dynamical system with constant coefficients},
+		{eigenvalue assignment},
+		{control},
+		{controllability},
+		{linear feedback},
+		{stability},
+		{basic control theory}
+	}
+	\def\KeywordsSk{%
+		{diskrétny lineárny dynamický systém s konštantnými koeficientmi},
+		{spojitý lineárny dynamický systém s konštantnými koeficientmi},
+		{priradenie vlastných čísiel},
+		{riadenie},
+		{kontrolovateľnosť},
+		{stabilita},
+		{základy teórie riadenia}
 	}
 
 	\hypersetup{unicode}

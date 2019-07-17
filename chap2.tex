@@ -153,7 +153,7 @@ The following chapter is based on the first section of the fifth chapter of \cit
     $$\chi_{A_1+B_1F_1}=\chi\ ,$$
     then by putting $F=(F_1,0)$ we get the desired characteristic polynomial, that is, $\chi_{A+BF}=\chi\chi_u$. Since the pair $(A_1,B_1)$ is controllable as shown in Lemma~\ref{lem:A_1B_1controllable}, it is sufficient only to prove that controllable systems can be assigned an arbitrary monic polynomial $\chi$ of respective degree. Hence, from this point on, we assume that the pair $(A,B)$ is controllable.
 
-    We will first prove the theorem for $m=1$ and then we will generalize this result. That will conclude the proof.
+    We first prove the theorem for $m=1$ and then we generalize this result, thus concluding the proof.
 
     Let $m=1$. By Lemma \ref{lem:simPairsAssignablePolynomial} and Corollary \ref{cor:controllerForm} we can consider the pair $(A,b)$ to be in the controller form. For a vector 
     \begin{equation*}
@@ -199,13 +199,13 @@ The following chapter is based on the first section of the fifth chapter of \cit
     $$f=\begin{pmatrix}
         \beta_1-\alpha_1&\beta_2-\alpha_2&\ldots&\beta_n-\alpha_n
     \end{pmatrix}\ ,$$
-    and the equality $\chi_{A+bf}=\chi$ will be satisfied. We have shown that for the case where $m=1$, any controllable pair $(A,b)$ can be assigned an arbitrary monic polynomial of degree $n$.
+    and the equality $\chi_{A+bf}=\chi$ is satisfied. We have shown that for the case where $m=1$, any controllable pair $(A,b)$ can be assigned an arbitrary monic polynomial of degree $n$.
 
     For the case where $m>1$, we choose any vector $v\in\K^m$ satisfying that $Bv\neq \nullvector$ and put $b=Bv$. For any $f\in\K^{1\times n}$ and for any matrix $G\in\K^{m\times n}$, it then holds
     $${A+BG+bf}={A+BG+Bvf}={A+B(G+vf)}$$
     and therefore, if we put $F=G+vf$, we obtain 
     $$\chi_{A+BG+bf}=\chi_{A+BF}\ .$$
-    This implies that any polynomial that can be assigned to the pair $(A+BG,b)$ can also be assigned to the pair $(A,B)$. Since we have proved the theorem for a controllable pair where $m=1$, the proof will be concluded by showing that there exists such a matrix $G$ that the pair $(A+BG,b)$ is controllable.
+    This implies that any polynomial that can be assigned to the pair $(A+BG,b)$ can also be assigned to the pair $(A,B)$. Since we have proved the theorem for a controllable pair where $m=1$, the proof can be concluded by showing that there exists such a matrix $G$ that the pair $(A+BG,b)$ is controllable.
        
     Let us have a sequence of linearly independent vectors $Bv=x_1,\ldots,x_k$, of length $n$, where
     \begin{equation}

@@ -1,10 +1,10 @@
-\chapter{Dynamic Systems}
+\chapter{Dynamical Systems}
 \label{chap:intr}
 
 \section{Systems of First Order Differential Equations}
 
 \begin{remark}
-	Let $f(t)$ be a function of time $t\in\R^+$. We will denote its derivative with respect to $t$ by $$\dot{f}(t)=\frac{d}{dt}f(t)\ .$$
+	Let $f(t)$ be a function of time $t\in\R^+$. We denote its derivative with respect to $t$ by $$\dot{f}(t)=\frac{d}{dt}f(t)\ .$$
 \end{remark}
 
 \begin{definition}
@@ -19,23 +19,23 @@
 	This system is also called a \termdef{linear autonomous system}.
 \end{definition}
 
-We will use the matrix form, as it is a very compact way of describing such a system.
+We use the matrix form, as it is a very compact way of describing such a system.
 
-To express the solution of a linear autonomous system in a similarly compact way, we will establish the notion of the matrix exponential.
+To express the solution of a linear autonomous system in a similarly compact way, we establish the notion of the matrix exponential.
 
 \begin{definition}
 	Let $X$ be a real or complex square matrix. The exponential of $X$, denoted by $e^X$, is the square matrix of the same type defined by the series $$e^{X}=\sum _{k=0}^{\infty}\frac{1}{k!}X^{k}\ ,$$
 	where $X^0$ is defined to be the identity matrix $I$ of the same type as $X$.
 \end{definition}
 
-For this definition to make sense, we need to show that the series converges for any real or complex square matrix. Firstly, we will define what it means for a matrix series to converge. In this text, we will define the convergence using the Frobenius norm.
+For this definition to make sense, we need to show that the series converges for any real or complex square matrix. Firstly, we define what it means for a matrix series to converge. In this text, we define the convergence using the Frobenius norm.
 
 \begin{definition}
 	\termdef{Frobenius norm} is a matrix norm, denoted as $\norm{\cdot}_F$, which for an arbitrary $n \times m$ matrix $A$ is defined as $$\norm{A}_F=\sqrt{\sum^n_{i=1}\sum^m_{j=1}\abs{a_{i,j}}^2}\ .$$
 \end{definition}
 
 \begin{remark}
-	In what follows, $\K$ will denote a field of either real or complex numbers.
+	In what follows, $\K$ denote a field of either real or complex numbers.
 \end{remark}
 
 \begin{lemma}
@@ -225,7 +225,7 @@ Typically, we require the autonomous system to stabilize itself back into its st
 
 Let $A$ be a real or complex matrix. Then there is a regular matrix $R\in \K^{n\times n}$ such that the matrix
 $$J=R^{-1}AR$$
-is in a Jordan normal form. By substituting $x(t)=Ry(t)$, which is equivalent to changing the basis of our system, we get 
+is in a Jordan normal form. By substituting $x(t)=Ry(t)$, which is equivalent to changing the basis of the system, we get 
 \begin{align*}
 	R\dot{y}(t)&=ARy(t) \\
 	\dot{y}(t)&=R^{-1}ARy(t) \\
@@ -301,9 +301,9 @@ where the zeroes in the matrices represent zero matrices of appropriate sizes. T
 \subsection{Linear System With Control}
 
 \begin{definition}
-	A \termdef{continuous dynamic linear system with control u} is a system of linear differential equations of first order with constant coefficients in the form $$\dot{x}(t)=Ax(t)+Bu(t)\ ,$$ where the function $x(t)\colon\R^+\to\K^n$ is a \termdef{state vector} (\termdef{state} for short) of the system, $A\in\K^{n\times n}$ is a \termdef{fundamental matrix} of the system, $B\in\K^{n\times m}$ is a \termdef{control matrix} of the system and the continuous function $u(t)\colon\R^+\to\K^m$ is a \termdef{control vector} of the system. The \termdef{initial condition} of the system is the state $x(0)$.
+	A \termdef{continuous dynamical linear system with control u} is a system of linear differential equations of first order with constant coefficients in the form $$\dot{x}(t)=Ax(t)+Bu(t)\ ,$$ where the function $x(t)\colon\R^+\to\K^n$ is a \termdef{state vector} (\termdef{state} for short) of the system, $A\in\K^{n\times n}$ is a \termdef{fundamental matrix} of the system, $B\in\K^{n\times m}$ is a \termdef{control matrix} of the system and the continuous function $u(t)\colon\R^+\to\K^m$ is a \termdef{control vector} of the system. The \termdef{initial condition} of the system is the state $x(0)$.
 
-	We will call this system the $(A,B)$ system for short.
+	We call this system the $(A,B)$ system for short.
 \end{definition}
 
 In a general case, this is called an \termdef{open-loop control} system because the control is not dependent on the previous state of the system.
@@ -317,7 +317,7 @@ Of course, if we want this system to be self-regulating, we cannot input our own
 	$$u(t)=Fx(t)\ ,$$
 	where $F\in\K^{m\times n}$ is a \termdef{feedback matrix}. This system is then called a \termdef{closed-loop control} system or a \termdef{linear feedback control} system.
 
-	For short, we will call this system the $(A,B,F)$ system.
+	For short, we call this system the $(A,B,F)$ system.
 \end{definition}
 
 Usually, we are given an autonomous system and we need to find a feedback matrix $F$ such that the resulting system has some desired behavior. The feedback control system can be expressed as the linear autonomous system
@@ -333,21 +333,21 @@ By Theorem \ref{theorem:stability}, we now know that an $(A,B,F)$ system is stab
 	Let $A$ be a $n\times n$ matrix. Then the \termdef{characteristic polynomial}~of~$A$, denoted by $\chi_A$, is defined as $$\chi_A(s)=\textnormal{det}(sI_n-A)\ .$$
 \end{definition}
 
-Through our observations we got to a conclusion, that we need to find a feedback matrix $F$ such that the characteristic polynomial of the matrix $A+BF$ is $$\chi_{A+BF}=(x-\lambda_1)(x-\lambda_2)\cdots(x-\lambda_n)\ ,$$ where all its roots $\lambda_1,\lambda_2,\ldots,\lambda_n \in \C$ have negative real parts. This leads to an important definition.
+Through these observations we got to a conclusion, that we need to find a feedback matrix $F$ such that the characteristic polynomial of the matrix $A+BF$ is $$\chi_{A+BF}=(x-\lambda_1)(x-\lambda_2)\cdots(x-\lambda_n)\ ,$$ where all its roots $\lambda_1,\lambda_2,\ldots,\lambda_n \in \C$ have negative real parts. This leads to an important definition.
 
 \begin{definition}
     Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. We say that a polynomial $\chi$ is \termdef{assignable for the pair} $(A,B)$ if there exists such a matrix $F\in\K^{m \times n}$ that $$\chi_{A+BF}=\chi\ .$$
 \end{definition}
 
-The pole shifting theorem states, that if $A$ and $B$ are ``sensible'' in a sense that we will discuss in the next section, then an arbitrary monic polynomial $\chi$ of degree $n$ can be assigned to the pair $(A,B)$. It also claims that it is immaterial over what field $A$ and $B$ are.
+The pole shifting theorem states, that if $A$ and $B$ are ``sensible'' in a sense that we discuss in the next section, then an arbitrary monic polynomial $\chi$ of degree $n$ can be assigned to the pair $(A,B)$. It also claims that it is immaterial over what field $A$ and $B$ are.
 
 \section{Controllable pairs}
 
-In this section we will establish the notion of controllability. We will first explain this concept for \textit{discrete-time systems} and then we will show that the requirement for controllability of \textit{continuous-time systems} is the same as the one for discrete-time systems.
+In this section we establish the notion of controllability. We first explain this concept for \textit{discrete-time systems} and then we show that the requirement for controllability of \textit{continuous-time systems} is the same as the one for discrete-time systems.
 
 \subsection{Discrete-time systems}
 
-Let us have a continuous dynamic system $\dot{x}(t)=A_1x(t)$, where $A_1$ is a real or complex square matrix. We \textit{discretize} the time, that is, instead of using continuous real-time values of $x(t)$ and $\dot{x}(t)$, we are interested in these values only at discrete \textit{sampling times} $0,\delta,2\delta,\ldots,k\delta,\ldots$ where $\delta\in\R^+$. We will denote the states at each sampling time as
+Let us have a continuous dynamical system $\dot{x}(t)=A_1x(t)$, where $A_1$ is a real or complex square matrix. We \textit{discretize} the time, that is, instead of using continuous real-time values of $x(t)$ and $\dot{x}(t)$, we are interested in these values only at discrete \textit{sampling times} $0,\delta,2\delta,\ldots,k\delta,\ldots$ where $\delta\in\R^+$. We denote the states at each sampling time as
 $$x_k=x(k\delta)\ ,k\in\N_0\ .$$
 The solution of this system is by Theorem \ref{claim:uniqueness} precisely $x(t)=e^{tA_1}x(0)$. For some fixed $k\in\N$ we get $x_k=x(k\delta)=e^{k\delta A_1}x(0)$. Using the fourth point of Lemma \ref{lem:expprop} we obtain 
 \begin{align*}
@@ -358,22 +358,22 @@ The solution of this system is by Theorem \ref{claim:uniqueness} precisely $x(t)
 	&=e^{\delta A_1}x_k \\
 	&=Ax_k
 \end{align*}
-by choosing $A=e^{\delta A_1}$. We see that the value of $x$ at the sample time $k$ can be calculated from its previous value. We will now define such a system. The definition holds for any field $\K$.
+by choosing $A=e^{\delta A_1}$. We see that the value of $x$ at the sample time $k$ can be calculated from its previous value. We now define such a system. The definition holds for any field $\K$.
 
 \begin{definition}
-	Let $\K$ be a field. A \termdef{discrete dynamic linear system} is a system of equations
+	Let $\K$ be a field. A \termdef{discrete dynamical linear system} is a system of equations
 	$$x_{k+1}=Ax_k,\ k\in\N_0\ ,$$
 	where $x_k\in \K^n$ is a \termdef{state vector} (\termdef{state} for short) of the system and the matrix $A\in \K^{n\times n}$ is a \termdef{fundamental matrix} of the system. The \termdef{initial condition} of the system is the state $x(0)$.
 \end{definition}
 
-Similarly, we can define a discrete dynamic linear system with control.
+Similarly, we can define a discrete dynamical linear system with control.
 
 \begin{definition}
-	Let $\K$ be a field. A \termdef{discrete dynamic linear system with control u} is a system of equations
+	Let $\K$ be a field. A \termdef{discrete dynamical linear system with control u} is a system of equations
 	$$x_{k+1}=Ax_k+Bu_k,\ k\in\N_0\ ,$$
 	where $x_k\in\K^n$ is a \termdef{state vector} (\termdef{state} for short) of the system, $A\in\K^{n\times n}$ is a fundamental matrix, $B\in\K^{n\times m}$ is a control matrix and $u_k\in\K^m$ is a control vector. The \termdef{initial condition} of the system is the state $x_0$.
 
-	We will call this system the \termdef{discrete $(A,B)$} system.
+	We call this system the \termdef{discrete $(A,B)$} system.
 \end{definition}
 
 \begin{definition}
@@ -424,19 +424,20 @@ We have seen that by left multiplying $\mathcal{R}(A,B)$ by $A$, we obtain a sub
 	It follows from the discussion above.
 \end{proof}
 
-Ideally, we want to be able to get the system into any state by controlling it with our control $u$, i.e., choosing an appropriate sequence $u_0,\ldots,u_{n-1}$. Therefore, we desire that $\mathcal{R}(A,B)=\K^n$. An equivalent condition is $\text{dim}\mathcal{R}(A,B)=n$.
+Ideally, we want to be able to get the system into any state by controlling it with the control $u$, i.e., choosing an appropriate sequence $u_0,\ldots,u_{n-1}$. Therefore, we desire that $\mathcal{R}(A,B)=\K^n$. An equivalent condition is $\text{dim}\mathcal{R}(A,B)=n$.
 
 \begin{definition}
 	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. The pair $(A,B)$ is \termdef{controllable} if $\textnormal{dim}\mathcal{R}(A,B)=n$.
 \end{definition}
 
 \subsection{Continuous-time systems}
+\label{subsec:ct-system}
 
 \begin{remark}
 	In this section we assume, that $\K$ is a field of either real or complex numbers and that $A\in\K^{n\times n}$, $B\in\K^{n\times m}$.
 \end{remark}
 
-We will now show that the condition for controllability of discrete-time systems also characterizes controllable continuous-time systems.
+We now show that the condition for controllability of discrete-time systems also characterizes controllable continuous-time systems.
 
 \begin{definition}
 	Let us have a vector function $v(t)\colon\R\to\K^n$. Then the definite integral of the function on an interval $[a,b]$, $a,b\in\R$ is
@@ -490,11 +491,12 @@ Now it is clear that in the system where $x(0)=\nullvector$, the state in time $
 	By setting $s=t$, we obtain $\rho^\ast B=\nullvector$. By differentiating the equation and again setting $s=t$ we get $\rho^\ast AB = \nullvector$. Repeating this procedure gets us $\rho^\ast A^iB=\nullvector$ for $i\in\{1,\ldots, n-1\}$.
 	This implies that the vector $\rho$ is orthogonal to $\mathcal{R}(A,B)$ and therefore $\text{dim}\mathcal{R}(A,B)$ cannot be equal to $n$.
 	
-	The ``only if'' part of the proof will be shown in the following sections.
+	The ``only if'' part of the proof is shown in the following sections.
 
 \end{proof}
 
 \subsection{Decomposition theorem}
+\label{subsec:decomp}
 
 \begin{lemma}
 	\label{lem:invsubspc}
@@ -512,14 +514,14 @@ Now it is clear that in the system where $x(0)=\nullvector$, the state in time $
 \begin{proof}
 	Let $(w_1,\ldots,w_r)$ be an arbitrary basis of the subspace $W$. We complete this sequence into basis $C$ of $V$ with vectors $v_1,\ldots,v_{n-r}$ where $n=\text{dim}V$, thus $C=(w_1,\ldots,w_r,v_1,\ldots,v_{n-r})$. We know that
 	$$[f]^C_C=([f(w_1)]_C,\ldots,[f(w_r)]_C,[f(v_1)]_C,\ldots,[f(v_{n-r})]_C)\ .$$
-	Since $W$ is an $A$-invariant subspace, it holds that $f(w_i)\in W$ and therefore, because of our choice of the basis $C$, the matrix $[f]^C_C$ is of the desired form.
+	Since $W$ is an $A$-invariant subspace, it holds that $f(w_i)\in W$ and therefore, because of the choice of the basis $C$, the matrix $[f]^C_C$ is of the desired form.
 \end{proof}
 
 If $(A,B)$ is not controllable, then there exists a part of the state space that is not affected by the input. This can be shown using the following theorem.
 
 \begin{theorem}
 	\label{theorem:decomp}
-	Let $\K$ be a field, $(A,B)$ be a dynamic system over $\K$ and let $\text{dim}\mathcal{R}(A,B)=r\leq n$. Then there exists an invertible $n\times n$ matrix $T$ over $\K$ such that the matrices $\widetilde{A}:=T^{-1}AT$ and $\widetilde{B}:=T^{-1}B$ have the block structures 
+	Let $\K$ be a field, $(A,B)$ be a dynamical system over $\K$ and let $\text{dim}\mathcal{R}(A,B)=r\leq n$. Then there exists an invertible $n\times n$ matrix $T$ over $\K$ such that the matrices $\widetilde{A}:=T^{-1}AT$ and $\widetilde{B}:=T^{-1}B$ have the block structures 
 	\begin{equation}
 		\label{eq:decomp}
 		\widetilde{A}=
@@ -547,7 +549,7 @@ If $(A,B)$ is not controllable, then there exists a part of the state space that
 	Since $f_B(e_i)$ is the $i$-th column of the matrix $B$, and trivially by definition of a reachable space it holds that $\text{Im}(B)\subseteq \mathcal{R}(A,B)$, we see that $\widetilde{B}$ is in the requested form.
 \end{proof}
 
-We achieved the new form of matrices $A$ and $B$ by changing the basis of our state space. We now define the relation between $(A,B)$ and $(\widetilde{A},\widetilde{B}).$
+We achieved the new form of matrices $A$ and $B$ by changing the basis of the state space. We now define the relation between $(A,B)$ and $(\widetilde{A},\widetilde{B}).$
 
 \begin{definition}
 	Let $\K$ be a field, let $A,\widetilde{A}\in\K^{n\times n}$ and $B,\widetilde{B}\in \K^{n\times m}$. Then $(A,B)$ \termdef{is similar to} $(\widetilde{A},\widetilde{B})$, denoted $(A,B) \sim (\widetilde{A},\widetilde{B})$, if there exists an invertible matrix $T$ for which it holds that
@@ -560,7 +562,7 @@ We achieved the new form of matrices $A$ and $B$ by changing the basis of our st
 \end{lemma}
 
 \begin{proof}
-	We will use properties of the matrix determinant:
+	We use properties of the matrix determinant:
 	\begin{align*}
 		\chi_A&=\text{det}(sI-A)=\text{det}(sI-R^{-1}BR) \\
 		&=\text{det}(sR^{-1}IR-R^{-1}BR)=\text{det}(R^{-1}(sI-B)R) \\
@@ -580,7 +582,7 @@ We achieved the new form of matrices $A$ and $B$ by changing the basis of our st
 	where $\widetilde{F}=FT$. It follows from Lemma \ref{lem:simMatrices} that $$\chi_{A+BF}=\chi_{\widetilde{A}+\widetilde{B}\widetilde{F}}\ .$$
 \end{proof}
 
-Theorem \ref{theorem:decomp} has the following consequence. Let $(A,B)$ be a dynamic system with the initial condition $x(0)=\nullvector$, and let $T$ be a regular matrix over $\K$ as in Theorem \ref{theorem:decomp}. By putting $x(t)=Ty(t)$ we get 
+Theorem \ref{theorem:decomp} has the following consequence. Let $(A,B)$ be a dynamical system with the initial condition $x(0)=\nullvector$, and let $T$ be a regular matrix over $\K$ as in Theorem \ref{theorem:decomp}. By putting $x(t)=Ty(t)$ we get 
 $$T\dot{y}(t)=ATy(t)+Bu(t)\ ,$$ 
 which can be rewriten as 
 $$\dot{y}(t)=T^{-1}ATy(t)+T^{-1}Bu(t)=\widetilde{A}y(t)+\widetilde{B}u(t)\ .$$ 
@@ -591,7 +593,7 @@ This gives us
 \end{alignat*}
 where $y(t)=(y_1(t),y_2(t))^T$, $y_1(t)\in\K^r$ and $y_2(t)\in\K^{n-r}$. The component $y_2(t)$ cannot be controlled and it is, for the initial condition $y(0)=Tx(0)=\nullvector$, always equal to \nullvector, since it does not depend on the control vector $u(t)$. This observation provides a proof by contraposition of the ``only if'' part of Theorem \ref{theorem:controllabilityContinuous}.
 
-It is also true that the system $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is a controllable pair, which we will state as a lemma.
+It is also true that the system $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is a controllable pair, which we state as a lemma.
 
 \begin{lemma}
 	\label{lem:A_1B_1controllable}
@@ -599,7 +601,7 @@ It is also true that the system $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is
 \end{lemma}
 
 \begin{proof}
-	We know that $\text{dim}\mathcal{R}(A,B)=r$. We desire that $\text{dim}\mathcal{R}(A_1,B_1)=r$. We will show that $\text{dim}\mathcal{R}(A,B)=\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}\mathcal{R}(A_1,B_1)$. 
+	We know that $\text{dim}\mathcal{R}(A,B)=r$. We desire that $\text{dim}\mathcal{R}(A_1,B_1)=r$. We show that $\text{dim}\mathcal{R}(A,B)=\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}\mathcal{R}(A_1,B_1)$. 
 	First, we have 
 	\begin{align*}
 		\mathcal{R}(\widetilde{A},\widetilde{B})&=\text{Im}(\widetilde{A}^{n-1}\widetilde{B}|\cdots|\widetilde{A}\widetilde{B}|\widetilde{B}) \\
@@ -674,7 +676,7 @@ It is also true that the system $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is
 Now we can see that the decomposition described in Theorem \ref{theorem:decomp} decomposes the matrix $A$ into the ``controllable'' and the ``uncontrollable'' parts $A_1$ and $A_3$ respectively.
 
 \begin{cor}
-	Let $(A,B)$ be a dynamic system, and let $T$ be a regular matrix and $\widetilde{A}=T^{-1}AT$ as in Theorem \ref{theorem:decomp}. Then it holds
+	Let $(A,B)$ be a dynamical system, and let $T$ be a regular matrix and $\widetilde{A}=T^{-1}AT$ as in Theorem \ref{theorem:decomp}. Then it holds
 	$$\chi_A=\chi_{\widetilde{A}}=\chi_{A_1}\chi_{A_3}=\chi_c\chi_u\ .$$
 \end{cor} 
 
