@@ -14,7 +14,7 @@
 		&\vdotswithin{=} \\
 		\dot{x}_n(t)&=a_{n,1}x_1(t)+\ldots+a_{n,n}x_n(t)\ .
 	\end{align*}
-	This system can be written in the matrix form $$\dot{x}(t)=Ax(t)\ ,$$ where $x(t)=(x_1(t),\ldots,x_n(t))^T \in \C^n, x_i\colon\R^+\to\C,$ is a \termdef{state vector} (\termdef{state} for short) of the system and the matrix $A\in \C^{n\times n}$, $A=(a_{i,j})$ is a \termdef{fundamental matrix} of the system. The \termdef{initial condition} of the system is the state $x(0)$.
+	This system can be written in the matrix form $$\dot{x}(t)=Ax(t)\ ,$$ where $x(t)=(x_1(t),\ldots,x_n(t))^T \in \R^n, x_i\colon\R^+\to\R,$ is a \termdef{state vector} (\termdef{state} for short) of the system and the matrix $A\in \R^{n\times n}$, $A=(a_{i,j})$ is a \termdef{matrix of coefficients} of the system. The \termdef{initial condition} of the system is the state $x(0)$.
 
 	This system is also called a \termdef{linear autonomous system}.
 \end{definition}
@@ -34,13 +34,9 @@ For this definition to make sense, we need to show that the series converges for
 	\termdef{Frobenius norm} is a matrix norm, denoted as $\norm{\cdot}_F$, which for an arbitrary $n \times m$ matrix $A$ is defined as $$\norm{A}_F=\sqrt{\sum^n_{i=1}\sum^m_{j=1}\abs{a_{i,j}}^2}\ .$$
 \end{definition}
 
-\begin{remark}
-	In what follows, $\K$ denote a field of either real or complex numbers.
-\end{remark}
-
 \begin{lemma}
 \label{lem:frobNormProperties}
-	The Frobenius norm satisfies the following statements for any matrices $A$, $B$, $C\in \K^{n \times m}$, $D\in\K^{m\times r}$ and any scalar $\alpha \in \K$.
+	The Frobenius norm satisfies the following statements for any matrices $A$, $B$, $C\in \R^{n \times m}$, $D\in\R^{m\times r}$ and any scalar $\alpha \in \R$.
 	\begin{enumerate}
 		\item $\norm{A+B}_F\leq\norm{A}_F+\norm{B}_F\ ,$
 		\item $\norm{\alpha A}_F=\abs{\alpha}\norm{A}_F\ ,$
@@ -59,7 +55,7 @@ For this definition to make sense, we need to show that the series converges for
 
 \begin{lemma}
 \label{lem:elementAbsoluteSize}
-	The absolute value of any element of a matrix is always less than or equal to the Frobenius norm of the matrix. In particular, for a matrix \linebreak $A^k=(a_{i,j}^{(k)})_{n\times n}$, where $A\in\K^{n\times n}$, it holds for every position $(i,j)$ that 
+	The absolute value of any element of a matrix is always less than or equal to the Frobenius norm of the matrix. In particular, for a matrix \linebreak $A^k=(a_{i,j}^{(k)})_{n\times n}$, where $A\in\R^{n\times n}$, it holds for every position $(i,j)$ that 
 	$$\abs*{a_{i,j}^{(k)}}\leq\norm*{A^k}_F\leq\norm{A}^k_F.$$
 \end{lemma}
 
@@ -73,7 +69,7 @@ For this definition to make sense, we need to show that the series converges for
 
 \begin{cor}
 	\label{cor:elementConvergence}
-	Let us have a matrix $A^k=(a_{i,j}^{(k)})_{n\times n}$. Then the series $\sum^\infty_{k=0}\frac{b^k}{k!}a_{i,j}^{(k)}$ converges absolutely for any $b\in\K$.
+	Let us have a matrix $A^k=(a_{i,j}^{(k)})_{n\times n}$. Then the series $\sum^\infty_{k=0}\frac{b^k}{k!}a_{i,j}^{(k)}$ converges absolutely for any $b\in\R$.
 \end{cor}
 
 \begin{proof}
@@ -110,7 +106,7 @@ For this definition to make sense, we need to show that the series converges for
 
 \begin{lemma}
 \label{lem:matrixSeriesFactoring}
-	Let $\{A_k\}_{k=0}^\infty$ be a matrix sequence, where $A_k\in\K^{n\times m}$, and let $B\in\K^{r\times n}$, $C\in\K^{m\times s}$. If $\sum^\infty_{k=0}A_k$ converges, then also $\sum^\infty_{k=0}BA_kC$ converges, and the following equality holds:
+	Let $\{A_k\}_{k=0}^\infty$ be a matrix sequence, where $A_k\in\R^{n\times m}$, and let $B\in\R^{r\times n}$, $C\in\R^{m\times s}$. If $\sum^\infty_{k=0}A_k$ converges, then also $\sum^\infty_{k=0}BA_kC$ converges, and the following equality holds:
 	$$\sum^\infty_{k=0}BA_kC=B\left(\sum^\infty_{k=0}A_k\right)C\ .$$
 \end{lemma}
 
@@ -132,12 +128,12 @@ For this definition to make sense, we need to show that the series converges for
 \end{proof}
 
 \begin{definition}
-	Let us have a matrix function $X(t)\colon\R\rightarrow\K^{n\times m}$. Then the derivative of the function is $$\frac{d}{dt}X(t)=\left(\frac{d}{dt}x_{i,j}(t)\right)_{n\times m}=\Big(\dot{x}_{i,j}(t)\Big)_{n\times m}\ .$$
+	Let us have a matrix function $X(t)\colon\R\rightarrow\R^{n\times m}$. Then the derivative of the function is $$\frac{d}{dt}X(t)=\left(\frac{d}{dt}x_{i,j}(t)\right)_{n\times m}=\Big(\dot{x}_{i,j}(t)\Big)_{n\times m}\ .$$
 \end{definition}
 
 \begin{lemma}
 \label{lem:matrixTimesVectorDerivative}
-	For a matrix function $A(t)\colon\R\to\K^{n\times m}$ and a vector function \linebreak $v(t)\colon\R\to\K^m$ it holds 
+	For a matrix function $A(t)\colon\R\to\R^{n\times m}$ and a vector function \linebreak $v(t)\colon\R\to\R^m$ it holds 
 	$$\frac{d}{dt}\left(A(t)v(t)\right)=\left(\frac{d}{dt}A(t)\right)v(t)+A(t)\frac{d}{dt}v(t)$$
 \end{lemma}
 	
@@ -200,7 +196,7 @@ For this definition to make sense, we need to show that the series converges for
 
 \begin{lemma}
 	\label{lem:matrixExpIdentity}
-	For any $a\in\K$ we have $e^{a I}=e^{a}I$.
+	For any $a\in\R$ we have $e^{a I}=e^{a}I$.
 \end{lemma}
 
 \begin{proof}
@@ -220,10 +216,10 @@ Now, using the properties in Lemma \ref{lem:expprop}, we can see that $\dot{x}(t
 Typically, we require the autonomous system to stabilize itself back into its stable state after some disturbances.
 
 \begin{definition}
-	The linear autonomous system $\dot{x}(t)=Ax(t)$ is \termdef{stable}, if for any initial state $x(0)\in\K^n$ the state vector $x(t)$ converges to $\nullvector$ for $t\to\infty$.
+	The linear autonomous system $\dot{x}(t)=Ax(t)$ is \termdef{stable}, if for any initial state $x(0)\in\R^n$ the state vector $x(t)$ converges to $\nullvector$ for $t\to\infty$.
 \end{definition}
 
-Let $A$ be a real or complex matrix. Then there is a regular matrix $R\in \K^{n\times n}$ such that the matrix
+Let $A$ be a real or complex matrix. Then there is a regular matrix $R\in \R^{n\times n}$ such that the matrix
 $$J=R^{-1}AR$$
 is in a Jordan normal form. By substituting $x(t)=Ry(t)$, which is equivalent to changing the basis of the system, we get 
 \begin{align*}
@@ -301,7 +297,7 @@ where the zeroes in the matrices represent zero matrices of appropriate sizes. T
 \subsection{Linear System With Control}
 
 \begin{definition}
-	A \termdef{continuous dynamical linear system with control u} is a system of linear differential equations of first order with constant coefficients in the form $$\dot{x}(t)=Ax(t)+Bu(t)\ ,$$ where the function $x(t)\colon\R^+\to\K^n$ is a \termdef{state vector} (\termdef{state} for short) of the system, $A\in\K^{n\times n}$ is a \termdef{fundamental matrix} of the system, $B\in\K^{n\times m}$ is a \termdef{control matrix} of the system and the continuous function $u(t)\colon\R^+\to\K^m$ is a \termdef{control vector} of the system. The \termdef{initial condition} of the system is the state $x(0)$.
+	A \termdef{continuous dynamical linear system with control u} is a system of linear differential equations of first order with constant coefficients in the form $$\dot{x}(t)=Ax(t)+Bu(t)\ ,$$ where the function $x(t)\colon\R^+\to\R^n$ is a \termdef{state vector} (\termdef{state} for short) of the system, $A\in\R^{n\times n}$ is a \termdef{matrix of coefficients} of the system, $B\in\R^{n\times m}$ is a \termdef{control matrix} of the system and the continuous function $u(t)\colon\R^+\to\R^m$ is a \termdef{control vector} of the system. The \termdef{initial condition} of the system is the state $x(0)$.
 
 	We call this system the $(A,B)$ system for short.
 \end{definition}
@@ -315,7 +311,7 @@ Of course, if we want this system to be self-regulating, we cannot input our own
 \begin{definition}
 	Let us have a linear differential system with the control $u(t)$ defined as
 	$$u(t)=Fx(t)\ ,$$
-	where $F\in\K^{m\times n}$ is a \termdef{feedback matrix}. This system is then called a \termdef{closed-loop control} system or a \termdef{linear feedback control} system.
+	where $F\in\R^{m\times n}$ is a \termdef{feedback matrix}. This system is then called a \termdef{closed-loop control} system or a \termdef{linear feedback control} system.
 
 	For short, we call this system the $(A,B,F)$ system.
 \end{definition}
@@ -327,7 +323,7 @@ $$\dot{x}(t)=Ax(t)+BFx(t)=(A+BF)x(t)\ .$$
 	The linear feedback system $(A,B,F)$ is \termdef{stable}, if the linear autonomous system $\dot{x}(t)=(A+BF)x(t)$ is stable.
 \end{definition}
 
-By Theorem \ref{theorem:stability}, we now know that an $(A,B,F)$ system is stable if all eigenvalues of the matrix $A+BF$ have negative real parts. Therefore, we are left to provide a suitable feedback matrix $F \in \K^{n \times n}$. This requirement can also be expressed through the characteristic polynomial of the matrix $A~+~BF$, since the roots of the characteristic polynomial of a matrix are precisely eigenvalues of the matrix.
+By Theorem \ref{theorem:stability}, we now know that an $(A,B,F)$ system is stable if all eigenvalues of the matrix $A+BF$ have negative real parts. Therefore, we are left to provide a suitable feedback matrix $F \in \R^{n \times n}$. This requirement can also be expressed through the characteristic polynomial of the matrix $A~+~BF$, since the roots of the characteristic polynomial of a matrix are precisely eigenvalues of the matrix.
 
 \begin{definition}
 	Let $A$ be a $n\times n$ matrix. Then the \termdef{characteristic polynomial}~of~$A$, denoted by $\chi_A$, is defined as $$\chi_A(s)=\textnormal{det}(sI_n-A)\ .$$
@@ -363,7 +359,7 @@ by choosing $A=e^{\delta A_1}$. We see that the value of $x$ at the sample time 
 \begin{definition}
 	Let $\K$ be a field. A \termdef{discrete dynamical linear system} is a system of equations
 	$$x_{k+1}=Ax_k,\ k\in\N_0\ ,$$
-	where $x_k\in \K^n$ is a \termdef{state vector} (\termdef{state} for short) of the system and the matrix $A\in \K^{n\times n}$ is a \termdef{fundamental matrix} of the system. The \termdef{initial condition} of the system is the state $x(0)$.
+	where $x_k\in \K^n$ is a \termdef{state vector} (\termdef{state} for short) of the system and the matrix $A\in \K^{n\times n}$ is a \termdef{matrix of coefficients} of the system. The \termdef{initial condition} of the system is the state $x(0)$.
 \end{definition}
 
 Similarly, we can define a discrete dynamical linear system with control.
@@ -371,7 +367,7 @@ Similarly, we can define a discrete dynamical linear system with control.
 \begin{definition}
 	Let $\K$ be a field. A \termdef{discrete dynamical linear system with control u} is a system of equations
 	$$x_{k+1}=Ax_k+Bu_k,\ k\in\N_0\ ,$$
-	where $x_k\in\K^n$ is a \termdef{state vector} (\termdef{state} for short) of the system, $A\in\K^{n\times n}$ is a fundamental matrix, $B\in\K^{n\times m}$ is a control matrix and $u_k\in\K^m$ is a control vector. The \termdef{initial condition} of the system is the state $x_0$.
+	where $x_k\in\K^n$ is a \termdef{state vector} (\termdef{state} for short) of the system, $A\in\K^{n\times n}$ is a matrix of coefficients, $B\in\K^{n\times m}$ is a control matrix and $u_k\in\K^m$ is a control vector. The \termdef{initial condition} of the system is the state $x_0$.
 
 	We call this system the \termdef{discrete $(A,B)$} system.
 \end{definition}
@@ -391,14 +387,21 @@ For every $k\in\N$ it is also true that
 $$\text{Im}(B|AB|\cdots|A^kB) \subseteq \text{Im}(B|AB|\cdots|A^{k+1}B)\ .$$
 By the Cayley–Hamilton theorem we know that $\chi_A(A)=O_{n\times n}$. That means, that $A^n$ can be expressed as a linear combination of the matrices $\{I,A,\ldots,A^{n-1}\}$ which implies that $A^nB$ can be expressed as a linear combination of the matrices $\{B,AB,\ldots,A^{n-1}B\}$. We now see that $$\text{Im}(B|AB|\cdots|A^{n}B) \subseteq \text{Im}(B|AB|\cdots|A^{n-1}B)\ .$$
 It follows
-\begin{equation}
-\label{eq:cayleHamilReachable}
+\begin{equation*}
+%\label{eq:cayleHamilReachable}
 	\text{Im}(B|AB|\cdots|A^{n-1}B)=\text{Im}(B|AB|\cdots|A^{n-1}B|A^nB)\ .
-\end{equation}
+\end{equation*}
 For an arbitrary $k\in\N,k>n$ we have $$A^kB=A^{k-n}A^nB=A^{k-n}\sum^{n-1}_{i=0}\alpha_i A^iB=\sum^{n-1}_{i=0}\alpha_i A^{k-n+i}B\in\text{Im}(B|AB|\ldots|A^{k-1}B)\ ,$$
 for some $\alpha_0,\ldots,\alpha_{n-1}\in\K$.
 Therefore, by induction, all the states we could reach in any time $k\in\N$ are already in the space 
 $$\text{Im}(B|AB|\cdots|A^{n-1}B)\ .$$
+We have proved the following claim.
+
+\begin{claim}
+\label{clm:cayley}
+	Let $\K$ be a field and let $A\in\K^{n\times n}$. For any $k\in\N,k\geq n$ it holds $$\text{Im}(B|AB|\cdots|A^kB)=\text{Im}(B|AB|\cdots|A^{n-1}B)\ .$$
+\end{claim}
+
 \begin{definition}
 	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. The matrix $$\mathbf{R}(A,B)=(B|AB|\cdots|A^{n-1}B)$$ is called the \termdef{rechability matrix} of $(A,B)$. We define the \termdef{reachable space} $\mathcal{R}(A,B)$ of the pair $(A,B)$ as $\text{Im}(\mathbf{R}(A,B))$. 
 \end{definition}
@@ -434,13 +437,13 @@ Ideally, we want to be able to get the system into any state by controlling it w
 \label{subsec:ct-system}
 
 \begin{remark}
-	In this section we assume, that $\K$ is a field of either real or complex numbers and that $A\in\K^{n\times n}$, $B\in\K^{n\times m}$.
+	In this section we assume that $A\in\R^{n\times n}$, $B\in\R^{n\times m}$.
 \end{remark}
 
 We now show that the condition for controllability of discrete-time systems also characterizes controllable continuous-time systems.
 
 \begin{definition}
-	Let us have a vector function $v(t)\colon\R\to\K^n$. Then the definite integral of the function on an interval $[a,b]$, $a,b\in\R$ is
+	Let us have a vector function $v(t)\colon\R\to\R^n$. Then the definite integral of the function on an interval $[a,b]$, $a,b\in\R$ is
 	$$\int_a^bv(t)dt=\left(\int_a^bv_1(t)dt\ ,\ \ldots\ ,\ \int_a^bv_n(t)dt\right)^T\ .$$
 \end{definition}
 
@@ -464,14 +467,14 @@ Now it is clear that in the system where $x(0)=\nullvector$, the state in time $
 \end{equation}
 
 \begin{definition}
-	We say that a state $x\in\K^n$ can be \termdef{reached in time $t$}, if there exists a control $u(x)\colon[0,t]\rightarrow\K^m$ such that
+	We say that a state $x\in\R^n$ can be \termdef{reached in time $t$}, if there exists a control $u(x)\colon[0,t]\rightarrow\R^m$ such that
 	$$x=\int^t_0 e^{(t-s)A}Bu(s)ds\ .$$
 
 	The set of all states that can be reached in time $t$ is denoted by $\mathcal{R}^t$. The set $\mathcal{R}=\cup_{t\in\R^+}\mathcal{R}^t$ of all states that can be reached, is called a \termdef{reachable space}.
 \end{definition}
 
 \begin{definition}
-	An $n$-dimensional continuous-time linear system is \termdef{controllable}, if $\mathcal{R}=\K^n$.
+	An $n$-dimensional continuous-time linear system is \termdef{controllable}, if $\mathcal{R}=\R^n$.
 \end{definition}
 
 \begin{theorem}
@@ -519,7 +522,7 @@ Now it is clear that in the system where $x(0)=\nullvector$, the state in time $
 
 If $(A,B)$ is not controllable, then there exists a part of the state space that is not affected by the input. This can be shown using the following theorem.
 
-\begin{theorem}
+\begin{theorem}[Kalman Decomposition]
 	\label{theorem:decomp}
 	Let $\K$ be a field, $(A,B)$ be a dynamical system over $\K$ and let $\text{dim}\mathcal{R}(A,B)=r\leq n$. Then there exists an invertible $n\times n$ matrix $T$ over $\K$ such that the matrices $\widetilde{A}:=T^{-1}AT$ and $\widetilde{B}:=T^{-1}B$ have the block structures 
 	\begin{equation}
@@ -669,7 +672,7 @@ It is also true that the system $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is
         \end{pmatrix}\ .
     \end{equation*}
 	
-	TODO By the equality (\ref{eq:cayleHamilReachable}) we have that the restriction to the first $r$ coordinates of $\mathcal{R}(\widetilde{A},\widetilde{B})$ is equal to $\mathcal{R}(A_1,B_1)$. Finally, it follows that
+	By the Claim \ref{clm:cayley} we have that the restriction to the first $r$ coordinates of $\mathcal{R}(\widetilde{A},\widetilde{B})$ is equal to $\mathcal{R}(A_1,B_1)$. Finally, it follows that
 	$$\text{dim}\mathcal{R}(A_1,B_1)=\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}\mathcal{R}(A,B)=r\ .$$
 \end{proof}
 
@@ -690,9 +693,9 @@ Now we can see that the decomposition described in Theorem \ref{theorem:decomp} 
 
 For this definition to be correct, we need to show that polynomials $\chi_{A_1}$ and $\chi_{A_3}$ are not dependent on the choice of the regular matrix $T$ from Theorem \ref{theorem:decomp}. Since $\chi_{A_3}=\chi_A/\chi_{A_1}$, it is sufficient only to show that $\chi_{A_1}$ is independent of the choice.
 
-\begin{lemma}
+\begin{claim}
 	Let A be a square matrix over $\K$. Then the controllable part $\chi_c$ of its characteristic polynomial is independent of the choice of the basis for $\mathcal{R}(A,B)$.
-\end{lemma}
+\end{claim}
 
 \begin{proof}
 	Let $C=(c_1,\ldots,c_n)$ and $D=(d_1,\ldots,d_n)$ be two bases for $\K^n$ as constructed in the proof of Theorem \ref{theorem:decomp}. Then we have 

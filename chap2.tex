@@ -2,6 +2,10 @@
 
 The following chapter is based on the first section of the fifth chapter of \citet{Sontag1998}.
 
+\begin{remark}
+    In this chapter we assume $\K$ to be a field and $A\in\K^{n\times n}, b\in\K^n$.
+\end{remark}
+
 \begin{definition}
     The \termdef{controller form} associated to the pair $(A,b)$ is the pair 
     \begin{equation*}
@@ -106,7 +110,7 @@ The following chapter is based on the first section of the fifth chapter of \cit
     Follows from Lemmas \ref{lem:flatCharPol}, \ref{lem:flatControllable} and \ref{lem:simCont}. 
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}[Pole Shifting Theorem]
     Let $\K$ be a field. Let $A\in\K^{n\times n}$, $B\in\K^{n\times m}$. The assignable polynomials for the pair $(A,B)$ are precisely of the form $$\chi_{AB+F}=\chi\chi_u$$ where $\chi$ is an arbitrary monic polynomial of degree $r=\text{dim}\mathcal{R}(A,B)$ and $\chi_u$ is the uncontrollable part of the assignable polynomial.
 
     In particular, the pair $(A,B)$ is controllable if and only if every nth degree monic polynomial can be assigned to it.
