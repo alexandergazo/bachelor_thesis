@@ -294,7 +294,7 @@ where the zeroes in the matrices represent zero matrices of appropriate sizes. T
 	The system $\dot{x}=Ax(t)$ is stable if and only if all eigenvalues of the matrix $A$ have negative real parts.
 \end{theorem}
 
-\subsection{Linear System With Control}
+\section{Linear System With Control}
 
 \begin{definition}
 	A \termdef{continuous dynamical linear system with control u} is a system of linear differential equations of first order with constant coefficients in the form $$\dot{x}(t)=Ax(t)+Bu(t)\ ,$$ where the function $x(t)\colon\R^+\to\R^n$ is a \termdef{state vector} (\termdef{state} for short) of the system, $A\in\R^{n\times n}$ is a \termdef{matrix of coefficients} of the system, $B\in\R^{n\times m}$ is a \termdef{control matrix} of the system and the continuous function $u(t)\colon\R^+\to\R^m$ is a \termdef{control vector} of the system. The \termdef{initial condition} of the system is the state $x(0)$.
@@ -337,11 +337,7 @@ Through these observations we got to a conclusion, that we need to find a feedba
 
 The pole shifting theorem states, that if $A$ and $B$ are ``sensible'' in a sense that we discuss in the next section, then an arbitrary monic polynomial $\chi$ of degree $n$ can be assigned to the pair $(A,B)$. It also claims that it is immaterial over what field $A$ and $B$ are.
 
-\section{Controllable pairs}
-
-In this section we establish the notion of controllability. We first explain this concept for \textit{discrete-time systems} and then we show that the requirement for controllability of \textit{continuous-time systems} is the same as the one for discrete-time systems.
-
-\subsection{Discrete-time systems}
+\section{Discrete-time systems}
 
 Let us have a continuous dynamical system $\dot{x}(t)=A_1x(t)$, where $A_1$ is a real or complex square matrix. We \textit{discretize} the time, that is, instead of using continuous real-time values of $x(t)$ and $\dot{x}(t)$, we are interested in these values only at discrete \textit{sampling times} $0,\delta,2\delta,\ldots,k\delta,\ldots$ where $\delta\in\R^+$. We denote the states at each sampling time as
 $$x_k=x(k\delta)\ ,k\in\N_0\ .$$
@@ -371,6 +367,16 @@ Similarly, we can define a discrete dynamical linear system with control.
 
 	We call this system the \termdef{discrete $(A,B)$} system.
 \end{definition}
+
+\chapter{Controllable pairs}
+
+In this chapter we establish the notion of controllability. We first explain this concept for discrete-time systems and then we show that the requirement for controllability of continuous-time systems is the same as the one for discrete-time systems.
+
+\section{Discrete-time systems}
+
+\begin{remark}
+	In this section we assume $A,B$ to be either real or complex $n\times n$ and $n\times m$ matrices respectively.
+\end{remark}
 
 \begin{definition}
 	Let $(A,B)$ be a discrete system. We say that a state $x$ can be \termdef{reached} in a time $k\in\N_0$ if there exists such a sequence of control vectors $u_0,u_1,\ldots,u_{k-1}$ that for the initial condition $x_0=\nullvector$ we get $x=x_k$.
@@ -433,8 +439,8 @@ Ideally, we want to be able to get the system into any state by controlling it w
 	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. The pair $(A,B)$ is \termdef{controllable} if $\textnormal{dim}\mathcal{R}(A,B)=n$.
 \end{definition}
 
-\subsection{Continuous-time systems}
-\label{subsec:ct-system}
+\section{Continuous-time systems}
+\label{sec:ct-system}
 
 \begin{remark}
 	In this section we assume that $A\in\R^{n\times n}$, $B\in\R^{n\times m}$.
@@ -498,8 +504,8 @@ Now it is clear that in the system where $x(0)=\nullvector$, the state in time $
 
 \end{proof}
 
-\subsection{Decomposition theorem}
-\label{subsec:decomp}
+\section{Decomposition theorem}
+\label{sec:decomp}
 
 \begin{lemma}
 	\label{lem:invsubspc}
