@@ -24,11 +24,11 @@ We use the matrix form, as it is a very compact way of describing such a system.
 To express the solution of a linear autonomous system in a similarly compact way, we establish the notion of the matrix exponential.
 
 \begin{definition}
-	Let $X$ be a real or complex square matrix. The exponential of $X$, denoted by $e^X$, is the square matrix of the same type defined by the series $$e^{X}=\sum _{k=0}^{\infty}\frac{1}{k!}X^{k}\ ,$$
+	Let $X$ be a real square matrix. The exponential of $X$, denoted by $e^X$, is the square matrix of the same type defined by the series $$e^{X}=\sum _{k=0}^{\infty}\frac{1}{k!}X^{k}\ ,$$
 	where $X^0$ is defined to be the identity matrix $I$ of the same type as $X$.
 \end{definition}
 
-For this definition to make sense, we need to show that the series converges for any real or complex square matrix. Firstly, we define what it means for a matrix series to converge. In this text, we define the convergence using the Frobenius norm.
+For this definition to make sense, we need to show that the series converges for any real square matrix. Firstly, we define what it means for a matrix series to converge. In this text, we define the convergence using the Frobenius norm.
 
 \begin{definition}
 	\termdef{Frobenius norm} is a matrix norm, denoted as $\norm{\cdot}_F$, which for an arbitrary $n \times m$ matrix $A$ is defined as $$\norm{A}_F=\sqrt{\sum^n_{i=1}\sum^m_{j=1}\abs{a_{i,j}}^2}\ .$$
@@ -143,7 +143,7 @@ For this definition to make sense, we need to show that the series converges for
 
 \begin{lemma}
 \label{lem:expprop}
-	Let $A$, $B$ and $X$ be real or complex $n\times n$ matrices. Then 
+	Let $A$, $B$ and $X$ be real $n\times n$ matrices. Then 
 	\begin{enumerate}
 		\item if $AB = BA$, then $e^{A}B = Be^{A}$,
 		\item if $R$ is an invertible $n\times n$ matrix, then $e^{R^{-1}XR}=R^{-1}e^XR$,
@@ -196,7 +196,7 @@ For this definition to make sense, we need to show that the series converges for
 
 \begin{lemma}
 	\label{lem:matrixExpIdentity}
-	For any $a\in\R$ we have $e^{a I}=e^{a}I$.
+	For any $a\in\C$ we have $e^{a I}=e^{a}I$.
 \end{lemma}
 
 \begin{proof}
@@ -219,7 +219,7 @@ Typically, we require the autonomous system to stabilize itself back into its st
 	The linear autonomous system $\dot{x}(t)=Ax(t)$ is \termdef{stable}, if for any initial state $x(0)\in\R^n$ the state vector $x(t)$ converges to $\nullvector$ for $t\to\infty$.
 \end{definition}
 
-Let $A$ be a real or complex matrix. Then there is a regular matrix $R\in \R^{n\times n}$ such that the matrix
+Let $A$ be a real square matrix. Then there is a regular matrix $R\in \R^{n\times n}$ such that the matrix
 $$J=R^{-1}AR$$
 is in a Jordan normal form. By substituting $x(t)=Ry(t)$, which is equivalent to changing the basis of the system, we get 
 \begin{align*}
@@ -339,7 +339,7 @@ The pole shifting theorem states, that if $A$ and $B$ are ``sensible'' in a sens
 
 \section{Discrete-time systems}
 
-Let us have a continuous dynamical system $\dot{x}(t)=A_1x(t)$, where $A_1$ is a real or complex square matrix. We \textit{discretize} the time, that is, instead of using continuous real-time values of $x(t)$ and $\dot{x}(t)$, we are interested in these values only at discrete \textit{sampling times} $0,\delta,2\delta,\ldots,k\delta,\ldots$ where $\delta\in\R^+$. We denote the states at each sampling time as
+Let us have a continuous dynamical system $\dot{x}(t)=A_1x(t)$, where $A_1$ is a real square matrix. We \textit{discretize} the time, that is, instead of using continuous real-time values of $x(t)$ and $\dot{x}(t)$, we are interested in these values only at discrete \textit{sampling times} $0,\delta,2\delta,\ldots,k\delta,\ldots$ where $\delta\in\R^+$. We denote the states at each sampling time as
 $$x_k=x(k\delta)\ ,k\in\N_0\ .$$
 The solution of this system is by Theorem \ref{claim:uniqueness} precisely $x(t)=e^{tA_1}x(0)$. For some fixed $k\in\N$ we get $x_k=x(k\delta)=e^{k\delta A_1}x(0)$. Using the fourth point of Lemma \ref{lem:expprop} we obtain 
 \begin{align*}
@@ -367,399 +367,3 @@ Similarly, we can define a discrete dynamical linear system with control.
 
 	We call this system the \termdef{discrete $(A,B)$} system.
 \end{definition}
-
-\chapter{Controllable pairs}
-
-In this chapter we establish the notion of controllability. We first explain this concept for discrete-time systems and then we show that the requirement for controllability of continuous-time systems is the same as the one for discrete-time systems.
-
-\section{Discrete-time systems}
-
-\begin{remark}
-	In this section we assume $A,B$ to be either real or complex $n\times n$ and $n\times m$ matrices respectively.
-\end{remark}
-
-\begin{definition}
-	Let $(A,B)$ be a discrete system. We say that a state $x$ can be \termdef{reached} in a time $k\in\N_0$ if there exists such a sequence of control vectors $u_0,u_1,\ldots,u_{k-1}$ that for the initial condition $x_0=\nullvector$ we get $x=x_k$.
-\end{definition}
-
-\sloppy
-States that can be reached in time $k\in\N$ in open-loop control discrete-time systems can be derived as follows. The initial condition is $x_0=\nullvector$ and we can choose arbitrary $u_0,u_1,\ldots,u_{k-1}$. Then for $k=1$ we have 
-$$x_1=Ax_0+Bu_0=Bu_0 \in \text{Im}B\ .$$
-For $k=2$ we get
-$$x_2=Ax_1+Bu_1=ABu_0+Bu_1\in\text{Im}(AB|B)\ .$$
-It is clear, that for every $k\in\N$ it holds
-$$x_k\in\text{Im}(A^{k-1}B|\cdots|AB|B)\ .$$
-For every $k\in\N$ it is also true that
-$$\text{Im}(B|AB|\cdots|A^kB) \subseteq \text{Im}(B|AB|\cdots|A^{k+1}B)\ .$$
-By the Cayley–Hamilton theorem we know that $\chi_A(A)=O_{n\times n}$. That means, that $A^n$ can be expressed as a linear combination of the matrices $\{I,A,\ldots,A^{n-1}\}$ which implies that $A^nB$ can be expressed as a linear combination of the matrices $\{B,AB,\ldots,A^{n-1}B\}$. We now see that $$\text{Im}(B|AB|\cdots|A^{n}B) \subseteq \text{Im}(B|AB|\cdots|A^{n-1}B)\ .$$
-It follows
-\begin{equation*}
-%\label{eq:cayleHamilReachable}
-	\text{Im}(B|AB|\cdots|A^{n-1}B)=\text{Im}(B|AB|\cdots|A^{n-1}B|A^nB)\ .
-\end{equation*}
-For an arbitrary $k\in\N,k>n$ we have $$A^kB=A^{k-n}A^nB=A^{k-n}\sum^{n-1}_{i=0}\alpha_i A^iB=\sum^{n-1}_{i=0}\alpha_i A^{k-n+i}B\in\text{Im}(B|AB|\ldots|A^{k-1}B)\ ,$$
-for some $\alpha_0,\ldots,\alpha_{n-1}\in\K$.
-Therefore, by induction, all the states we could reach in any time $k\in\N$ are already in the space 
-$$\text{Im}(B|AB|\cdots|A^{n-1}B)\ .$$
-We have proved the following claim.
-
-\begin{claim}
-\label{clm:cayley}
-	Let $\K$ be a field and let $A\in\K^{n\times n}$. For any $k\in\N,k\geq n$ it holds $$\text{Im}(B|AB|\cdots|A^kB)=\text{Im}(B|AB|\cdots|A^{n-1}B)\ .$$
-\end{claim}
-
-\begin{definition}
-	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. The matrix $$\mathbf{R}(A,B)=(B|AB|\cdots|A^{n-1}B)$$ is called the \termdef{rechability matrix} of $(A,B)$. We define the \termdef{reachable space} $\mathcal{R}(A,B)$ of the pair $(A,B)$ as $\text{Im}(\mathbf{R}(A,B))$. 
-\end{definition}
-
-\begin{definition}
-	Let $\K$ be a field, $\mathcal{V} \subseteq \K^n$ be a vector space and let $A\in\K^{m\times n}$. Then we define the product of the left multiplication of the space $\mathcal{V}$ by the matrix $A$ as the set $A\cdot\mathcal{V}=A\mathcal{V}=\{Av|v\in\mathcal{V}\}$.
-\end{definition}
-
-We have seen that by left multiplying $\mathcal{R}(A,B)$ by $A$, we obtain a subspace which is already included in $\mathcal{R}(A,B)$. This leads to an important property of some subspaces.
-
-\begin{definition}
-	Let $V$ be a vector space, $W$ be its subspace and let $f$ be a mapping from $V$ to $V$. We call $W$ an \termdef{invariant subspace} of $f$ if $f(W)\subseteq W$. We also say that $W$ is \termdef{$f$-invariant}. 
-	
-	If $f=f_A$ for some matrix $A$, we also say that W is \termdef{$A$-invariant} for short.
-\end{definition}
-
-\begin{lemma}
-	\label{lem:reachinv}
-	$\mathcal{R}(A,B)$ is an $A$-invariant subspace.
-\end{lemma} 
-
-\begin{proof}
-	It follows from the discussion above.
-\end{proof}
-
-Ideally, we want to be able to get the system into any state by controlling it with the control $u$, i.e., choosing an appropriate sequence $u_0,\ldots,u_{n-1}$. Therefore, we desire that $\mathcal{R}(A,B)=\K^n$. An equivalent condition is $\text{dim}\mathcal{R}(A,B)=n$.
-
-\begin{definition}
-	Let $\K$ be a field and let $A \in \K^{n \times n}$, $B \in \K^{n \times m}$, $n,m \in \N$. The pair $(A,B)$ is \termdef{controllable} if $\textnormal{dim}\mathcal{R}(A,B)=n$.
-\end{definition}
-
-\section{Continuous-time systems}
-\label{sec:ct-system}
-
-\begin{remark}
-	In this section we assume that $A\in\R^{n\times n}$, $B\in\R^{n\times m}$.
-\end{remark}
-
-We now show that the condition for controllability of discrete-time systems also characterizes controllable continuous-time systems.
-
-\begin{definition}
-	Let us have a vector function $v(t)\colon\R\to\R^n$. Then the definite integral of the function on an interval $[a,b]$, $a,b\in\R$ is
-	$$\int_a^bv(t)dt=\left(\int_a^bv_1(t)dt\ ,\ \ldots\ ,\ \int_a^bv_n(t)dt\right)^T\ .$$
-\end{definition}
-
-We utilize the matrix exponential in solving the inhomogeneous linear system $\dot{x}(t)=Ax(t)+Bu(t)$. By left multiplying it by $e^{-tA}$ we get
-\begin{align*}
-	e^{-tA}\dot{x}(t)-e^{-tA}Ax(t) &=e^{-tA}Bu(t) \\
-	\frac{d}{dt} (e^{-tA}x(t)) &=e^{-tA}Bu(t)\ .
-\end{align*}
-Note that we used Lemma \ref{lem:matrixTimesVectorDerivative} and the equality $e^{-tA}A=Ae^{-tA}$, following from the first point of Lemma \ref{lem:expprop}. After integrating both sides with respect to $t$ on interval $(t_0,t_1)$ we obtain
-\begin{align*}
-	[e^{-tA}x(t)]^{t_1}_{t_0}&=\int^{t_1}_{t_0}e^{-tA}Bu(t)dt \\
-	e^{-t_1A}x(t_1)-e^{-t_0A}x(t_0)&=\int^{t_1}_{t_0}e^{-tA}Bu(t)dt \\
-	x(t_1)&=e^{(t_1-t_0)A}x(t_0)+\int^{t_1}_{t_0}e^{(t_1-t)A}Bu(t)dt\ .
-\end{align*}
-The integral makes sense since $u(t)$ is required to be continuous.
-
-Now it is clear that in the system where $x(0)=\nullvector$, the state in time $t\in \R^+$ is equal to
-\begin{equation}
-\label{eq:coolVzorec}
-	x(t)=\int^t_0 e^{(t-s)A}Bu(s)ds\ .
-\end{equation}
-
-\begin{definition}
-	We say that a state $x\in\R^n$ can be \termdef{reached in time $t$}, if there exists a control $u(x)\colon[0,t]\rightarrow\R^m$ such that
-	$$x=\int^t_0 e^{(t-s)A}Bu(s)ds\ .$$
-
-	The set of all states that can be reached in time $t$ is denoted by $\mathcal{R}^t$. The set $\mathcal{R}=\cup_{t\in\R^+}\mathcal{R}^t$ of all states that can be reached, is called a \termdef{reachable space}.
-\end{definition}
-
-\begin{definition}
-	An $n$-dimensional continuous-time linear system is \termdef{controllable}, if $\mathcal{R}=\R^n$.
-\end{definition}
-
-\begin{theorem}
-\label{theorem:controllabilityContinuous}
-	The $n$-dimensional continuous-time linear system is controllable if and only if $\text{dim}\mathcal{R}(A,B)=n$.
-\end{theorem}
-
-\begin{proof}
-	For the proof of the ``if'' part we use \citet[Theorem 3]{Sontag1998}.
-
-	If controllability fails, then there exists a non-trivial orthogonal complement $\mathcal{S}$ to the reachable space $\mathcal{R}$. For any time $t\in\R^+$ and any non-trivial  vector $\rho\in\mathcal{S}$ it holds that $\rho^\ast x(t)=0$. By choosing the control $u(s)=B^\ast e^{(t-s)A^\ast}\rho$, which is continuous, on the interval $[0,t]$, we get by the equation (\ref{eq:coolVzorec}) that
-	$$\nullvector=\rho^\ast x(t)=\int^t_0\rho^\ast e^{(t-s)A}BB^\ast e^{(t-s)A^\ast}\rho ds=\int^t_0\norm{B^\ast e^{(t-s)A^\ast}\rho}^2\ .$$
-	This implies
-	$$0=\norm{B^\ast e^{(t-s)A^\ast}\rho}^2=\norm{\rho^\ast e^{(t-s)A}B}^2$$
-	and hence
-	$$\nullvector=\rho^\ast e^{(t-s)A}B\ .$$
-	By setting $s=t$, we obtain $\rho^\ast B=\nullvector$. By differentiating the equation and again setting $s=t$ we get $\rho^\ast AB = \nullvector$. Repeating this procedure gets us $\rho^\ast A^iB=\nullvector$ for $i\in\{1,\ldots, n-1\}$.
-	This implies that the vector $\rho$ is orthogonal to $\mathcal{R}(A,B)$ and therefore $\text{dim}\mathcal{R}(A,B)$ cannot be equal to $n$.
-	
-	The ``only if'' part of the proof is shown in the following sections.
-
-\end{proof}
-
-\section{Decomposition theorem}
-\label{sec:decomp}
-
-\begin{lemma}
-	\label{lem:invsubspc}
-	Let $W$ be an invariant subspace of a linear mapping $f\colon V \rightarrow V$. Then there exists a basis $C$ of $V$ such that 
-	\begin{equation*}
-		[f]^C_C=
-		\begin{pmatrix}
-			F_1 & F_2 \\
-			0   & F_3 
-		\end{pmatrix}\ ,
-	\end{equation*}
-	where $F_1$ is a $r\times r$ matrix, $r=\text{dim}W$.
-\end{lemma}
-
-\begin{proof}
-	Let $(w_1,\ldots,w_r)$ be an arbitrary basis of the subspace $W$. We complete this sequence into basis $C$ of $V$ with vectors $v_1,\ldots,v_{n-r}$ where $n=\text{dim}V$, thus $C=(w_1,\ldots,w_r,v_1,\ldots,v_{n-r})$. We know that
-	$$[f]^C_C=([f(w_1)]_C,\ldots,[f(w_r)]_C,[f(v_1)]_C,\ldots,[f(v_{n-r})]_C)\ .$$
-	Since $W$ is an $A$-invariant subspace, it holds that $f(w_i)\in W$ and therefore, because of the choice of the basis $C$, the matrix $[f]^C_C$ is of the desired form.
-\end{proof}
-
-If $(A,B)$ is not controllable, then there exists a part of the state space that is not affected by the input. This can be shown using the following theorem.
-
-\begin{theorem}[Kalman Decomposition]
-	\label{theorem:decomp}
-	Let $\K$ be a field, $(A,B)$ be a dynamical system over $\K$ and let $\text{dim}\mathcal{R}(A,B)=r\leq n$. Then there exists an invertible $n\times n$ matrix $T$ over $\K$ such that the matrices $\widetilde{A}:=T^{-1}AT$ and $\widetilde{B}:=T^{-1}B$ have the block structures 
-	\begin{equation}
-		\label{eq:decomp}
-		\widetilde{A}=
-		\begin{pmatrix}
-			A_1 & A_2 \\
-			0   & A_3 
-		\end{pmatrix}
-		\ , \qquad
-		\widetilde{B}=
-		\begin{pmatrix}
-			B_1  \\
-			0
-		\end{pmatrix}\ ,
-	\end{equation}
-	where $A_1\in\K^{r \times r}$ and $B_1\in\K^{r \times m}$.
-\end{theorem}
-
-\begin{proof}
-	We know that $\mathcal{R}(A,B)$ is an $A$-invariant subspace (Lemma \ref{lem:reachinv}). Using Lemma \ref{lem:invsubspc} on the matrix mapping $f_A$ we get a basis $C$ for which it holds that 
-	$$[f_A]^C_C=[\text{id}]^K_C[f_A]^K_K[\text{id}]^C_K=[\text{id}]^K_CA[\text{id}]^C_K$$ 
-	is in a block upper triangular form. By putting $T=[\text{id}]^C_K$ we get that $\widetilde{A}=[f_A]^C_C$ is in the desired form.
-
-	Now, let us consider the matrix mapping $f_B$. We have
-	$$\widetilde{B}=TB=[\text{id}]^{K_n}_C[f_B]^{K_m}_{K_n}=[f_B]^{K_m}_C=([f_B(e_1)]_C,\ldots,[f_B(e_m)]_C)\ .$$
-	Since $f_B(e_i)$ is the $i$-th column of the matrix $B$, and trivially by definition of a reachable space it holds that $\text{Im}(B)\subseteq \mathcal{R}(A,B)$, we see that $\widetilde{B}$ is in the requested form.
-\end{proof}
-
-We achieved the new form of matrices $A$ and $B$ by changing the basis of the state space. We now define the relation between $(A,B)$ and $(\widetilde{A},\widetilde{B}).$
-
-\begin{definition}
-	Let $\K$ be a field, let $A,\widetilde{A}\in\K^{n\times n}$ and $B,\widetilde{B}\in \K^{n\times m}$. Then $(A,B)$ \termdef{is similar to} $(\widetilde{A},\widetilde{B})$, denoted $(A,B) \sim (\widetilde{A},\widetilde{B})$, if there exists an invertible matrix $T$ for which it holds that
-	$$\widetilde{A}=T^{-1}AT\quad and\quad\widetilde{B}=T^{-1}B\ .$$
-\end{definition}
-
-\begin{lemma}
-	\label{lem:simMatrices}
-	Let $A$ and $B$ be similar matrices, that is, there exists an invertible matrix $R$ such that $A=R^{-1}BR$. Then $\chi_A=\chi_B$.
-\end{lemma}
-
-\begin{proof}
-	We use properties of the matrix determinant:
-	\begin{align*}
-		\chi_A&=\text{det}(sI-A)=\text{det}(sI-R^{-1}BR) \\
-		&=\text{det}(sR^{-1}IR-R^{-1}BR)=\text{det}(R^{-1}(sI-B)R) \\
-		&=(\text{det}R)^{-1}\text{det}(sI-B)\text{det}R=\text{det}(sI-B) \\
-		&=\chi_B\ .
-	\end{align*}
-\end{proof}
-
-\begin{lemma}
-	\label{lem:simPairsAssignablePolynomial}
-	If $(A,B)\sim(\widetilde{A},\widetilde{B})$, then the assignable polynomials for the pairs $(A,B)$ and $(\widetilde{A},\widetilde{B})$ are the same.
-\end{lemma}
-
-\begin{proof}
-	Let $T$ be a regular matrix over $\K$ such that $\widetilde{A}=T^{-1}AT$ and $\widetilde{B}=T^{-1}B$. Then for any feedback matrix $F$ we have 
-	$$T^{-1}(A+BF)T=T^{-1}AT+T^{-1}BFT=\widetilde{A}+\widetilde{B}\widetilde{F}\ ,$$
-	where $\widetilde{F}=FT$. It follows from Lemma \ref{lem:simMatrices} that $$\chi_{A+BF}=\chi_{\widetilde{A}+\widetilde{B}\widetilde{F}}\ .$$
-\end{proof}
-
-Theorem \ref{theorem:decomp} has the following consequence. Let $(A,B)$ be a dynamical system with the initial condition $x(0)=\nullvector$, and let $T$ be a regular matrix over $\K$ as in Theorem \ref{theorem:decomp}. By putting $x(t)=Ty(t)$ we get 
-$$T\dot{y}(t)=ATy(t)+Bu(t)\ ,$$ 
-which can be rewriten as 
-$$\dot{y}(t)=T^{-1}ATy(t)+T^{-1}Bu(t)=\widetilde{A}y(t)+\widetilde{B}u(t)\ .$$ 
-This gives us 
-\begin{alignat*}{3}
-	\dot{y}_1(t)&=A_1y_1(t)+&A_2y_2(t)&+B_1u(t)& \\
-	\dot{y}_2(t)&=&A_3y_2(t)&&\ ,
-\end{alignat*}
-where $y(t)=(y_1(t),y_2(t))^T$, $y_1(t)\in\K^r$ and $y_2(t)\in\K^{n-r}$. The component $y_2(t)$ cannot be controlled and it is, for the initial condition $y(0)=Tx(0)=\nullvector$, always equal to \nullvector, since it does not depend on the control vector $u(t)$. This observation provides a proof by contraposition of the ``only if'' part of Theorem \ref{theorem:controllabilityContinuous}.
-
-It is also true that the system $(A_1,B_1)$ from Theorem \ref{theorem:decomp} is a controllable pair, which we state as a lemma.
-
-\begin{lemma}
-	\label{lem:A_1B_1controllable}
-	The pair $(A_1,B_1)$ is controllable.
-\end{lemma}
-
-\begin{proof}
-	We know that $\text{dim}\mathcal{R}(A,B)=r$. We desire that $\text{dim}\mathcal{R}(A_1,B_1)=r$. We show that $\text{dim}\mathcal{R}(A,B)=\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}\mathcal{R}(A_1,B_1)$. 
-	First, we have 
-	\begin{align*}
-		\mathcal{R}(\widetilde{A},\widetilde{B})&=\text{Im}(\widetilde{A}^{n-1}\widetilde{B}|\cdots|\widetilde{A}\widetilde{B}|\widetilde{B}) \\
-		&=\text{Im}((T^{-1}AT)^{n-1}T^{-1}B|\cdots|T^{-1}ATT^{-1}B|T^{-1}B) \\
-		&=\text{Im}(T^{-1}A^{n-1}B|\cdots|T^{-1}AB|T^{-1}B) \\
-		&=\{(T^{-1}A^{n-1}B|\cdots|T^{-1}AB|T^{-1}B)\cdot v | v \in \K^{n\cdot m}\} \\
-		&=\{T^{-1}(A^{n-1}B|\cdots|AB|B)\cdot v | v \in \K^{n\cdot m}\} \\
-		&=T^{-1}\cdot\{(A^{n-1}B|\cdots|AB|B)\cdot v | v \in \K^{n\cdot m}\} \\
-		&=T^{-1}\cdot(\text{Im}(A^{n-1}B|\cdots|AB|B)) \\
-		&=T^{-1}\cdot(\mathcal{R}(A,B))
-		\ .
-	\end{align*}
-	Since $T$ is an invertible matrix we have
-	$$\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}(T^{-1}\mathcal{R}(A,B))=\text{dim}(\mathcal{R}(A,B))=r\ .$$
-
-	Now let us focus on the structure of $\mathcal{R}(\widetilde{A},\widetilde{B})$. We know that the last $n-r$ rows of $\widetilde{B}$ are equal to $\nullvector$. Also, because of the structure of $\widetilde{A}$, for an arbitrary matrix $X\in\K^{r\times m}$ we have that 
-	\begin{equation*}
-		\widetilde{A}
-		\begin{pmatrix}
-			X \\
-			0
-		\end{pmatrix}
-		=
-		\begin{pmatrix}
-			A_1 & A_2 \\
-			  0 & A_3
-		\end{pmatrix}
-		\begin{pmatrix}
-			X \\
-			0
-		\end{pmatrix}
-		=
-		\begin{pmatrix}
-			A_1X \\
-			0
-		\end{pmatrix}\ ,
-	\end{equation*}
-	where, again, the last $n-r$ rows are equal to $\nullvector$. Therefore, for any positive integer $k$ we have 
-	\begin{equation*}
-		\widetilde{A}^k\widetilde{B}=
-		\begin{pmatrix}
-			A_1^{k}B_1 \\
-			0
-        \end{pmatrix}
-        \ ,A_1^kB_1\in\K^{r\times m}\ .
-    \end{equation*}
-    It follows
-    \begin{equation*}
-        \mathcal{R}(\widetilde{A},\widetilde{B})=
-        \begin{pmatrix}[c|c|c|c]
-            \begin{pmatrix}
-                A_1^{n-1}B_1 \\
-                0 
-            \end{pmatrix}
-            & \cdots &
-            \begin{pmatrix}
-                A_1B_1 \\
-                0 
-            \end{pmatrix}
-            &
-            \begin{pmatrix}
-                B_1 \\
-                0 
-            \end{pmatrix}
-        \end{pmatrix}\ .
-    \end{equation*}
-	
-	By the Claim \ref{clm:cayley} we have that the restriction to the first $r$ coordinates of $\mathcal{R}(\widetilde{A},\widetilde{B})$ is equal to $\mathcal{R}(A_1,B_1)$. Finally, it follows that
-	$$\text{dim}\mathcal{R}(A_1,B_1)=\text{dim}\mathcal{R}(\widetilde{A},\widetilde{B})=\text{dim}\mathcal{R}(A,B)=r\ .$$
-\end{proof}
-
-Now we can see that the decomposition described in Theorem \ref{theorem:decomp} decomposes the matrix $A$ into the ``controllable'' and the ``uncontrollable'' parts $A_1$ and $A_3$ respectively.
-
-\begin{cor}
-	Let $(A,B)$ be a dynamical system, and let $T$ be a regular matrix and $\widetilde{A}=T^{-1}AT$ as in Theorem \ref{theorem:decomp}. Then it holds
-	$$\chi_A=\chi_{\widetilde{A}}=\chi_{A_1}\chi_{A_3}=\chi_c\chi_u\ .$$
-\end{cor} 
-
-\begin{proof}
-	Follows from Theorem \ref{theorem:decomp} and Lemma \ref{lem:simMatrices}.
-\end{proof}
-
-\begin{definition}
-	The polynomials $\chi_c$ and $\chi_u$ are respectively the \termdef{controllable} and the \termdef{uncontrollable parts} of the characteristic polynomial $\chi_A$ with respect to the pair $(A,B)$. In the case where $r=0$ we put $\chi_c=1$, and in the case where $r=n$ we put $\chi_u=1$.
-\end{definition}
-
-For this definition to be correct, we need to show that polynomials $\chi_{A_1}$ and $\chi_{A_3}$ are not dependent on the choice of the regular matrix $T$ from Theorem \ref{theorem:decomp}. Since $\chi_{A_3}=\chi_A/\chi_{A_1}$, it is sufficient only to show that $\chi_{A_1}$ is independent of the choice.
-
-\begin{claim}
-	Let A be a square matrix over $\K$. Then the controllable part $\chi_c$ of its characteristic polynomial is independent of the choice of the basis for $\mathcal{R}(A,B)$.
-\end{claim}
-
-\begin{proof}
-	Let $C=(c_1,\ldots,c_n)$ and $D=(d_1,\ldots,d_n)$ be two bases for $\K^n$ as constructed in the proof of Theorem \ref{theorem:decomp}. Then we have 
-	\begin{equation*}
-		[f_A]^C_C=
-		\begin{pmatrix}
-			A_1 & A_2 \\
-			0   & A_3
-		\end{pmatrix}\ ,
-		\quad
-		[f_A]^D_D=
-		\begin{pmatrix}
-			A_1' & A_2' \\
-			0    & A_3'
-		\end{pmatrix}\ ,
-	\end{equation*}
-	as in (\ref{eq:decomp}).
-	We want to show that $\chi_{A_1}=\chi_{A_1'}$.
-
-	It is true that
-	$$[f_A]^C_C=[id]^D_C[f_A]^D_D[id]^C_D\ ,$$
-	where
-	$$[id]^C_D=([c_1]_D,\ldots,[c_n]_D)\ .$$
-	We know that the vectors $c_1,\ldots,c_r$ form a basis of the subspace $\mathcal{R}(A,B)$ and that the vectors $d_1,\ldots,d_r$ form another basis of the same subspace. Therefore
-	\begin{equation*}
-		[id]^C_D=
-		\begin{pmatrix}
-			T_1 & T_2 \\
-			0   & T_3
-		\end{pmatrix}\ ,
-		\quad
-		[id]^D_C=([id]^C_D)^{-1}=
-		\begin{pmatrix}
-			T_1^{-1} & X \\
-			0        & T_3^{-1}
-		\end{pmatrix}\ ,
-	\end{equation*}
-	where $T_1\in\K^{r\times r}$ is a regular matrix, $T_3\in\K^{n-r\times n-r}$ and $T_2,X\in\K^{r\times n-r}$. It follows 
-	\begin{equation*}
-		\begin{pmatrix}
-			A_1 & A_2 \\
-			0   & A_3
-		\end{pmatrix}
-		=
-		\begin{pmatrix}
-			T_1^{-1} & X \\
-			0        & T_3^{-1}
-		\end{pmatrix}
-		\begin{pmatrix}
-			A_1' & A_2' \\
-			0    & A_3'
-		\end{pmatrix}
-		\begin{pmatrix}
-			T_1 & T_2 \\
-			0   & T_3
-		\end{pmatrix}\ ,
-	\end{equation*}
-	which implies that
-	$$A_1=T_1^{-1}A_1'T_1\ .$$
-	By Lemma \ref{lem:simMatrices} it then holds that $\chi_{A_1}=\chi_{A_1'}$.
-\end{proof}

@@ -1,0 +1,253 @@
+\chapter{The Pole Shifting Theorem}
+
+The following chapter is based on the first section of the fifth chapter of \citet{Sontag1998}.
+
+\begin{remark}
+    In this chapter we assume $\K$ to be a field and $A\in\K^{n\times n}, b\in\K^n$.
+\end{remark}
+
+\begin{definition}
+    The \termdef{controller form} associated to the pair $(A,b)$ is the pair 
+    \begin{equation*}
+        A^\flat=
+        \begin{pmatrix}
+            0 & 1 & 0 & \cdots & 0 \\
+            0 & 0 & 1 & \cdots & 0 \\
+            \vdots & \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & 0 & \cdots & 1 \\
+            \alpha_1 & \alpha_2 & \alpha_3 & \cdots & \alpha_n \\
+        \end{pmatrix},
+        \quad
+        b^\flat=
+        \begin{pmatrix}
+            0 \\
+            0 \\
+            \vdots \\
+            0 \\
+            1
+        \end{pmatrix}
+    \end{equation*}
+    where $s^n-\alpha_ns^{n-1}-\ldots-\alpha_2s-\alpha_1$ is the characteristic polynomial of $A$.
+\end{definition}
+
+\begin{lemma}
+\label{lem:flatCharPol}
+    The characteristic polynomial of $A^\flat$ is $s^n-\alpha_ns^{n-1}-\ldots-\alpha_2s-\alpha_1$.
+\end{lemma}
+
+\begin{proof}
+    It can be shown using simple properties of the matrix determinant.
+\end{proof}
+
+\begin{lemma}
+\label{lem:flatControllable}
+    The pair $(A^\flat,b^\flat)$ is controllable.
+\end{lemma}
+
+\begin{proof}
+    Because of the form of the vector $b^\flat$, the matrix $(A^\flat)^kb^\flat$ is equal to the last column of $(A^\flat)^k$, that is
+    \begin{equation*}
+        \begin{pmatrix}
+            0 &
+            0 &
+            \cdots &
+            0 &
+            1 &
+            \beta_{k-1} &
+            \cdots &
+            \beta_1
+        \end{pmatrix}^T
+    \end{equation*}
+    for some $\beta_1,\ldots,\beta_{k-1}\in\K$. Therefore $\mathcal{R}(A^\flat,b^\flat)=n$.
+\end{proof}
+
+\begin{lemma}
+\label{lem:simCont}
+    Let $\K$ be a field and let $A_1,A_2\in\K^{n\times n}$ and $b_1,b_2\in\K^n$, such that the pairs $(A_1,b_1),(A_2,b_2)$ are controllable. If the characteristic polynomials of $A_1$ and $A_2$ are the same, then the pairs $(A_1,b_1),(A_2,b_2)$ are similar.
+\end{lemma}
+
+\begin{proof}
+    Let us have a pair
+    $$A^\dagger=(A^\flat)^T=
+    \begin{pmatrix}
+        0 & 0 & \cdots & 0 & \alpha_1 \\
+        1 & 0 & \cdots & 0 & \alpha_2 \\
+        0 & 1 & \cdots & 0 & \alpha_3 \\
+        \vdots & \vdots & \ddots & \vdots & \vdots \\
+        0 & 0 & \cdots & 1 & \alpha_n
+    \end{pmatrix}\ ,\qquad
+    b^\dagger=
+    \begin{pmatrix}
+        1 \\ 0 \\ 0 \\ \vdots \\ 0
+    \end{pmatrix}\ .$$
+    The characteristic polynomial of the matrix $A^\dagger$ is the same as the one of the matrix $A^\flat$ since transposing a matrix preserves its characteristic polynomial. Therefore, by Cayley-Hamilton theorem and by Lemma \ref{lem:flatCharPol}, it holds that
+    $$O=\chi_{A^\dagger}(A)=\chi_{A^\flat}(A)=A^n-\alpha_nA^{n-1}-\ldots-\alpha_2A-\alpha_1I_n\ ,$$
+    implying
+    $$A^n=\alpha_nA^{n-1}+\ldots+\alpha_2A+\alpha_1I_n\ .$$
+    It then follows 
+    $$\mathbf{R}(A,b)A^\dagger=
+        \begin{pmatrix} 
+            b & Ab & \ldots & A^{n-1}b
+        \end{pmatrix}
+    A^\dagger=
+        \begin{pmatrix}
+            Ab & A^2b & \ldots & A^nb
+        \end{pmatrix}
+    =A\mathbf{R}(A,b)\ .$$
+    By the controllability of the pair $(A,b)$, the column space of the matrix $\mathbf{R}(A,b)$ is of dimension $n$, which means, that the matrix is invertible. Therefore, we can write 
+    $$A=\mathbf{R}(A,b)A^\dagger\mathbf{R}(A,b)^{-1}\ .$$
+    We see that the matrices $A$ and $A^\dagger$ are similar. It is also true that $$\mathbf{R}(A,b)b^\dagger=b\ .$$ Therefore $(A,b)\sim(A^\dagger,b^\dagger)$.
+
+    Since the pair $(A^\dagger,b^\dagger)$ depends only on the characteristic polynomial of the matrix $A$, we conclude by transitivity of the matrix similarity, that any two controllable pairs with the same characteristic polynomials are similar to each other.
+\end{proof}
+
+\begin{cor}
+\label{cor:controllerForm}
+    If the \termdef{single-input} ($m=1$) pair $(A,b)$ is controllable, then it is similar to its controller form.
+\end{cor}
+
+\begin{proof}
+    Follows from Lemmas \ref{lem:flatCharPol}, \ref{lem:flatControllable} and \ref{lem:simCont}. 
+\end{proof}
+
+\begin{theorem}[Pole Shifting Theorem]
+    Let $\K$ be a field. Let $A\in\K^{n\times n}$, $B\in\K^{n\times m}$. The assignable polynomials for the pair $(A,B)$ are precisely of the form $$\chi_{AB+F}=\chi\chi_u$$ where $\chi$ is an arbitrary monic polynomial of degree $r=\text{dim}\mathcal{R}(A,B)$ and $\chi_u$ is the uncontrollable part of the assignable polynomial.
+
+    In particular, the pair $(A,B)$ is controllable if and only if every nth degree monic polynomial can be assigned to it.
+\end{theorem}
+
+\begin{proof}
+    By Theorem \ref{theorem:decomp} and Lemma \ref{lem:simPairsAssignablePolynomial} we can assume that the pair $(A,B)$ is in the same form as $(\widetilde{A},\widetilde{B})$ in (\ref{eq:decomp}). Let us write $F=(F_1,F_2)\in\K^{m\times n}$, where $F_1\in\K^{m\times r}, F_2\in\K^{m\times (n-r)}$. Then 
+    \begin{align*}
+        A+BF&=
+        \begin{pmatrix}
+            A_1 & A_2 \\
+            0   & A_3
+        \end{pmatrix}
+        +
+        \begin{pmatrix}
+            B_1 \\
+            0
+        \end{pmatrix}
+        \begin{pmatrix}
+            F_1 & F_2
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            A_1 & A_2 \\
+            0   & A_3
+        \end{pmatrix}
+        +
+        \begin{pmatrix}
+            B_1F_1 & B_1F_2 \\
+            0 & 0
+        \end{pmatrix}
+        \\
+        &=
+        \begin{pmatrix}
+            A_1+B_1F_1 & A_2+B_1F_2 \\
+            0 & A_3
+        \end{pmatrix}
+    \end{align*}
+    It follows 
+    $$\chi_{A+BF}=\chi_{A_1+B_1F_1}\chi_{A_3}=\chi_{A_1+B_1F_1}\chi_u$$
+    We see that any assignable polynomial is a multiple of the uncontrollable part $\chi_u$.
+
+    Conversely, we want to show that the first factor can be made arbitrary by a suitable choice of $F_1$. This makes sense only for $r>0$, otherwise the assignable polynomial is equal to $\chi_u$, which cannot be changed by modifying the matrix $F$. Assume that we are given a monic polynomial $\chi$. If we find such a matrix $F_1$ that 
+    $$\chi_{A_1+B_1F_1}=\chi\ ,$$
+    then by putting $F=(F_1,0)$ we get the desired characteristic polynomial, that is, $\chi_{A+BF}=\chi\chi_u$. Since the pair $(A_1,B_1)$ is controllable as shown in Lemma~\ref{lem:A_1B_1controllable}, it is sufficient only to prove that controllable systems can be assigned an arbitrary monic polynomial $\chi$ of respective degree. Hence, from this point on, we assume that the pair $(A,B)$ is controllable.
+
+    We first prove the theorem for $m=1$ and then we generalize this result, thus concluding the proof.
+
+    Let $m=1$. By Lemma \ref{lem:simPairsAssignablePolynomial} and Corollary \ref{cor:controllerForm} we can consider the pair $(A,b)$ to be in the controller form. For a vector 
+    \begin{equation*}
+        f=\begin{pmatrix}
+            f_1&f_2&\ldots&f_n
+        \end{pmatrix}
+    \end{equation*}
+    we have 
+    \begin{align*}
+        A+bf&=
+        \begin{pmatrix}
+			0 & 1 & 0 & \ldots & 0 \\
+			0 & 0 & 1 & \ldots & 0 \\
+			\vdots & \vdots & \vdots & \ddots & \vdots \\
+			0 & 0 & 0 & \ldots & 1 \\
+			\alpha_1 & \alpha_2 & \alpha_3 & \ldots & \alpha_n
+        \end{pmatrix}
+        +
+        \begin{pmatrix}
+            0 \\
+            0 \\
+            0 \\
+            \vdots \\
+            1
+        \end{pmatrix}
+        \begin{pmatrix}
+            f_1&f_2&\ldots&f_n
+        \end{pmatrix}
+        \\
+        \\
+        &=
+        \begin{pmatrix}
+			0 & 1 & 0 & \ldots & 0 \\
+			0 & 0 & 1 & \ldots & 0 \\
+			\vdots & \vdots & \vdots & \ddots & \vdots \\
+			0 & 0 & 0 & \ldots & 1 \\
+            \alpha_1+f_1 & \alpha_2+f_2 & \alpha_3+f_3 & \ldots & \alpha_n+f_n
+        \end{pmatrix}\ .
+    \end{align*}
+    Following from Lemma \ref{lem:flatCharPol}, one can see that given a monic polynomial
+    $$\chi=s^n-\beta_ns^{n-1}-\ldots-\beta_2s-\beta_1\ ,$$
+    we can choose
+    $$f=\begin{pmatrix}
+        \beta_1-\alpha_1&\beta_2-\alpha_2&\ldots&\beta_n-\alpha_n
+    \end{pmatrix}\ ,$$
+    and the equality $\chi_{A+bf}=\chi$ is satisfied. We have shown that for the case where $m=1$, any controllable pair $(A,b)$ can be assigned an arbitrary monic polynomial of degree $n$.
+
+    For the case where $m>1$, we choose any vector $v\in\K^m$ satisfying that $Bv\neq \nullvector$ and put $b=Bv$. For any $f\in\K^{1\times n}$ and for any matrix $G\in\K^{m\times n}$, it then holds
+    $${A+BG+bf}={A+BG+Bvf}={A+B(G+vf)}$$
+    and therefore, if we put $F=G+vf$, we obtain 
+    $$\chi_{A+BG+bf}=\chi_{A+BF}\ .$$
+    This implies that any polynomial that can be assigned to the pair $(A+BG,b)$ can also be assigned to the pair $(A,B)$. Since we have proved the theorem for a controllable pair where $m=1$, the proof can be concluded by showing that there exists such a matrix $G$ that the pair $(A+BG,b)$ is controllable.
+       
+    Let us have a sequence of linearly independent vectors $Bv=x_1,\ldots,x_k$, of length $n$, where
+    \begin{equation}
+    \label{eq:indSeq}
+        x_{i}=Ax_{i-1}+Bu_{i-1},\ i\in\{2,\ldots,k\}
+    \end{equation}
+    for some $u_{i-1}\in\K^m$, and assume that $k$ is as large as possible. We denote the span of $\{x_1,\ldots,x_k\}$ by $\mathcal{V}$. By the maximality of $k$ we have $x_{k+1}\in\mathcal{V}$, which implies that
+    \begin{equation}
+    \label{eq:inV}    
+        Ax_k+Bu=x_{k+1}\in\mathcal{V}
+    \end{equation}
+    for any $u\in\K^m$. Therefore, in particular for $u=\nullvector$, we get 
+    \begin{equation}
+    \label{eq:AxkinV}
+        Ax_k\in\mathcal{V}\ .
+    \end{equation}
+    It follows by (\ref{eq:inV}) and (\ref{eq:AxkinV}), that for any $u\in\K^m$ it holds
+    $$Bu=x_{k+1}-Ax_k\in\mathcal{V}\ ,$$
+    which implies that the column space $\mathcal{B}=\text{Im}B$ is included in $\mathcal{V}$. Following from this and the equality (\ref{eq:indSeq}), we have 
+    $$Ax_{i-1}=x_i-Bu_{i-1}\in\mathcal{V}$$
+    for $i\in\{2,\ldots,k\}$. This result together with the equation (\ref{eq:AxkinV}) shows that for any $i\in\{1,\ldots,k\}$ it is true that $Ax_i\in\mathcal{V}$. This means, that $\mathcal{V}$ is an $A$-invariant subspace containing $\mathcal{B}$. Using these two facts one can see that 
+    \begin{align*}
+        \mathcal{B}&\subseteq\mathcal{V} \\
+        A\mathcal{B}&\subseteq A\mathcal{V}\subseteq\mathcal{V} \\
+        A^2\mathcal{B}&\subseteq A(A\mathcal{V})\subseteq\mathcal{V} \\
+        &\vdotswithin{\subseteq} \\
+        A^{n-1}\mathcal{B}&\subseteq\mathcal{V}
+        \ .
+    \end{align*}
+    Therefore, it holds
+    $$\mathcal{R}(A,B)=\text{Im}(B|AB|A^2B|\ldots|A^{n-1}B)\subseteq\mathcal{V}\ .$$
+    By the controllability of the pair $(A,B)$, we obtain
+    $$n=\text{dim}\mathcal{R}(A,B)\leq\text{dim}\mathcal{V}=k\leq\text{dim}\K^n=n\ .$$
+    This implies that $k=n$, $\mathcal{V}=\K^n$.
+
+    Let us now define a linear mapping $g\colon\mathcal{V}\to\mathcal{B}\subseteq \mathcal{V}$ by the equation $g(x_i)=u_i$ for every $i\in\{1,\dots,n-1\}$, where $u_i$ is  such an element that $Ax_i+Bu_i=x_{i+1}$, and we define $g(x_n)$ arbitrarily. This definition is correct and unique since the vectors $x_i$ form a basis of $\mathcal{V}$ \citep[see][Tvrzení 6.4]{Barto}. Let $G$ be the matrix of the linear mapping $g$ with respect to the standard basis. Then for every $i\in\{1,\ldots,n-1\}$ we have
+    $$(A+BG)x_i=Ax_i+BGx_i=Ax_i+Bu_i=x_{i+1}\ .$$
+    It follows 
+    $$\mathbf{R}(A+BG,x_1)=(x_1|(A+BG)x_1|\cdots|(A+BG)^{n-1}x_1)=(x_1|x_2|\cdots|x_n)\ .$$
+    Finally, by the linear independence of the the vectors $x_1,\ldots,x_n$, it holds that $\text{dim}\mathcal{R}(A+BG,x_1)=n$. We have shown that the pair $\mathcal{R}(A+BG,Bv)$ is controllable, and thus the proof is concluded.
+\end{proof}
